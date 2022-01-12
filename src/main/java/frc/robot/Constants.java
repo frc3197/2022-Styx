@@ -65,12 +65,14 @@ public final class Constants implements Loggable {
     public static final class swerve {
         // ORDER: FL FR BL BR
         @Log
-        public static final double MAX_VEL_METERS = 6380.0 / 60.0 * SdsModuleConfigurations.MK3_FAST.getDriveReduction()
+        //TODO: CHANGE SDS STUFF TO MK4
+        public static final double MAX_VEL_METERS = 6380.0 / 60.0 * SdsModuleConfigurations.MK4_FAST.getDriveReduction()
                 * SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
         @Log
         public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                 / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
         @Log        
+        //TODO: See effect
         public static final double MAX_VOLTAGE = 12.0;
         @Log
         public static final double MAX_ANG_ACCEL = 8 * Math.PI;
