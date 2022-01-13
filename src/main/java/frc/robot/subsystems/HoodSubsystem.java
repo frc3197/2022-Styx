@@ -14,7 +14,7 @@ public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   WPI_TalonFX hoodMotor;
   public HoodSubsystem() {
-    hoodMotor = new WPI_TalonFX(Constants.subsystems.shooter.hoodMotorID);
+    hoodMotor = new WPI_TalonFX(Constants.subsystems.hood.hoodMotorID);
   }
 
   @Override

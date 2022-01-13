@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.Auto.Actions.RunBasicTrajectory;
+import frc.robot.commands.Auto.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.subsystems.DriveSubsystem;

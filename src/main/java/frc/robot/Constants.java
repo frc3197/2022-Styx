@@ -88,15 +88,18 @@ public final class Constants implements Loggable {
             public static final int shooterMotorID = 0;
             public static final int shooterEncoderID = 0;
 
-            public static final int hoodMotorID = 0;
+
 			public static final double shooterWheelDiamInches = 0;
         }
-
         public static final class intake {
         }
-
         public static final class climber {
         }
+        public static final class lifter{}
+        public static final class hood{
+            public static final int hoodMotorID = 0;
+        }
+
     }
 
     public static final class outputs {
