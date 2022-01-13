@@ -2,11 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Auto;
+package frc.robot.commands.Auto.Actions;
 
-import frc.robot.extra_libraries.PathPlanner;
-import frc.robot.extra_libraries.PathPlannerTrajectory;
-import frc.robot.extra_libraries.PathPlannerTrajectory.PathPlannerState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -16,6 +13,9 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.util.extra_libraries.PathPlanner;
+import frc.robot.util.extra_libraries.PathPlannerTrajectory;
+import frc.robot.util.extra_libraries.PathPlannerTrajectory.PathPlannerState;
 
 public class RunBasicTrajectory extends CommandBase {
   private Pose2d currentPosition;
@@ -31,7 +31,7 @@ public class RunBasicTrajectory extends CommandBase {
   public RunBasicTrajectory(DriveSubsystem m_drivetrain, String path) {
     this.m_drivetrain = m_drivetrain;
     rot_pid = Constants.auto.follower.ROT_PID_CONTROLLER;
-    target = PathPlanner.loadPath(path, Constants.swerve.MAX_VEL_METERS, Constants.swerve.MAX_ANG_VEL_RAD);
+    target = PathPlanner.loadPath(path, Constants.subsystems.swerve.MAX_VEL_METERS, Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
   }
 
   @Override

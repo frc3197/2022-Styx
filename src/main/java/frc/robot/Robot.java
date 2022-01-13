@@ -28,7 +28,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    System.out.print(Constants.swerve.MAX_ANG_VEL_RAD);
+    System.out.print(Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
     
   }
 
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     m_robotContainer.recalibrateGyroscope();
     m_robotContainer.resetOdometry();
-    System.out.println(Constants.swerve.MAX_VEL_METERS);
+    System.out.println(Constants.subsystems.swerve.MAX_VEL_METERS);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

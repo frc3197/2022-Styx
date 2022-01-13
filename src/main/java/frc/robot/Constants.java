@@ -32,54 +32,70 @@ public final class Constants implements Loggable {
         public static final double WHEELBASE = Units.inchesToMeters(23.75);
     }
 
-    public static final class modInfo {
-        public static final class flMod {
-            public static final int MODULE_DRIVE_MOTOR = 4;
-            public static final int MODULE_STEER_MOTOR = 5;
-            public static final int MODULE_STEER_ENCODER = 2;
-            public static final double MODULE_STEER_OFFSET = -Math.toRadians(11.95);
+    public static final class subsystems {
+
+        public static final class swerve {
+            // ORDER: FL FR BL BR
+            @Log
+            // TODO: CHANGE SDS STUFF TO MK4
+            public static final double MAX_VEL_METERS = 6380.0 / 60.0
+                    * SdsModuleConfigurations.MK4_L1.getDriveReduction()
+                    * SdsModuleConfigurations.MK4_L1.getWheelDiameter() * Math.PI;
+            @Log
+            public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
+                    / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
+            @Log
+            // TODO: See effect
+            public static final double MAX_VOLTAGE = 12.0;
+            @Log
+            public static final double MAX_ANG_ACCEL = 8 * Math.PI;
+            public static final boolean feildRelativeOn = true;
+            public static final boolean brakeModeOn = false;
+
+            public static final class modInfo {
+                public static final class flMod {
+                    public static final int MODULE_DRIVE_MOTOR = 4;
+                    public static final int MODULE_STEER_MOTOR = 5;
+                    public static final int MODULE_STEER_ENCODER = 2;
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(11.95);
+                }
+
+                public static final class frMod {
+                    public static final int MODULE_DRIVE_MOTOR = 6;
+                    public static final int MODULE_STEER_MOTOR = 7;
+                    public static final int MODULE_STEER_ENCODER = 3;
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(316.23);
+                }
+
+                public static final class blMod {
+                    public static final int MODULE_DRIVE_MOTOR = 2;
+                    public static final int MODULE_STEER_MOTOR = 3;
+                    public static final int MODULE_STEER_ENCODER = 1;
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(154.16);
+                }
+
+                public static final class brMod {
+                    public static final int MODULE_DRIVE_MOTOR = 0;
+                    public static final int MODULE_STEER_MOTOR = 1;
+                    public static final int MODULE_STEER_ENCODER = 0;
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(264.7);
+                }
+            }
+
         }
 
-        public static final class frMod {
-            public static final int MODULE_DRIVE_MOTOR = 6;
-            public static final int MODULE_STEER_MOTOR = 7;
-            public static final int MODULE_STEER_ENCODER = 3;
-            public static final double MODULE_STEER_OFFSET = -Math.toRadians(316.23);
+        public static final class shooter {
+            public static final int shooterMotorID = 0;
+            public static final int shooterEncoderID = 0;
+
+            public static final int hoodMotorID = 0;
         }
 
-        public static final class blMod {
-            public static final int MODULE_DRIVE_MOTOR = 2;
-            public static final int MODULE_STEER_MOTOR = 3;
-            public static final int MODULE_STEER_ENCODER = 1;
-            public static final double MODULE_STEER_OFFSET = -Math.toRadians(154.16);
+        public static final class intake {
         }
 
-        public static final class brMod {
-            public static final int MODULE_DRIVE_MOTOR = 0;
-            public static final int MODULE_STEER_MOTOR = 1;
-            public static final int MODULE_STEER_ENCODER = 0;
-            public static final double MODULE_STEER_OFFSET = -Math.toRadians(264.7);
+        public static final class climber {
         }
-    }
-
-    public static final class swerve {
-        // ORDER: FL FR BL BR
-        @Log
-        //TODO: CHANGE SDS STUFF TO MK4
-        public static final double MAX_VEL_METERS = 6380.0 / 60.0 * SdsModuleConfigurations.MK4_FAST.getDriveReduction()
-                * SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
-        @Log
-        public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
-                / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
-        @Log        
-        //TODO: See effect
-        public static final double MAX_VOLTAGE = 12.0;
-        @Log
-        public static final double MAX_ANG_ACCEL = 8 * Math.PI;
-        public static final boolean feildRelativeOn = true;
-        public static final boolean brakeModeOn = false;
-        
-
     }
 
     public static final class outputs {

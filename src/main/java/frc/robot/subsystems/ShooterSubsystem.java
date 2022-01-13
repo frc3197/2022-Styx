@@ -1,0 +1,47 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot.subsystems;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import frc.robot.Constants;
+
+public class ShooterSubsystem extends SubsystemBase {
+  /** Creates a new ShooterSubsystem. */
+  WPI_TalonFX shooterMotor, hoodMotor;
+
+  CANCoder shooterEncoder;
+  // Note: Hood will most likely use built-in encoder
+
+  public ShooterSubsystem() {
+    shooterMotor = new WPI_TalonFX(Constants.subsystems.shooter.shooterMotorID);
+    hoodMotor = new WPI_TalonFX(Constants.subsystems.shooter.hoodMotorID);
+
+    shooterEncoder = new CANCoder(Constants.subsystems.shooter.shooterEncoderID);
+
+    shooterEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
+
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void setShooter(ControlMode mode, double x) {
+    shooterMotor.set(mode, x);
+  }
+
+  public double getShooterSpeed(){
+    // DEG / 360 = REV     
+    return shooterEncoder.getVelocity() / 360 * Constants.subsystems.shooter.shooterWheelDiamInches * Math.PI;
+  }
+
+}

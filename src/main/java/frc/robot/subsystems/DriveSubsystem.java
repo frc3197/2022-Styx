@@ -34,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * This can be reduced to cap the robot's maximum speed. Typically, this is
          * useful during initial testing of the robot.
  */
-        public static final double MAX_VOLTAGE = Constants.swerve.MAX_VOLTAGE;
+        public static final double MAX_VOLTAGE = Constants.subsystems.swerve.MAX_VOLTAGE;
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
         // pi
@@ -49,7 +49,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * This is a measure of how fast the robot should be able to drive in a straight
          * line.
  */
-        public static final double MAX_VELOCITY_METERS_PER_SECOND = Constants.swerve.MAX_VEL_METERS;
+        public static final double MAX_VELOCITY_METERS_PER_SECOND = Constants.subsystems.swerve.MAX_VEL_METERS;
         /**
          * The maximum angular velocity of the robot in radians per second.
          * <p>
@@ -57,7 +57,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          */
         // Here we calculate the theoretical maximum angular velocity. You can also
 // replace this with a measured amount.
-        public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = Constants.swerve.MAX_ANG_VEL_RAD;
+        public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = Constants.subsystems.swerve.MAX_ANG_VEL_RAD;
 
         private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
                         // Front left
@@ -95,9 +95,9 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         public static Translation2d m_CCR = new Translation2d();
         @Log
-        private static boolean brakeMode = Constants.swerve.brakeModeOn;
+        private static boolean brakeMode = Constants.subsystems.swerve.brakeModeOn;
         @Log
-        private static boolean fieldRelative = Constants.swerve.feildRelativeOn;
+        private static boolean fieldRelative = Constants.subsystems.swerve.feildRelativeOn;
         
         public DriveSubsystem() {
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
@@ -114,39 +114,39 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 // This can either be STANDARD or FAST depending on your gear configuration
                                 Mk3SwerveModuleHelper.GearRatio.FAST,
                                 // This is the ID of the drive motor
-                                Constants.modInfo.flMod.MODULE_DRIVE_MOTOR,
+                                Constants.subsystems.swerve.modInfo.flMod.MODULE_DRIVE_MOTOR,
                                 // This is the ID of the steer motor
-                                Constants.modInfo.flMod.MODULE_STEER_MOTOR,
+                                Constants.subsystems.swerve.modInfo.flMod.MODULE_STEER_MOTOR,
                                 // This is the ID of the steer encoder
-                                Constants.modInfo.flMod.MODULE_STEER_ENCODER,
+                                Constants.subsystems.swerve.modInfo.flMod.MODULE_STEER_ENCODER,
                                 // This is how much the steer encoder is offset from true zero (In our case,
                                 // zero is facing straight forward)
-                                Constants.modInfo.flMod.MODULE_STEER_OFFSET);
+                                Constants.subsystems.swerve.modInfo.flMod.MODULE_STEER_OFFSET);
 
                 // We will do the same for the other modules
                 m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(2,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.modInfo.frMod.MODULE_DRIVE_MOTOR,
-                                Constants.modInfo.frMod.MODULE_STEER_MOTOR,
-                                Constants.modInfo.frMod.MODULE_STEER_ENCODER,
-                                Constants.modInfo.frMod.MODULE_STEER_OFFSET);
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
+                                Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_MOTOR,
+                                Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_ENCODER,
+                                Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_OFFSET);
 
                 m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(4,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.modInfo.blMod.MODULE_DRIVE_MOTOR,
-                                Constants.modInfo.blMod.MODULE_STEER_MOTOR,
-                                Constants.modInfo.blMod.MODULE_STEER_ENCODER,
-                                Constants.modInfo.blMod.MODULE_STEER_OFFSET);
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
+                                Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_MOTOR,
+                                Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_ENCODER,
+                                Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_OFFSET);
 
                 m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(6,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.modInfo.brMod.MODULE_DRIVE_MOTOR,
-                                Constants.modInfo.brMod.MODULE_STEER_MOTOR,
-                                Constants.modInfo.brMod.MODULE_STEER_ENCODER,
-                                Constants.modInfo.brMod.MODULE_STEER_OFFSET);
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
+                                Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
+                                Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
+                                Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
         }
 
         /**
