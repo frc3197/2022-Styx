@@ -22,7 +22,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
     shooterMotor = new WPI_TalonFX(Constants.subsystems.shooter.shooterMotorID);
-    hoodMotor = new WPI_TalonFX(Constants.subsystems.shooter.hoodMotorID);
+
 
     shooterEncoder = new CANCoder(Constants.subsystems.shooter.shooterEncoderID);
 
@@ -35,13 +35,23 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  
+  /** 
+   * @param mode
+   * @param x
+   */
   public void setShooter(ControlMode mode, double x) {
     shooterMotor.set(mode, x);
   }
 
-  public double getShooterSpeed(){
-    // DEG / 360 = REV     
-    return shooterEncoder.getVelocity() / 360 * Constants.subsystems.shooter.shooterWheelDiamInches * Math.PI;
-  }
 
-}
+  /** 
+   * Returns the velocity of the shooter wheel in RPM.
+   * @return double
+   */
+  public double getShooterVelocity(){   
+    return shooterEncoder.getVelocity() / 360 / 60 ;
+  }
+    
+
+} 

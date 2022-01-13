@@ -89,6 +89,7 @@ public final class Constants implements Loggable {
             public static final int shooterEncoderID = 0;
 
             public static final int hoodMotorID = 0;
+			public static final double shooterWheelDiamInches = 0;
         }
 
         public static final class intake {
@@ -119,7 +120,7 @@ public final class Constants implements Loggable {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(
-                    MAX_ANG_VEL_RAD_AUTO, swerve.MAX_ANG_ACCEL);
+                    MAX_ANG_VEL_RAD_AUTO, subsystems.swerve.MAX_ANG_ACCEL);
             @Log
             public static final PIDController X_PID_CONTROLLER = new PIDController(5.25, 1, .4);
             @Log
@@ -131,7 +132,7 @@ public final class Constants implements Loggable {
             public static final double LINEAR_VELOCITY_DEFAULT = 1;
             // MUST SET KINEMATICS, see documentation
             public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(LINEAR_VELOCITY_DEFAULT,
-                    swerve.MAX_ANG_VEL_RAD);
+                    subsystems.swerve.MAX_ANG_VEL_RAD);
         }
 
         public static final class startingPos {
