@@ -5,15 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.subsystems.shooter;
-import frc.robot.subsystems.ShooterSubsystem;
 
-public class Spool extends CommandBase {
-  ShooterSubsystem shooter;
-  /** Creates a new Spool. */
-  public Spool(ShooterSubsystem shooter) {
-    this.shooter = shooter;
-    addRequirements(shooter);
+public class Climb extends CommandBase {
+  /** Creates a new Climb. */
+  public Climb() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

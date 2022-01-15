@@ -5,11 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.LifterSubsystem;
 
 public class Shoot extends CommandBase {
+  LifterSubsystem lifter;
   /** Creates a new Shoot. */
-  public Shoot() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public Shoot(LifterSubsystem lifter) {
+    this.lifter = lifter;
+    addRequirements(lifter);
   }
 
   // Called when the command is initially scheduled.
