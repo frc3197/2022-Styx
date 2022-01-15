@@ -5,10 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.subsystems.shooter;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class Spool extends CommandBase {
+  //TODO: Write TeleOp Spool
   ShooterSubsystem shooter;
   /** Creates a new Spool. */
   public Spool(ShooterSubsystem shooter) {

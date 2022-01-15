@@ -4,25 +4,27 @@
 
 package frc.robot.commands.Auto.Groups;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.subsystems.shooter;
-import frc.robot.commands.Spool;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.Auto.Actions.AutoSpool;
+import frc.robot.commands.Auto.Actions.IntakeAlign;
 import frc.robot.commands.Auto.Actions.Movement.DriveForwardDistance;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+
+import frc.robot.util.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class simple2ball extends SequentialCommandGroup {
+public class simple2ball extends AutoRoutine {
   /** Creates a new simple2ball. */
+
   public simple2ball() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      //TODO: Get all these commmands created, written, and tested.
-      //new ParallelRaceGroup(new AutoSpool(), new SequentialCommandGroup(new IntakeAlign, new DriveForwardDistance(m_drivetrain, distance), new ShooterAlign(), new Shoot()))
+      // TODO: Get all these commmands created, written, and tested.
+      new ParallelRaceGroup(new AutoSpool(), new SequentialCommandGroup(new IntakeAlign(), new DriveForwardDistance(super.getDriveSubsystem(), 0), new ShooterAlign(super.getShooterSubsystem()), new Shoot(super.getShooterSubsystem())))
       );
   }
 }

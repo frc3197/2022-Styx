@@ -7,6 +7,7 @@ package frc.robot.commands.Auto.Actions;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoSpool extends CommandBase {
+  //TODO: Write Auto Spool
   /** Creates a new AutoSpool. */
   public AutoSpool() {
     // Use addRequirements() here to declare subsystem dependencies.

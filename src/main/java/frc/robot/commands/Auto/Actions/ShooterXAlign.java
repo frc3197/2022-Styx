@@ -7,6 +7,7 @@ package frc.robot.commands.Auto.Actions;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShooterXAlign extends CommandBase {
+  //TODO: Write Shooter Align X
   /** Creates a new ShooterXAlign. */
   public ShooterXAlign() {
     // Use addRequirements() here to declare subsystem dependencies.

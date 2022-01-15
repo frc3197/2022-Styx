@@ -6,11 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LifterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class Shoot extends CommandBase {
+//TODO: Write Shoot Command
   LifterSubsystem lifter;
   /** Creates a new Shoot. */
-  public Shoot(LifterSubsystem lifter) {
+  public Shoot(ShooterSubsystem shooterSubsystem) {
     this.lifter = lifter;
     addRequirements(lifter);
   }

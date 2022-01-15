@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Lift extends CommandBase {
+  //TODO: Write Lifter Command
   /** Creates a new Lift. */
   public Lift() {
     // Use addRequirements() here to declare subsystem dependencies.

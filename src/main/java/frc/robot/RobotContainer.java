@@ -14,28 +14,44 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Auto.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LifterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.util.FilteredController;
 import io.github.oblarg.oblog.Logger;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final static DriveSubsystem m_drivetrainSubsystem = new DriveSubsystem();
+  private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
+  private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
+  private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
   private final static XboxController m_controller = new XboxController(0);
   public static final FilteredController filteredController = new FilteredController(m_controller);
   public static final DriveCommand m_driveCommand = new DriveCommand(
-    m_drivetrainSubsystem,
-    () -> -modifyAxis(filteredController.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.outputs.strafe,
-    () -> -modifyAxis(filteredController.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.outputs.strafe,
-    () -> -modifyAxis(filteredController.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * Constants.outputs.turnRate
-);
+      m_driveSubsystem,
+      () -> -modifyAxis(filteredController.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+          * Constants.outputs.strafe,
+      () -> -modifyAxis(filteredController.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+          * Constants.outputs.strafe,
+      () -> -modifyAxis(filteredController.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+          * Constants.outputs.turnRate);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -45,30 +61,35 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    m_drivetrainSubsystem.setDefaultCommand(m_driveCommand);
+    m_driveSubsystem.setDefaultCommand(m_driveCommand);
     Logger.configureLoggingAndConfig(this, false);
     Logger.setCycleWarningsEnabled(false);
     recalibrateGyroscope();
-    
+
     // Configure the button bindings
     configureButtonBindings();
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
     // Back button zeros the gyroscope
     new Button(m_controller::getYButton).whenPressed(m_driveCommand);
-    //new Button(m_controller::getXButton).whenPressed(new MoveToPosition(m_drivetrainSubsystem, new Pose2d(0,0 , new Rotation2d(Math.PI))));
-    new Button(m_controller::getXButton).whenPressed(new RunBasicTrajectory(m_drivetrainSubsystem, "Test Path Correct Ver"));
-    new Button(m_controller::getAButton).whileHeld(new Defend(m_drivetrainSubsystem));
+    // new Button(m_controller::getXButton).whenPressed(new
+    // MoveToPosition(m_drivetrainSubsystem, new Pose2d(0,0 , new
+    // Rotation2d(Math.PI))));
+    new Button(m_controller::getXButton)
+        .whenPressed(new RunBasicTrajectory(m_driveSubsystem, "Test Path Correct Ver"));
+    new Button(m_controller::getAButton).whileHeld(new Defend(m_driveSubsystem));
     new Button(m_controller::getBackButton)
-            // No requirements because we don't need to interrupt anything
-            .whenPressed(m_drivetrainSubsystem::zeroGyroscope);
+        // No requirements because we don't need to interrupt anything
+        .whenPressed(m_driveSubsystem::zeroGyroscope);
 
     new Button(m_controller::getStartButton).whenPressed(new ToggleFieldRelative());
   }
@@ -83,18 +104,17 @@ public class RobotContainer {
     return new InstantCommand();
   }
 
-  public void resetOdometry(){
-    m_drivetrainSubsystem.resetOdometry();
+  public void resetOdometry() {
+    m_driveSubsystem.resetOdometry();
   }
 
-  public void recalibrateGyroscope(){
-    m_drivetrainSubsystem.getGyroscopeObj().calibrate();
-    m_drivetrainSubsystem.getGyroscopeObj().reset();
-    m_drivetrainSubsystem.getGyroscopeObj().zeroYaw();
+  public void recalibrateGyroscope() {
+    m_driveSubsystem.getGyroscopeObj().calibrate();
+    m_driveSubsystem.getGyroscopeObj().reset();
+    m_driveSubsystem.getGyroscopeObj().zeroYaw();
   }
 
-  
-  /** 
+  /**
    * @param value
    * @param deadband
    * @return double
@@ -111,8 +131,7 @@ public class RobotContainer {
     }
   }
 
-  
-  /** 
+  /**
    * @param value
    * @return double
    */
@@ -126,12 +145,34 @@ public class RobotContainer {
     return value;
   }
 
+  public static DriveSubsystem getDriveSubsystem() {
+    return m_driveSubsystem;
+  }
 
+  public static ClimberSubsystem getClimberSubsystem() {
+    return m_climberSubsystem;
+  }
 
-  public void publishPosition(){
-    SmartDashboard.putNumber("CurrentPosX", m_drivetrainSubsystem.getPose2d().getX());
-    SmartDashboard.putNumber("CurrentPosY", m_drivetrainSubsystem.getPose2d().getY());
-    SmartDashboard.putNumber("CurrentPosRot", m_drivetrainSubsystem.getPose2d().getRotation().getDegrees());
+  public static HoodSubsystem getHoodSubsystem() {
+    return m_hoodSubsystem;
+  }
+
+  public static IntakeSubsystem getIntakeSubsystem() {
+    return m_intakeSubsystem;
+  }
+
+  public static LifterSubsystem getLifterSubsystem() {
+    return m_lifterSubsystem;
+  }
+
+  public static ShooterSubsystem getShooterSubsystem() {
+    return m_shooterSubsystem;
+  }
+
+  public void publishPosition() {
+    SmartDashboard.putNumber("CurrentPosX", m_driveSubsystem.getPose2d().getX());
+    SmartDashboard.putNumber("CurrentPosY", m_driveSubsystem.getPose2d().getY());
+    SmartDashboard.putNumber("CurrentPosRot", m_driveSubsystem.getPose2d().getRotation().getDegrees());
     SmartDashboard.putNumber("Controller POV", filteredController.getPOVButton());
     SmartDashboard.putBoolean("Controller POV Bool", filteredController.getPOVPressed());
     Logger.updateEntries();

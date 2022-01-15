@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LifterSubsystem extends SubsystemBase {
+  //TODO: Write Lifter Subsystem
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {}
 
