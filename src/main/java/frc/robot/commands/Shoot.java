@@ -12,7 +12,7 @@ public class Shoot extends CommandBase {
 //TODO: Write Shoot Command
   LifterSubsystem lifter;
   /** Creates a new Shoot. */
-  public Shoot(ShooterSubsystem shooterSubsystem) {
+  public Shoot(LifterSubsystem lifter) {
     this.lifter = lifter;
     addRequirements(lifter);
   }

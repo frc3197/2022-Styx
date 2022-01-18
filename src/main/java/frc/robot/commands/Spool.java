@@ -4,15 +4,26 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Constants.subsystems.shooter;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class Spool extends CommandBase {
-  //TODO: Write TeleOp Spool
+  /** Creates a new AutoSpool. */
+  private double rpm;
   ShooterSubsystem shooter;
-  /** Creates a new Spool. */
-  public Spool(ShooterSubsystem shooter) {
+  PIDController pid;
+  SimpleMotorFeedforward ff;
+  public Spool(ShooterSubsystem shooter, double rpm) {
+    this.rpm = rpm;
     this.shooter = shooter;
+    pid = new PIDController(Constants.subsystems.shooter.kP, Constants.subsystems.shooter.kI, Constants.subsystems.shooter.kD);
+    ff = new SimpleMotorFeedforward(Constants.subsystems.shooter.kS, Constants.subsystems.shooter.kV, Constants.subsystems.shooter.kA);
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,15 +34,24 @@ public class Spool extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+    double pidOutput = (pid.calculate(shooter.getShooterVelocity(), rpm));
+    double ffOutput = (ff.calculate(rpm));
+    shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.setVoltage(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //NOTE: THIS SHOULD NOT END (USED IN RACE GROUP)
     return false;
   }
 }

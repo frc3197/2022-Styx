@@ -15,7 +15,7 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-  WPI_TalonFX shooterMotor, hoodMotor;
+  WPI_TalonFX shooterMotor;
 
   CANCoder shooterEncoder;
   // Note: Hood will most likely use built-in encoder
@@ -51,6 +51,11 @@ public class ShooterSubsystem extends SubsystemBase {
    */
   public double getShooterVelocity(){   
     return shooterEncoder.getVelocity() / 360 / 60 ;
+  }
+
+  public void setVoltage(double voltage)
+  {
+    shooterMotor.setVoltage(voltage);
   }
     
 
