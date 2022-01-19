@@ -5,17 +5,17 @@
 package frc.robot.util;
 
 /** Add your docs here. */
-public class PIDGroup {
+public class PIDConst {
 
     public double p, i, d, ks, kv;
 
-    public PIDGroup(double p, double i, double d) {
+    public PIDConst(double p, double i, double d) {
         this.p = p;
         this.d = d;
         this.i = i;
     }
 
-    public PIDGroup(double p, double i, double d, double ks, double kv) {
+    public PIDConst(double p, double i, double d, double ks, double kv) {
         this.p = p;
         this.d = d;
         this.i = i;

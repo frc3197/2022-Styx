@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.util.PIDConst;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
@@ -37,10 +38,9 @@ public final class Constants implements Loggable {
         public static final class swerve {
             // ORDER: FL FR BL BR
             @Log
-            // TODO: CHANGE SDS STUFF TO MK4
             public static final double MAX_VEL_METERS = 6380.0 / 60.0
-                    * SdsModuleConfigurations.MK4_L1.getDriveReduction()
-                    * SdsModuleConfigurations.MK4_L1.getWheelDiameter() * Math.PI;
+                    * SdsModuleConfigurations.MK4_L2.getDriveReduction()
+                    * SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
@@ -51,6 +51,9 @@ public final class Constants implements Loggable {
             public static final double MAX_ANG_ACCEL = 8 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
+            //TODO: TUNE
+            public static final PIDConst xALIGN_PID = new PIDConst(0, 0, 0);
+            public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
             public static final class modInfo {
                 public static final class flMod {
@@ -100,12 +103,32 @@ public final class Constants implements Loggable {
             public static final double kV = 0;
             public static final double kA = 0;
             public static final double targetRPM = 0;
+            public static final double waitTime = 0;
         }
         public static final class intake {
+
+            public static final int intakeMotorID = 0;
+            public static final double intakeSpeed = 0;
         }
         public static final class climber {
         }
-        public static final class lifter{}
+        public static final class lifter{
+
+            public static final double lifterShootSpeed = 0;
+            public static final double lifterIntakeSpeed = 0;
+
+            public static final int lowerBBChannel = 0;
+            public static final int upperBBChannel = 0;
+
+            public static final int lowerMotorID = 0;
+            public static final int upperMotorID = 0;
+
+            public static final double upperSpeed = 0;
+
+            public static final double lowerSpeed = 0;
+        
+        
+        }
         public static final class hood{
             public static final int hoodMotorID = 0;
         }

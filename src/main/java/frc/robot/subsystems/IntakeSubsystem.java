@@ -4,15 +4,26 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.subsystems.intake;
 
 public class IntakeSubsystem extends SubsystemBase {
-  //TODO: Write Intake Subsystem
+  CANSparkMax intakeMotor;
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+  public IntakeSubsystem() {
+    intakeMotor = new CANSparkMax(Constants.subsystems.intake.intakeMotorID, MotorType.kBrushless);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void setIntake(double speed){
+    intakeMotor.set(speed);
   }
 }

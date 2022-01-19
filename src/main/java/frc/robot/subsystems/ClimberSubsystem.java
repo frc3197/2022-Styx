@@ -9,21 +9,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimberSubsystem extends SubsystemBase {
-  WPI_TalonFX motor;
   //TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    motor = new WPI_TalonFX(1);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  public void setMotor(double speed){
-    motor.set(speed);
-  }
-
 
 }
