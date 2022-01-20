@@ -100,6 +100,8 @@ public final class Constants implements Loggable {
             public static final double kV = 0;
             public static final double kA = 0;
             public static final double targetRPM = 0;
+
+            public static final double waitTime = 0;
         }
         public static final class intake {
         }
