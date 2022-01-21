@@ -2,29 +2,29 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Auto.Groups;
+package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Spool;
-import frc.robot.commands.Auto.Actions.IntakeAlign;
-import frc.robot.commands.Auto.Actions.Movement.DriveForwardDistance;
-
-import frc.robot.util.AutoRoutine;
+import frc.robot.subsystems.LifterSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.util.Wait;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class simple2ball extends AutoRoutine {
-  /** Creates a new simple2ball. */
-
-  public simple2ball() {
+public class shootSequence extends ParallelRaceGroup {
+  ShooterSubsystem shooter;
+  LifterSubsystem lifter;
+  /** Creates a new shootSequence. */
+  public shootSequence(ShooterSubsystem shooter, LifterSubsystem lifter) {
+    this.shooter = shooter;
+    this.lifter = lifter;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      // TODO: Get all these commmands created, written, and tested.
-     // new ParallelRaceGroup(new Spool(), new SequentialCommandGroup(new IntakeAlign(), new DriveForwardDistance(super.getDriveSubsystem(), 0), new ShooterAlign(super.getShooterSubsystem()), new Shoot(super.getShooterSubsystem())))
-      );
+    addCommands(new Spool(shooter, Constants.subsystems.shooter.targetRPM), new Shoot(lifter));
   }
 }

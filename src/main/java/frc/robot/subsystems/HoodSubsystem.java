@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
-  //TODO: Write Hood Subsystem
   /** Creates a new HoodSubsystem. */
   WPI_TalonFX hoodMotor;
   public HoodSubsystem() {
