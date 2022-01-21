@@ -5,6 +5,7 @@
 package frc.robot.commands.Actions.Align;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -37,7 +38,7 @@ public class ShooterXAlign extends CommandBase {
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
     //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
-    visionMeasurement = 0;
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     visionSetpoint = 0;
     newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     driveSubsystem.drive(newSpeeds);

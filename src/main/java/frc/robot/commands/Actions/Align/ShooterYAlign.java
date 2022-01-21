@@ -7,6 +7,7 @@ package frc.robot.commands.Actions.Align;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -40,7 +41,7 @@ public class ShooterYAlign extends CommandBase {
   @Override
   public void execute() {
     //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
-    visionMeasurement = 0;
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);    ;
     visionSetpoint = 0;
     hoodSubsystem.setHood(ControlMode.PercentOutput, yPID.calculate(visionMeasurement, visionSetpoint));
   }
