@@ -12,10 +12,10 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.other.extra_libraries.PathPlanner;
+import frc.robot.other.extra_libraries.PathPlannerTrajectory;
+import frc.robot.other.extra_libraries.PathPlannerTrajectory.PathPlannerState;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.util.extra_libraries.PathPlanner;
-import frc.robot.util.extra_libraries.PathPlannerTrajectory;
-import frc.robot.util.extra_libraries.PathPlannerTrajectory.PathPlannerState;
 
 public class RunBasicTrajectory extends CommandBase {
   private Pose2d currentPosition;

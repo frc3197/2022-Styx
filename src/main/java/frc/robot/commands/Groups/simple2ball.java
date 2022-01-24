@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Spool;
-import frc.robot.util.AutoRoutine;
+import frc.robot.other.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

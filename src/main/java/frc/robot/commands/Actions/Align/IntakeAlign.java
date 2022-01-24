@@ -10,6 +10,7 @@ public class IntakeAlign extends CommandBase {
   //TODO: Write Intake Align - Similar to ShooterXAlign
   /** Creates a new IntakeAlign. */
   public IntakeAlign() {
+    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

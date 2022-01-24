@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.subsystems.hood;
+import frc.robot.other.PIDConst;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HoodSubsystem;
-import frc.robot.util.PIDConst;
 
 public class ShooterYAlign extends CommandBase {
   HoodSubsystem hoodSubsystem;
@@ -41,7 +41,7 @@ public class ShooterYAlign extends CommandBase {
   @Override
   public void execute() {
     //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
-    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);    ;
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     visionSetpoint = 0;
     hoodSubsystem.setHood(ControlMode.PercentOutput, yPID.calculate(visionMeasurement, visionSetpoint));
   }

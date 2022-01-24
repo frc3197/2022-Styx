@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Spool;
+import frc.robot.other.Wait;
 import frc.robot.subsystems.LifterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.util.Wait;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
