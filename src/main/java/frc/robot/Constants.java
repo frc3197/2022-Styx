@@ -119,6 +119,10 @@ public final class Constants implements Loggable {
             public static final PIDController armPIDController = new PIDController(0,0,0);
         }
         public static final class climber {
+            public static final int spoolMotorLeftID = 0;
+            public static final int spoolMotorRightID = 0;
+            public static final int armMotorLeftID = 0;
+            public static final int armMotorRightID = 0;
         }
         public static final class lifter{
 
