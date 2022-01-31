@@ -15,13 +15,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootAlign extends ParallelCommandGroup {
+public class ShooterAlign extends ParallelCommandGroup {
   DriveSubsystem driveSubsystem;
   HoodSubsystem hoodSubsystem;
 
-  public ShootAlign() {
+  public ShooterAlign(DriveSubsystem driveSubsystem,HoodSubsystem hoodSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.hoodSubsystem = hoodSubsystem;
+
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     //TODO: Test Shooter Align Sequence

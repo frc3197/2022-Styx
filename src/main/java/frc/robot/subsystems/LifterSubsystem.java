@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LifterSubsystem extends SubsystemBase {
-  DigitalInput upperBB, lowerBB;
+  static DigitalInput upperBB;
+  static DigitalInput lowerBB;
   WPI_TalonFX lowerFx, upperFx;
   boolean lowerMotorState, upperMotorState;
   double lowerSpeed, upperSpeed;
@@ -37,14 +38,14 @@ public class LifterSubsystem extends SubsystemBase {
   /**
    * @return boolean
    */
-  public boolean getLowerBB() {
+  public static boolean getLowerBB() {
     return lowerBB.get();
   }
 
   /**
    * @return boolean
    */
-  public boolean getUpperBB() {
+  public static boolean getUpperBB() {
     return upperBB.get();
   }
 

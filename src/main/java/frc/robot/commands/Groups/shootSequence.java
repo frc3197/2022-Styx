@@ -5,11 +5,9 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Spool;
-import frc.robot.other.Wait;
 import frc.robot.subsystems.LifterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 

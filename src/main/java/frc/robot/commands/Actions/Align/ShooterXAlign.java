@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LifterSubsystem;
 
 public class ShooterXAlign extends CommandBase {
   DriveSubsystem driveSubsystem;
@@ -25,7 +26,7 @@ public class ShooterXAlign extends CommandBase {
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
     
-    //TODO: TEST IF ADDREQUIREMENTS() IS NEEDED?
+    addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -47,11 +48,12 @@ public class ShooterXAlign extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    driveSubsystem.drive(new ChassisSpeeds(0,0,0));
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return xPID.atSetpoint();
+    return (xPID.atSetpoint() || !(LifterSubsystem.getLowerBB() && LifterSubsystem.getUpperBB()));
   }
 }

@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.Spool;
+import frc.robot.commands.Actions.Align.IntakeAlign;
+import frc.robot.commands.Actions.Movement.DriveForwardDistance;
 import frc.robot.other.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -21,7 +23,7 @@ public class simple2ball extends AutoRoutine {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // TODO: Get all these commmands created, written, and tested.
-     // new ParallelRaceGroup(new Spool(), new SequentialCommandGroup(new IntakeAlign(), new DriveForwardDistance(super.getDriveSubsystem(), 0), new ShooterAlign(super.getShooterSubsystem()), new Shoot(super.getShooterSubsystem())))
+     new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), RPM), new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()), new DriveForwardDistance(super.getDriveSubsystem(), distanceToDrive), new ShooterAlign(super.getDriveSubsystem(),super.getHoodSubsystem()), new Shoot(super.getLifterSubsystem())))
       );
   }
 }

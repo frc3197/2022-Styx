@@ -25,7 +25,7 @@ public class RunBasicTrajectory extends CommandBase {
   private ProfiledPIDController rot_pid;
   private PathPlannerState state;
   private HolonomicDriveController hController;
-
+  
   private final Timer timer = new Timer();
 
   public RunBasicTrajectory(DriveSubsystem m_drivetrain, String path) {
@@ -39,7 +39,7 @@ public class RunBasicTrajectory extends CommandBase {
 
     rot_pid.enableContinuousInput(-Math.PI, Math.PI);
     hController = new HolonomicDriveController(Constants.auto.follower.X_PID_CONTROLLER,
-        Constants.auto.follower.Y_PID_CONTROLLER, Constants.auto.follower.ROT_PID_CONTROLLER);
+        Constants.auto.follower.Y_PID_CONTROLLER, rot_pid);
     timer.reset();
     timer.start();
   }

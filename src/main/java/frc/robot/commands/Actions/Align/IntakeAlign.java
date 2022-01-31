@@ -4,13 +4,30 @@
 
 package frc.robot.commands.Actions.Align;
 
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.other.PIDConst;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class IntakeAlign extends CommandBase {
-  //TODO: Write Intake Align - Similar to ShooterXAlign
+  DriveSubsystem driveSubsystem;
+  PIDController xPID;
+  PIDConst xPID_Constants;
+  ChassisSpeeds curSpeeds, newSpeeds;
+  double visionSetpoint, visionMeasurement;
+  PhotonCamera cam = new PhotonCamera(Constants.subsystems.intake.camName);
   /** Creates a new IntakeAlign. */
-  public IntakeAlign() {
-    
+  public IntakeAlign(DriveSubsystem driveSubsystem) {
+    this.driveSubsystem = driveSubsystem;
+    xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
+    xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
+  
+    addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -20,15 +37,23 @@ public class IntakeAlign extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    curSpeeds = driveSubsystem.getChassisSpeeds();
+    
+    visionMeasurement = cam.getLatestResult().getBestTarget().getPitch();
+    visionSetpoint = 0;
+    newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
+    driveSubsystem.drive(newSpeeds);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSubsystem.drive(new ChassisSpeeds(0,0,0));}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return xPID.atSetpoint();
   }
 }

@@ -25,8 +25,8 @@ public class Shoot extends CommandBase {
   @Override
   public void initialize() {
     lifter.setBothMotors(0);
-    lowerBBState = lifter.getLowerBB();
-    upperBBState = lifter.getUpperBB();
+    lowerBBState = LifterSubsystem.getLowerBB();
+    upperBBState = LifterSubsystem.getUpperBB();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

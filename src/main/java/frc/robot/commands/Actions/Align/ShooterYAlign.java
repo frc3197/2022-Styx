@@ -11,9 +11,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.hood;
 import frc.robot.other.PIDConst;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HoodSubsystem;
 
 public class ShooterYAlign extends CommandBase {
@@ -40,7 +38,6 @@ public class ShooterYAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     visionSetpoint = 0;
     hoodSubsystem.setHood(ControlMode.PercentOutput, yPID.calculate(visionMeasurement, visionSetpoint));
