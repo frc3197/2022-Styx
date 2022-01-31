@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTable;
 import frc.robot.other.PIDConst;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -117,6 +118,7 @@ public final class Constants implements Loggable {
             public static final double arm_maxAccelRadPerSecSquared = 0;
             public static final double arm_offsetRad = 0;
             public static final PIDController armPIDController = new PIDController(0,0,0);
+            public static final NetworkTable camName = null;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 0;

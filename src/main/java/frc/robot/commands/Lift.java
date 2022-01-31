@@ -25,8 +25,8 @@ public class Lift extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lowerBBState = lifterSubsystem.getLowerBB();
-    upperBBState = lifterSubsystem.getUpperBB();
+    lowerBBState = LifterSubsystem.getLowerBB();
+    upperBBState = LifterSubsystem.getUpperBB();
 
     if(upperBBState && lowerBBState){
       lifterSubsystem.setBothMotors(0);
