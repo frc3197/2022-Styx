@@ -5,7 +5,8 @@
 package frc.robot.other;
 
 /** Add your docs here. */
-public class RangeLookup {
+@SuppressWarnings("unused")
+public class RangeLookup  {
     private double hoodValat0 = 0;
     private double hoodValat5 = 0;
     private double hoodValat10 = 0;

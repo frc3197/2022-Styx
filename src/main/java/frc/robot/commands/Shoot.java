@@ -15,7 +15,7 @@ public class Shoot extends CommandBase {
   /** Creates a new Shoot. */
   public Shoot(LifterSubsystem lifter) {
     this.lifter = lifter;
-    Timer timer = new Timer();
+    timer = new Timer();
     isOver = false;
     addRequirements(lifter);
   }

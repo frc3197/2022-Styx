@@ -9,11 +9,11 @@ import frc.robot.Constants;
 import frc.robot.Constants.subsystems.climber;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class MoveElevator extends CommandBase {
+public class MoveSpool extends CommandBase {
   //TODO: Write Climb Command
   ClimberSubsystem climber;
   /** Creates a new Climb. */
-  public MoveElevator(ClimberSubsystem climber) {
+  public MoveSpool(ClimberSubsystem climber) {
     this.climber = climber;
     addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
