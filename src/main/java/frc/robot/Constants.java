@@ -116,6 +116,7 @@ public final class Constants implements Loggable {
             public static int armMotorID = 0;
             public static int armLowerLimitID = 0;
             public static double armSpeed = 0;
+            public static int armUpperLimitID;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 0;
