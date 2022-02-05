@@ -54,6 +54,6 @@ public class ShooterXAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (xPID.atSetpoint() || !(LifterSubsystem.getLowerBB() && LifterSubsystem.getUpperBB()));
+    return xPID.atSetpoint();
   }
 }

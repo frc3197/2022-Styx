@@ -15,6 +15,7 @@ import frc.robot.other.AutoRoutine;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+@SuppressWarnings("unused")
 public class Auto2Ball extends AutoRoutine {
   /** Creates a new simple2ball. */
 
@@ -22,8 +23,9 @@ public class Auto2Ball extends AutoRoutine {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // TODO: Get all these commmands created, written, and tested.
-     new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), RPM), new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()), new DriveForwardDistance(super.getDriveSubsystem(), distanceToDrive), new ShooterAlign(super.getDriveSubsystem(),super.getHoodSubsystem()), new Shoot(super.getLifterSubsystem())))
+      // TODO: Test and find distance/rpm
+
+     //new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), RPM), new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()), new DriveForwardDistance(super.getDriveSubsystem(), distanceToDrive), new ShooterAlignSequence(super.getDriveSubsystem(),super.getHoodSubsystem()), new Shoot(super.getLifterSubsystem())))
       );
   }
 }

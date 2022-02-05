@@ -5,6 +5,7 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -23,6 +24,12 @@ public class IntakeSequence extends ParallelCommandGroup {
     this.intakeSubsystem = intakeSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem));
-  }
-}
+    addCommands(new DeployIntake(intakeSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+
+    andThen(new DeployIntake(intakeSubsystem));
+
+
+  }}
+
+
+

@@ -20,7 +20,7 @@ public class IntakeSubsystem extends TrapezoidProfileSubsystem {
    private static double kMaxVelRadPerSec = Constants.subsystems.intake.arm_maxVelRadPerSec;
    private static double kArmOffsetRadians = Constants.subsystems.intake.arm_offsetRad;
    private static double kMaxAccelRadPerSecSquared = Constants.subsystems.intake.arm_maxAccelRadPerSecSquared;
-
+//TODO: LIMIT SWITCHES, no pid clean up intake
    private PIDController pid = Constants.subsystems.intake.armPIDController;
   ArmFeedforward feedforward = new ArmFeedforward(Constants.subsystems.intake.arm_kS, Constants.subsystems.intake.arm_kCos, Constants.subsystems.intake.arm_kV, Constants.subsystems.intake.arm_kA);
   /** Creates a new IntakeSubsystem. */

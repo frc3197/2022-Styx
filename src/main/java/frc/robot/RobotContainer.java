@@ -6,19 +6,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.General.Shoot;
-import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
+import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.ClimbSequence;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Toggles.Defend;
-import frc.robot.commands.Toggles.ToggleFieldRelative;
+import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.FilteredController;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -98,11 +97,12 @@ public class RobotContainer {
 
 
     // DRIVER 2 
+    new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    new Button(m_controller2::getRightBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
-    new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood());
+    new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
+    new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
     
   }
 
@@ -184,4 +184,7 @@ public class RobotContainer {
   public void publishPosition() {
     Logger.updateEntries();
   }
+  public static FilteredController getDriver1(){return filteredController1;}
+  public static FilteredController getDriver2(){return filteredController2;}
+
 }
