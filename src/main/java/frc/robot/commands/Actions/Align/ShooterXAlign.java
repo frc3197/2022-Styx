@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.LifterSubsystem;
 
 public class ShooterXAlign extends CommandBase {
   DriveSubsystem driveSubsystem;
@@ -39,7 +38,7 @@ public class ShooterXAlign extends CommandBase {
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
     //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
-    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("tx").getDouble(0);
     visionSetpoint = 0;
     newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     driveSubsystem.drive(newSpeeds);
