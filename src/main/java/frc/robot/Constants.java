@@ -112,16 +112,10 @@ public final class Constants implements Loggable {
 
             public static final int intakeMotorID = 0;
             public static final double intakeSpeed = 0;
-            public static final double arm_kCos = 0;
-            public static final double arm_kS = 0;
-            public static final double arm_kV = 0;
-            public static final double arm_kA = 0;
-            public static final double arm_maxVelRadPerSec = 0;
-            public static final double arm_maxAccelRadPerSecSquared = 0;
-            public static final double arm_offsetRad = 0;
-            public static final PIDController armPIDController = new PIDController(0,0,0);
             public static final NetworkTable camName = null;
-            public static int armMotorID;
+            public static int armMotorID = 0;
+            public static int armLowerLimitID = 0;
+            public static double armSpeed = 0;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 0;

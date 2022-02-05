@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 //TODO: Test
-public class DeployIntake extends CommandBase {
+public class RetractIntake extends CommandBase {
   IntakeSubsystem m_intakeSubsystem;
-  DigitalInput lowerLimit;
+  DigitalInput upperLimit;
   /** Creates a new DeployIntake. */
-  public DeployIntake(IntakeSubsystem m_intakeSubsystem) {
+  public RetractIntake(IntakeSubsystem m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
-    lowerLimit = new DigitalInput(Constants.subsystems.intake.armLowerLimitID);
+    upperLimit = new DigitalInput(Constants.subsystems.intake.armUpperLimitID);
     addRequirements(m_intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,12 +23,12 @@ public class DeployIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(lowerLimit.get()){cancel();}
+    if(upperLimit.get()){cancel();}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {m_intakeSubsystem.useArm(Constants.subsystems.intake.armSpeed);}
+  public void execute() {m_intakeSubsystem.useArm(-Constants.subsystems.intake.armSpeed);}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,6 +37,6 @@ public class DeployIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return lowerLimit.get();
+    return upperLimit.get();
   }
 }
