@@ -1,0 +1,86 @@
+[ "ColoredShapePipelineSettings", {
+  "pipelineIndex" : 1,
+  "pipelineType" : "ColoredShape",
+  "inputImageFlipMode" : "NONE",
+  "inputImageRotationMode" : "DEG_0",
+  "pipelineNickname" : "Red",
+  "cameraExposure" : 25.4,
+  "cameraBrightness" : 63,
+  "cameraGain" : -1,
+  "cameraVideoModeIndex" : 0,
+  "streamingFrameDivisor" : "NONE",
+  "ledMode" : true,
+  "inputShouldShow" : false,
+  "outputShouldShow" : true,
+  "hsvHue" : {
+    "first" : 0,
+    "second" : 6
+  },
+  "hsvSaturation" : {
+    "first" : 122,
+    "second" : 255
+  },
+  "hsvValue" : {
+    "first" : 104,
+    "second" : 255
+  },
+  "outputShouldDraw" : true,
+  "outputShowMultipleTargets" : true,
+  "contourArea" : {
+    "first" : 2.0,
+    "second" : 14.2
+  },
+  "contourRatio" : {
+    "first" : 0.0,
+    "second" : 20.0
+  },
+  "contourFullness" : {
+    "first" : 0.0,
+    "second" : 100.0
+  },
+  "contourSpecklePercentage" : 5,
+  "contourSortMode" : "Largest",
+  "contourTargetOffsetPointEdge" : "Center",
+  "contourTargetOrientation" : "Landscape",
+  "offsetRobotOffsetMode" : "None",
+  "offsetSinglePoint" : {
+    "x" : 0.0,
+    "y" : 0.0
+  },
+  "offsetDualPointA" : {
+    "x" : 0.0,
+    "y" : 0.0
+  },
+  "offsetDualPointAArea" : 0.0,
+  "offsetDualPointB" : {
+    "x" : 0.0,
+    "y" : 0.0
+  },
+  "offsetDualPointBArea" : 0.0,
+  "contourGroupingMode" : "Single",
+  "contourIntersection" : "Up",
+  "solvePNPEnabled" : false,
+  "targetModel" : "k2020HighGoalOuter",
+  "cornerDetectionStrategy" : "APPROX_POLY_DP_AND_EXTREME_CORNERS",
+  "cornerDetectionUseConvexHulls" : true,
+  "cornerDetectionExactSideCount" : false,
+  "cornerDetectionSideCount" : 4,
+  "cornerDetectionAccuracyPercentage" : 10.0,
+  "contourShape" : "Custom",
+  "contourPerimeter" : {
+    "first" : 21.0,
+    "second" : 4000.0
+  },
+  "accuracyPercentage" : 100.0,
+  "circleDetectThreshold" : 17,
+  "contourRadius" : {
+    "first" : 0,
+    "second" : 100
+  },
+  "minDist" : 20,
+  "maxCannyThresh" : 70,
+  "circleAccuracy" : 21,
+  "cameraCalibration" : null,
+  "erode" : false,
+  "dilate" : true
+} ]
