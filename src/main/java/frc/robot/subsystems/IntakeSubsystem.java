@@ -30,7 +30,6 @@ public class IntakeSubsystem extends TrapezoidProfileSubsystem {
       new TrapezoidProfile.Constraints(kMaxVelRadPerSec, kMaxAccelRadPerSecSquared),
       // The initial position of the mechanism
       kArmOffsetRadians);
-
     intakeMotor = new CANSparkMax(Constants.subsystems.intake.intakeMotorID, MotorType.kBrushless);
   }
 

@@ -13,6 +13,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DutyCycle;
 import frc.robot.other.PIDConst;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -30,8 +31,9 @@ import io.github.oblarg.oblog.annotations.Log;
 public final class Constants implements Loggable {
 
     public static final class dimensions {
-        public static final double TRACKWIDTH = Units.inchesToMeters(25);
-        public static final double WHEELBASE = Units.inchesToMeters(23.75);
+        //TODO: Test maybe flip
+        public static final double TRACKWIDTH = Units.inchesToMeters(24.25);
+        public static final double WHEELBASE = Units.inchesToMeters(19.25);
     }
 
     public static final class subsystems {
@@ -125,6 +127,8 @@ public final class Constants implements Loggable {
             public static final int spoolMotorRightID = 0;
             public static final int armMotorLeftID = 0;
             public static final int armMotorRightID = 0;
+            public static final double spoolSpeed = 0;
+            public static final DutyCycle armEncoderLeftID = null;
         }
         public static final class lifter{
 
