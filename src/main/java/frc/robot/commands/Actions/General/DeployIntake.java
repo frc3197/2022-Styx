@@ -4,14 +4,18 @@
 
 package frc.robot.commands.Actions.General;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IntakeSubsystem;
 //TODO: Finish
 public class DeployIntake extends CommandBase {
   IntakeSubsystem m_intakeSubsystem;
+  DigitalInput lowerLimit;
   /** Creates a new DeployIntake. */
   public DeployIntake(IntakeSubsystem m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
+    lowerLimit = new DigitalInput(Constants.subsystems.intake.armLowerLimitID)
     addRequirements(m_intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }

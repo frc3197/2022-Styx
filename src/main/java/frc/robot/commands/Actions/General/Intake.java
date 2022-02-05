@@ -24,13 +24,13 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.setIntake(Constants.subsystems.intake.intakeSpeed);
+    intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSubsystem.setIntake(0);
+    intakeSubsystem.useIntake(0);
   }
 
   // Returns true when the command should end.

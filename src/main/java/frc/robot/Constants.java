@@ -121,6 +121,7 @@ public final class Constants implements Loggable {
             public static final double arm_offsetRad = 0;
             public static final PIDController armPIDController = new PIDController(0,0,0);
             public static final NetworkTable camName = null;
+            public static int armMotorID;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 0;
