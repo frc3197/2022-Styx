@@ -6,19 +6,19 @@ package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.Spool;
 import frc.robot.commands.Actions.Align.IntakeAlign;
+import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
+import frc.robot.commands.Continuous.Spool;
 import frc.robot.other.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class simple2ball extends AutoRoutine {
+public class Auto2Ball extends AutoRoutine {
   /** Creates a new simple2ball. */
 
-  public simple2ball() {
+  public Auto2Ball() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

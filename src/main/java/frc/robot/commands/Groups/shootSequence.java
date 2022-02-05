@@ -6,23 +6,22 @@ package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.Constants;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.Spool;
+import frc.robot.commands.Actions.General.Shoot;
+import frc.robot.commands.Continuous.Spool;
 import frc.robot.subsystems.LifterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class shootSequence extends ParallelRaceGroup {
-  ShooterSubsystem shooter;
-  LifterSubsystem lifter;
+public class ShootSequence extends ParallelRaceGroup {
+  ShooterSubsystem m_shooterSubsystem;
+  LifterSubsystem m_lifterSubsystem;
   /** Creates a new shootSequence. */
-  public shootSequence(ShooterSubsystem shooter, LifterSubsystem lifter) {
-    this.shooter = shooter;
-    this.lifter = lifter;
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Spool(shooter, Constants.subsystems.shooter.targetRPM), new Shoot(lifter));
+  public ShootSequence(ShooterSubsystem m_shooterSubsystem, LifterSubsystem m_lifterSubsystem){
+    this.m_shooterSubsystem = m_shooterSubsystem;
+    this.m_lifterSubsystem = m_lifterSubsystem;
+    addRequirements();
+    addCommands(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM), new Shoot(m_lifterSubsystem));
   }
 }

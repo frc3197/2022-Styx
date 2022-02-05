@@ -10,8 +10,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import frc.robot.commands.DriveCommand;
+import frc.robot.commands.Actions.Align.IntakeAlign;
+import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
+import frc.robot.commands.Continuous.DriveCommand;
+import frc.robot.commands.Groups.ClimbSequence;
+import frc.robot.commands.Groups.IntakeSequence;
+import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.other.FilteredController;
@@ -41,15 +46,19 @@ public class RobotContainer {
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
-  private final static XboxController m_controller = new XboxController(0);
-  public static final FilteredController filteredController = new FilteredController(m_controller);
+  private final static XboxController m_controller1 = new XboxController(0);
+  public static final FilteredController filteredController1 = new FilteredController(m_controller1);
+
+  private final static XboxController m_controller2 = new XboxController(1);
+  public static final FilteredController filteredController2 = new FilteredController(m_controller2);
+
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
-      () -> -modifyAxis(filteredController.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
-      () -> -modifyAxis(filteredController.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
-      () -> -modifyAxis(filteredController.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
           * Constants.outputs.turnRate);
 
   /**
@@ -79,19 +88,22 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Back button zeros the gyroscope
-    new Button(m_controller::getYButton).whenPressed(m_driveCommand);
-    // new Button(m_controller::getXButton).whenPressed(new
-    // MoveToPosition(m_drivetrainSubsystem, new Pose2d(0,0 , new
-    // Rotation2d(Math.PI))));
-    new Button(m_controller::getXButton)
-        .whenPressed(new RunBasicTrajectory(m_driveSubsystem, "Test Path Correct Ver"));
-    new Button(m_controller::getAButton).whileHeld(new Defend(m_driveSubsystem));
-    new Button(m_controller::getBackButton)
-        // No requirements because we don't need to interrupt anything
-        .whenPressed(m_driveSubsystem::zeroGyroscope);
+    // DRIVER 1
+    new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
+    new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
+    new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
+    //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
+    //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
+    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem));
 
-    new Button(m_controller::getStartButton).whenPressed(new ToggleFieldRelative());
+
+    // DRIVER 2 
+    new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
+    //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
+    //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
+    new Button(m_controller2::getRightBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
+    new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood());
+    
   }
 
   /**
@@ -170,11 +182,6 @@ public class RobotContainer {
   }
 
   public void publishPosition() {
-    SmartDashboard.putNumber("CurrentPosX", m_driveSubsystem.getPose2d().getX());
-    SmartDashboard.putNumber("CurrentPosY", m_driveSubsystem.getPose2d().getY());
-    SmartDashboard.putNumber("CurrentPosRot", m_driveSubsystem.getPose2d().getRotation().getDegrees());
-    SmartDashboard.putNumber("Controller POV", filteredController.getPOVButton());
-    SmartDashboard.putBoolean("Controller POV Bool", filteredController.getPOVPressed());
     Logger.updateEntries();
   }
 }

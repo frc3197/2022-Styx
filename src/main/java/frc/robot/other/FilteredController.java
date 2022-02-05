@@ -34,7 +34,6 @@ public class FilteredController {
         return new InputFilter(controller.getRightX()).getFiltered(deadzone);
     }
 
-
     /**
      * Gets the filtered Y input for the given stick.
      * 
@@ -55,7 +54,6 @@ public class FilteredController {
         return new InputFilter(controller.getRightY()).getFiltered(deadzone);
     }
 
-
     /**
      * Gets the filtered trigger input for the given trigger.
      * 
@@ -65,7 +63,7 @@ public class FilteredController {
     public double getTriggerLeft(double deadzone) {
         return new InputFilter(controller.getLeftTriggerAxis()).getFiltered(deadzone);
     }
-    
+
     /**
      * Gets the filtered trigger input for the given trigger.
      * 
@@ -76,16 +74,48 @@ public class FilteredController {
         return new InputFilter(controller.getRightTriggerAxis()).getFiltered(deadzone);
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
-    public boolean getPOVPressed(){
+    public boolean getPOVPressed() {
         return controller.getPOV() != -1;
     }
 
-    
-    /** 
+    public boolean getRightTriggerActive(double deadzone) {
+        if (controller.getRightTriggerAxis() > deadzone) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public boolean getLeftTriggerActive(double deadzone) {
+        if (controller.getLeftTriggerAxis() > deadzone) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public boolean getRightTriggerActive() {
+        if (controller.getRightTriggerAxis() > .2) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public boolean getLeftTriggerActive() {
+        if (controller.getLeftTriggerAxis() > .2) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
+    /**
      * @return int
      */
     public int getPOVButton() {

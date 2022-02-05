@@ -2,33 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Toggles;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.HoodSubsystem;
 
-public class MoveSpool extends CommandBase {
-  //TODO: Write Climb Command
-  ClimberSubsystem climber;
-  /** Creates a new Climb. */
-  public MoveSpool(ClimberSubsystem climber) {
-    this.climber = climber;
-    addRequirements(climber);
+public class ToggleManualHood extends CommandBase {
+  HoodSubsystem m_hoodSubsystem;
+
+  /** Creates a new ToggleManualHood. */
+  public ToggleManualHood(HoodSubsystem m_hoodSubsystem) {
+    this.m_hoodSubsystem = m_hoodSubsystem;
+    addRequirements(m_hoodSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute(){
-    climber.setSpoolMotor(Constants.subsystems.climber.spoolSpeed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

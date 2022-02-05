@@ -5,20 +5,20 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.Intake;
-import frc.robot.commands.Lift;
+import frc.robot.commands.Actions.General.Intake;
+import frc.robot.commands.Actions.General.Lift;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LifterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeAndLift extends ParallelCommandGroup {
+public class IntakeSequence extends ParallelCommandGroup {
   LifterSubsystem lifterSubsystem;
   IntakeSubsystem intakeSubsystem;
   //MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
-  public IntakeAndLift(LifterSubsystem lifterSubsystem, IntakeSubsystem intakeSubsystem) {
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     // Add your commands in the addCommands() call, e.g.
