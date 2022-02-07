@@ -6,15 +6,20 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
-  WPI_TalonFX hoodMotor;
+  CANSparkMax hoodMotor;
+  CANCoder encoder;
   public HoodSubsystem() {
-    hoodMotor = new WPI_TalonFX(Constants.subsystems.hood.hoodMotorID);
+    hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
+    encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
   }
 
   @Override
@@ -26,8 +31,8 @@ public class HoodSubsystem extends SubsystemBase {
    * @param mode
    * @param x
    */
-  public void setHood(ControlMode mode, double x){
-    hoodMotor.set(mode, x);
+  public void setHood(double x){
+    hoodMotor.set(x);
   }
   
   /** 
@@ -35,7 +40,7 @@ public class HoodSubsystem extends SubsystemBase {
    * @return double
    */
   public double getHoodPosition(){
-    return hoodMotor.getSelectedSensorPosition();
+    return encoder.getPosition();
   }
 
 

@@ -9,9 +9,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
+import frc.robot.other.RangeLookup;
 import frc.robot.subsystems.HoodSubsystem;
 
 public class ShooterYAlign extends CommandBase {
@@ -39,14 +41,14 @@ public class ShooterYAlign extends CommandBase {
   @Override
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
-    visionSetpoint = 0;
-    hoodSubsystem.setHood(ControlMode.PercentOutput, yPID.calculate(visionMeasurement, visionSetpoint));
+    visionSetpoint = RangeLookup.getHoodValue(RangeLookup.convertLLYtoRange(visionMeasurement));
+    hoodSubsystem.setHood(yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hoodSubsystem.setHood(ControlMode.PercentOutput, 0);
+    hoodSubsystem.setHood(0);
   }
 
   // Returns true when the command should end.

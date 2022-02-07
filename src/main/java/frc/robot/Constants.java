@@ -140,11 +140,18 @@ public final class Constants implements Loggable {
             public static final double upperSpeed = 0;
 
             public static final double lowerSpeed = 0;
+            public static final int feederMotorID = 0;
+            public static final double lifterFeedSpeed = 0;
         
         
         }
         public static final class hood{
             public static final int hoodMotorID = 0;
+            public static final int hoodEncoderID = 0;
+            // inches
+            public static final int LLHeight = 36;
+            public static final int HubHeight = 0;
+            public static final double LLAng = 0;
         }
 
     }

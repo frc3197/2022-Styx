@@ -4,14 +4,54 @@
 
 package frc.robot.other;
 
+import frc.robot.Constants;
+
 /** Add your docs here. */
 @SuppressWarnings("unused")
 public class RangeLookup  {
-    private double hoodValat0 = 0;
-    private double hoodValat5 = 0;
-    private double hoodValat10 = 0;
-    private double hoodValat15 = 0;    
-    private double hoodValat20 = 0;
-    // TODO: GENERATE GETTERS WHEN U HAVE MORE INFO
+    public static int getHoodValue(double range){
+        int hoodVal;
+        switch(normalizeRange(range)){
+            case 5:
+            hoodVal = 0;
+            break;
+            case 10:
+            hoodVal = 0;
+            break;
+            case 15:
+            hoodVal = 0;
+            break;
+            case 20:
+            hoodVal = 0;
+            break;
+            case 25:
+            hoodVal = 0;
+            break;
+            case 30:
+            hoodVal = 0;
+            break;
+            case 35:
+            hoodVal = 0;
+            break;
+            case 40:
+            hoodVal = 0;
+            break;
+            case 45:
+            hoodVal = 0;
+            break;
+            default:
+            hoodVal = 0;
+            break;
+        }
+        return hoodVal;
+    }
 
+
+    private static int normalizeRange(double range){
+        return (int) (5*(Math.round(range/5)));
+    }
+
+    public static double convertLLYtoRange(double ty){
+        return (Constants.subsystems.hood.HubHeight - Constants.subsystems.hood.LLHeight) / Math.tan(Constants.subsystems.hood.LLAng + ty);
+    }
 }

@@ -6,6 +6,7 @@ package frc.robot.commands.Actions.General;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Constants.subsystems.lifter;
 import frc.robot.subsystems.LifterSubsystem;
 
 public class Lift extends CommandBase {
@@ -27,7 +28,7 @@ public class Lift extends CommandBase {
   public void execute() {
     lowerBBState = LifterSubsystem.getLowerBB();
     upperBBState = LifterSubsystem.getUpperBB();
-
+    lifterSubsystem.feed();
     if(upperBBState && lowerBBState){
       lifterSubsystem.setBothMotors(0);
     }
@@ -43,6 +44,7 @@ public class Lift extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     lifterSubsystem.setBothMotors(0);
+    lifterSubsystem.disableFeed();
   }
 
   // Returns true when the command should end.

@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,6 +17,7 @@ public class LifterSubsystem extends SubsystemBase {
   static DigitalInput upperBB;
   static DigitalInput lowerBB;
   WPI_TalonFX lowerFx, upperFx;
+  CANSparkMax feederWheel;
   boolean lowerMotorState, upperMotorState;
   double lowerSpeed, upperSpeed;
   /** Creates a new LifterSubsystem. */
@@ -23,6 +26,7 @@ public class LifterSubsystem extends SubsystemBase {
     lowerBB = new DigitalInput(Constants.subsystems.lifter.lowerBBChannel);
     upperFx = new WPI_TalonFX(Constants.subsystems.lifter.upperMotorID);
     upperBB = new DigitalInput(Constants.subsystems.lifter.upperBBChannel);
+    feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
 
     lowerSpeed = Constants.subsystems.lifter.lowerSpeed;
     upperSpeed = Constants.subsystems.lifter.upperSpeed;
@@ -109,5 +113,10 @@ public class LifterSubsystem extends SubsystemBase {
     Timer.delay(.25);
     toggleLowerMotor();
   }
-
+  public void feed(){
+    feederWheel.set(Constants.subsystems.lifter.lifterFeedSpeed);
+  }
+  public void disableFeed(){
+    feederWheel.set(0);
+  }
 }
