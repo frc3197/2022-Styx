@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
@@ -106,13 +107,13 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(.02);
                 follower.setTolerance(new Pose2d(.1, .1, new Rotation2d(Math.toRadians(5))));
 
-                m_frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
+                m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
                                 // This parameter is optional, but will allow you to see the current state of
                                 // the module on the dashboard.
                                 tab.getLayout("Front Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(0,
                                                 0),
                                 // This can either be STANDARD or FAST depending on your gear configuration
-                                Mk4SwerveModuleHelper.GearRatio.L2,
+                                Mk3SwerveModuleHelper.GearRatio.FAST,
                                 // This is the ID of the drive motor
                                 Constants.subsystems.swerve.modInfo.flMod.MODULE_DRIVE_MOTOR,
                                 // This is the ID of the steer motor
@@ -124,26 +125,26 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.flMod.MODULE_STEER_OFFSET);
 
                 // We will do the same for the other modules
-                m_frontRightModule = Mk4SwerveModuleHelper.createFalcon500(
+                m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(2,
                                                 0),
-                                Mk4SwerveModuleHelper.GearRatio.L2, Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_OFFSET);
 
-                m_backLeftModule = Mk4SwerveModuleHelper.createFalcon500(
+                m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(4,
                                                 0),
-                                Mk4SwerveModuleHelper.GearRatio.L2, Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_OFFSET);
 
-                m_backRightModule = Mk4SwerveModuleHelper.createFalcon500(
+                m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(6,
                                                 0),
-                                Mk4SwerveModuleHelper.GearRatio.L2, Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);

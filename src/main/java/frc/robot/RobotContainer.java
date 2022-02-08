@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.General.Shoot;
+import frc.robot.commands.Actions.Movement.DriveForwardDistance;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.ClimbSequence;
@@ -39,12 +41,13 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  /*
   private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
   private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-
+*/
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
 
@@ -87,6 +90,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    /*
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
@@ -103,7 +107,7 @@ public class RobotContainer {
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
-    
+    */
   }
 
   /**
@@ -113,7 +117,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    return new DriveForwardDistance(m_driveSubsystem, Units.feetToMeters(5));
   }
 
   public void resetOdometry() {
@@ -160,7 +164,7 @@ public class RobotContainer {
   public static DriveSubsystem getDriveSubsystem() {
     return m_driveSubsystem;
   }
-
+/*
   public static ClimberSubsystem getClimberSubsystem() {
     return m_climberSubsystem;
   }
@@ -180,7 +184,7 @@ public class RobotContainer {
   public static ShooterSubsystem getShooterSubsystem() {
     return m_shooterSubsystem;
   }
-
+*/
   public void publishPosition() {
     Logger.updateEntries();
   }

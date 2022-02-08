@@ -32,8 +32,9 @@ public final class Constants {
 
     public static final class dimensions {
         //TODO: Test maybe flip
-        public static final double TRACKWIDTH = Units.inchesToMeters(24.25);
-        public static final double WHEELBASE = Units.inchesToMeters(19.25);
+        public static final double TRACKWIDTH = Units.inchesToMeters(25);
+        public static final double WHEELBASE = Units.inchesToMeters(23.75);
+        //NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
     public static final class subsystems {
@@ -42,8 +43,8 @@ public final class Constants {
             // ORDER: FL FR BL BR
             @Log
             public static final double MAX_VEL_METERS = 6380.0 / 60.0
-                    * SdsModuleConfigurations.MK4_L2.getDriveReduction()
-                    * SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
+                    * SdsModuleConfigurations.MK3_FAST.getDriveReduction()
+                    * SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
@@ -124,7 +125,7 @@ public final class Constants {
             public static final int armMotorLeftID = 0;
             public static final int armMotorRightID = 0;
             public static final double spoolSpeed = 0;
-            public static final DutyCycle armEncoderLeftID = null;
+            public static final int armEncoderLeftID = 0;
         }
         public static final class lifter{
 
