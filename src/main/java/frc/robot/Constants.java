@@ -71,7 +71,7 @@ public final class Constants {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(316.23);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(93.867);
                 }
 
                 public static final class blMod {
@@ -164,16 +164,6 @@ public final class Constants {
 
     public static final class auto {
 
-        /*
-         * public static final Matrix<N3, N1> POSE_STD_DEV = new MatBuilder<>(Nat.N5(),
-         * Nat.N1()).fill(0.02, 0.02, 0.01, 0.02, 0.02), // State measurement standard
-         * deviations. X, Y, theta. public static final Matrix<N3, N1> ENCODER_GYRO_DEV
-         * = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02, 0.01), // Local
-         * measurement standard deviations. Left encoder, right encoder, gyro. public
-         * static final Matrix<N3, N1> VISION_DEVIATION = new MatBuilder<>(Nat.N3(),
-         * Nat.N1()).fill(0.1, 0.1, 0.01)); // Global measurement standard deviations.
-         * X, Y, and theta.
-         */
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;

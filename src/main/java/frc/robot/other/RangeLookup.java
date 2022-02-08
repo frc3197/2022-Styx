@@ -7,7 +7,6 @@ package frc.robot.other;
 import frc.robot.Constants;
 
 /** Add your docs here. */
-@SuppressWarnings("unused")
 public class RangeLookup  {
     public static int getHoodValue(double range){
         int hoodVal;

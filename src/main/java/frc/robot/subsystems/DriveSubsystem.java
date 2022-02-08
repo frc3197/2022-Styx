@@ -76,7 +76,6 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // The important thing about how you configure your gyroscope is that rotating
         // the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
-        @Log
         private final AHRS m_navx = new AHRS(Port.kUSB); // NavX connected over MXP
 
         // These are our modules. We initialize them in the constructor.
