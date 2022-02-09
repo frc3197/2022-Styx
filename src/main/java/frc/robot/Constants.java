@@ -56,7 +56,9 @@ public final class Constants {
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
             //TODO: TUNE
-            public static final PIDConst xALIGN_PID = new PIDConst(0, 0, 0);
+
+            public static final PIDConst xALIGN_PID = new PIDConst(.225, 0, 0.0);
+
             public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
             public static final class modInfo {
@@ -64,28 +66,28 @@ public final class Constants {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(11.95);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(194.238);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(93.867);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(134.209);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(154.16);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(335.127);
                 }
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(264.7);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(87.803);
                 }
             }
 

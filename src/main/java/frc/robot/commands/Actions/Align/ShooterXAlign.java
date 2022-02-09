@@ -25,6 +25,7 @@ public class ShooterXAlign extends CommandBase {
     this.driveSubsystem = driveSubsystem;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -52,6 +53,6 @@ public class ShooterXAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return xPID.atSetpoint();
+    return false;
   }
 }
