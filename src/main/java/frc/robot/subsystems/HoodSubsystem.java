@@ -15,8 +15,8 @@ import frc.robot.Constants;
 
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
-  CANSparkMax hoodMotor;
-  CANCoder encoder;
+  private CANSparkMax hoodMotor;
+  private CANCoder encoder;
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);

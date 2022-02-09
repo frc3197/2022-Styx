@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  CANSparkMax spoolMotorLeft,spoolMotorRight;
-  WPI_TalonFX armMotorLeft, armMotorRight;
-  DutyCycleEncoder armEncoderLeft, armEncoderRight;
+  private CANSparkMax spoolMotorLeft,spoolMotorRight;
+  private WPI_TalonFX armMotorLeft, armMotorRight;
+  private DutyCycleEncoder armEncoderLeft, armEncoderRight;
   //TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
+import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
 import frc.robot.commands.Continuous.DriveCommand;
@@ -90,6 +91,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    new Button(m_controller1::getAButton).whenHeld(new ShooterXAlign(m_driveSubsystem));
     /*
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
@@ -99,7 +102,7 @@ public class RobotContainer {
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem));
 
-
+    
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));

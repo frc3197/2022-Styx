@@ -222,7 +222,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         public void setAllStates(SwerveModuleState[] states){
                 m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                 states[0].angle.getRadians());
-m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+m_frontRightModule.set(-states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                 states[1].angle.getRadians());
 m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                 states[2].angle.getRadians());
@@ -331,5 +331,4 @@ m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_S
         public static void setBrakeMode(boolean x){
                 brakeMode = x;
         }
-
 }
