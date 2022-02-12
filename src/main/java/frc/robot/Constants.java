@@ -32,8 +32,9 @@ public final class Constants {
 
     public static final class dimensions {
         //TODO: Test maybe flip
-        public static final double TRACKWIDTH = Units.inchesToMeters(24.25);
-        public static final double WHEELBASE = Units.inchesToMeters(19.25);
+        public static final double TRACKWIDTH = Units.inchesToMeters(25);
+        public static final double WHEELBASE = Units.inchesToMeters(23.75);
+        //NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
     public static final class subsystems {
@@ -42,8 +43,8 @@ public final class Constants {
             // ORDER: FL FR BL BR
             @Log
             public static final double MAX_VEL_METERS = 6380.0 / 60.0
-                    * SdsModuleConfigurations.MK4_L2.getDriveReduction()
-                    * SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
+                    * SdsModuleConfigurations.MK3_FAST.getDriveReduction()
+                    * SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
@@ -55,7 +56,9 @@ public final class Constants {
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
             //TODO: TUNE
-            public static final PIDConst xALIGN_PID = new PIDConst(0, 0, 0);
+
+            public static final PIDConst xALIGN_PID = new PIDConst(.225, 0, 0.0);
+
             public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
             public static final class modInfo {
@@ -63,28 +66,28 @@ public final class Constants {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(11.95);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(194.238);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(316.23);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(134.209);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(154.16);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(335.127);
                 }
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(264.7);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(87.803);
                 }
             }
 
@@ -124,7 +127,7 @@ public final class Constants {
             public static final int armMotorLeftID = 0;
             public static final int armMotorRightID = 0;
             public static final double spoolSpeed = 0;
-            public static final DutyCycle armEncoderLeftID = null;
+            public static final int armEncoderLeftID = 0;
         }
         public static final class lifter{
 
@@ -163,16 +166,6 @@ public final class Constants {
 
     public static final class auto {
 
-        /*
-         * public static final Matrix<N3, N1> POSE_STD_DEV = new MatBuilder<>(Nat.N5(),
-         * Nat.N1()).fill(0.02, 0.02, 0.01, 0.02, 0.02), // State measurement standard
-         * deviations. X, Y, theta. public static final Matrix<N3, N1> ENCODER_GYRO_DEV
-         * = new MatBuilder<>(Nat.N3(), Nat.N1()).fill(0.02, 0.02, 0.01), // Local
-         * measurement standard deviations. Left encoder, right encoder, gyro. public
-         * static final Matrix<N3, N1> VISION_DEVIATION = new MatBuilder<>(Nat.N3(),
-         * Nat.N1()).fill(0.1, 0.1, 0.01)); // Global measurement standard deviations.
-         * X, Y, and theta.
-         */
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;

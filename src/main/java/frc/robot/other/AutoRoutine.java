@@ -16,13 +16,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 /** Add your docs here. */
 public class AutoRoutine extends SequentialCommandGroup {
+  /*
     private static DriveSubsystem m_driveSubsystem = RobotContainer.getDriveSubsystem();
     private static ClimberSubsystem m_climberSubsystem = RobotContainer.getClimberSubsystem();
     private static HoodSubsystem m_hoodSubsystem = RobotContainer.getHoodSubsystem();
     private static IntakeSubsystem m_intakeSubsystem = RobotContainer.getIntakeSubsystem();
     private static LifterSubsystem m_lifterSubsystem = RobotContainer.getLifterSubsystem();
     private static ShooterSubsystem m_shooterSubsystem = RobotContainer.getShooterSubsystem();
-    
+    */
     public AutoRoutine(Command... commands){
         addCommands(commands);
         //TODO: Check if needed / move to before addCommands(); 
@@ -34,7 +35,7 @@ public class AutoRoutine extends SequentialCommandGroup {
         addRequirements(m_shooterSubsystem); */
     }
 
-
+/*
     public DriveSubsystem getDriveSubsystem() {
         return m_driveSubsystem;
       }
@@ -58,7 +59,7 @@ public class AutoRoutine extends SequentialCommandGroup {
       public ShooterSubsystem getShooterSubsystem() {
         return m_shooterSubsystem;
       }
-
+*/
 
 
 }

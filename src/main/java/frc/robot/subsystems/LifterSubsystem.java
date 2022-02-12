@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LifterSubsystem extends SubsystemBase {
-  static DigitalInput upperBB;
-  static DigitalInput lowerBB;
-  WPI_TalonFX lowerFx, upperFx;
-  CANSparkMax feederWheel;
-  boolean lowerMotorState, upperMotorState;
-  double lowerSpeed, upperSpeed;
+  private static DigitalInput upperBB;
+  private static DigitalInput lowerBB;
+  private WPI_TalonFX lowerFx, upperFx;
+  private CANSparkMax feederWheel;
+  private boolean lowerMotorState, upperMotorState;
+  private double lowerSpeed, upperSpeed;
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
     lowerFx = new WPI_TalonFX(Constants.subsystems.lifter.lowerMotorID);

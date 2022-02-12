@@ -7,6 +7,7 @@ package frc.robot.commands.Actions.Align;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
@@ -24,8 +25,7 @@ public class ShooterXAlign extends CommandBase {
     this.driveSubsystem = driveSubsystem;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    
-    addRequirements(driveSubsystem);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -53,6 +53,6 @@ public class ShooterXAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return xPID.atSetpoint();
+    return false;
   }
 }

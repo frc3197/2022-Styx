@@ -15,9 +15,9 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
-  WPI_TalonFX shooterMotor;
+  private WPI_TalonFX shooterMotor;
 
-  CANCoder shooterEncoder;
+  private CANCoder shooterEncoder;
   // Note: Hood will most likely use built-in encoder
 
   public ShooterSubsystem() {
