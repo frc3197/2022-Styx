@@ -5,13 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
@@ -19,6 +17,9 @@ import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
+import frc.robot.commands.Groups.Auto_2B_1;
+import frc.robot.commands.Groups.Auto_2B_2;
+import frc.robot.commands.Groups.Auto_2B_3;
 import frc.robot.commands.Groups.ClimbSequence;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
@@ -57,7 +58,7 @@ public class RobotContainer {
 
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
-
+  private static SendableChooser m_chooser;
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
       () -> -modifyAxis(filteredController1.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
@@ -66,16 +67,24 @@ public class RobotContainer {
           * Constants.outputs.strafe,
       () -> -modifyAxis(filteredController1.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
           * Constants.outputs.turnRate);
-
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
+  @SuppressWarnings("unchecked")
   public RobotContainer() {
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
+    m_chooser = new SendableChooser<>();
+    m_chooser.setDefaultOption("Nothing", null);
+    m_chooser.addOption("2Ball1", new Auto_2B_1());
+    m_chooser.addOption("2Ball2", new Auto_2B_2());
+    m_chooser.addOption("2Ball3", new Auto_2B_3());
+
+    SmartDashboard.putData(m_chooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     Logger.configureLoggingAndConfig(this, false);
     Logger.setCycleWarningsEnabled(false);
@@ -122,7 +131,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new DriveForwardDistance(m_driveSubsystem, Units.feetToMeters(5));
+    return (Command) m_chooser.getSelected();
   }
 
   public void resetOdometry() {

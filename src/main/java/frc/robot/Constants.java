@@ -109,6 +109,7 @@ public final class Constants {
             public static final double kA = 0;
             public static final double targetRPM = 0;
             public static final double waitTime = 0;
+            public static final double defaultTurnSpeed = .25;
         }
         public static final class intake {
 

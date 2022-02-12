@@ -215,7 +215,9 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         public Pose2d getPose2d() {
                 return m_odometry.getPoseMeters();
         }
-        
+        public void setPose2d(Pose2d newPose){
+                m_odometry.resetPosition(newPose, newPose.getRotation());
+        }
         /** 
          * @param states
          */

@@ -18,14 +18,14 @@ public class ShooterXAlign extends CommandBase {
   PIDController xPID;
   PIDConst xPID_Constants;
   ChassisSpeeds curSpeeds,newSpeeds;
-  double visionSetpoint, visionMeasurement;
+  double visionSetpoint, visionMeasurement, defaultTurnSpeed;
 
   /** Creates a new ShooterXAlign. */
   public ShooterXAlign(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-
+    defaultTurnSpeed = Constants.subsystems.shooter.defaultTurnSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,9 +38,15 @@ public class ShooterXAlign extends CommandBase {
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
     //TODO: FIX VISION ONCE LIMELIGHT IS UPDATED
-    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("tx").getDouble(0);
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("tx").getDouble(720);
     visionSetpoint = 0;
-    newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
+    if(visionMeasurement < 180){
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
+    }
+    else{
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,defaultTurnSpeed);
+    }
+   
     driveSubsystem.drive(newSpeeds);
   }
 
