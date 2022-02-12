@@ -182,7 +182,7 @@ public final class Constants {
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(.13, 0, .39,
                     ROT_PROFILE);
-            // DRIVING DEFAULT IS 5
+            // DRIVING DEFAULT IS 5     
             public static final double LINEAR_VELOCITY_DEFAULT = 1;
             // MUST SET KINEMATICS, see documentation
             public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(LINEAR_VELOCITY_DEFAULT,
