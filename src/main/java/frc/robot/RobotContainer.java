@@ -139,9 +139,8 @@ public class RobotContainer {
   }
 
   public void recalibrateGyroscope() {
-    m_driveSubsystem.getGyroscopeObj().calibrate();
-    m_driveSubsystem.getGyroscopeObj().reset();
-    m_driveSubsystem.getGyroscopeObj().zeroYaw();
+    m_driveSubsystem.getGyroscopeObj().zeroGyroBiasNow();
+    m_driveSubsystem.zeroGyroscope();
   }
 
   /**

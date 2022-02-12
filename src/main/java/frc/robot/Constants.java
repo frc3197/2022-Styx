@@ -93,8 +93,8 @@ public final class Constants {
         }
 
         public static final class shooter {
-            public static final int shooterMotorID = 0;
-            public static final int shooterEncoderID = 0;
+            public static final int shooterMotorID = 30;
+            public static final int shooterEncoderID = 30;
 
 
 			public static final double shooterWheelDiamInches = 0;
@@ -113,44 +113,47 @@ public final class Constants {
         }
         public static final class intake {
 
-            public static final int intakeMotorID = 0;
+            public static final int intakeMotorID = 30;
             public static final double intakeSpeed = 0;
             public static final NetworkTable camName = null;
-            public static int armMotorID = 0;
-            public static int armLowerLimitID = 0;
+            public static int armMotorID = 30;
+            public static int armLowerLimitID = 30;
             public static double armSpeed = 0;
             public static int armUpperLimitID;
         }
         public static final class climber {
-            public static final int spoolMotorLeftID = 0;
-            public static final int spoolMotorRightID = 0;
-            public static final int armMotorLeftID = 0;
-            public static final int armMotorRightID = 0;
+            public static final int spoolMotorLeftID = 30;
+            public static final int spoolMotorRightID = 30;
+            public static final int armMotorLeftID = 30;
+            public static final int armMotorRightID = 30;
             public static final double spoolSpeed = 0;
-            public static final int armEncoderLeftID = 0;
+            public static final int armEncoderLeftID = 30;
+            public static final int fLimitID = 0;
+            public static final int bLimitID = 0;
+            public static final int armVoltage = 0;
         }
         public static final class lifter{
 
             public static final double lifterShootSpeed = 0;
             public static final double lifterIntakeSpeed = 0;
 
-            public static final int lowerBBChannel = 0;
-            public static final int upperBBChannel = 0;
+            public static final int lowerBBChannel = 30;
+            public static final int upperBBChannel = 30;
 
-            public static final int lowerMotorID = 0;
-            public static final int upperMotorID = 0;
+            public static final int lowerMotorID = 30;
+            public static final int upperMotorID = 30;
 
             public static final double upperSpeed = 0;
 
             public static final double lowerSpeed = 0;
-            public static final int feederMotorID = 0;
+            public static final int feederMotorID = 30;
             public static final double lifterFeedSpeed = 0;
         
         
         }
         public static final class hood{
-            public static final int hoodMotorID = 0;
-            public static final int hoodEncoderID = 0;
+            public static final int hoodMotorID = 30;
+            public static final int hoodEncoderID = 30;
             // inches
             public static final int LLHeight = 36;
             //TODO: METERS

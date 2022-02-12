@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
+import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LifterSubsystem;
 
@@ -26,7 +27,7 @@ public class IntakeSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DeployIntake(intakeSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
 
-    andThen(new DeployIntake(intakeSubsystem));
+    andThen(new RetractIntake(intakeSubsystem));
 
 
   }}

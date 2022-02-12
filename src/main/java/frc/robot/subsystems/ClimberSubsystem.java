@@ -8,39 +8,68 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  private CANSparkMax spoolMotorLeft,spoolMotorRight;
+  private CANSparkMax spoolMotorLeft, spoolMotorRight;
   private WPI_TalonFX armMotorLeft, armMotorRight;
-  private DutyCycleEncoder armEncoderLeft, armEncoderRight;
-  //TODO: Write Climber Subsystem
+  private DigitalInput fLimit, bLimit;
+
+  // TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     spoolMotorLeft = new CANSparkMax(Constants.subsystems.climber.spoolMotorLeftID, MotorType.kBrushless);
-    spoolMotorRight = new CANSparkMax(Constants.subsystems.climber.spoolMotorRightID,MotorType.kBrushless);
+    spoolMotorRight = new CANSparkMax(Constants.subsystems.climber.spoolMotorRightID, MotorType.kBrushless);
     armMotorLeft = new WPI_TalonFX(Constants.subsystems.climber.armMotorLeftID);
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
-    armEncoderLeft = new DutyCycleEncoder(Constants.subsystems.climber.armEncoderLeftID);
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
+    fLimit = new DigitalInput(Constants.subsystems.climber.fLimitID);
+    bLimit = new DigitalInput(Constants.subsystems.climber.bLimitID);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void setSpoolMotor(double output){
+
+  
+  /** 
+   * @param output
+   */
+  public void setSpoolMotor(double output) {
     spoolMotorLeft.set(output);
   }
-  public void setarmMotor(double output){
+
+  
+  /** 
+   * @param output
+   */
+  public void setarmMotor(double output) {
     armMotorLeft.set(output);
   }
-  public double getEncoderValue(){
-    return armEncoderLeft.get();
+
+  
+  /** 
+   * @return boolean
+   */
+  public boolean getfLimit() {
+    return fLimit.get();
   }
 
+  
+  /** 
+   * @return boolean
+   */
+  public boolean getbLimit() {
+    return bLimit.get();
+  }
 
+  public void setArmVoltage(double val)
+  {
+    armMotorLeft.setVoltage(val);
+  }
 }

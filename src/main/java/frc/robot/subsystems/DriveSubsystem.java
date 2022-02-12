@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -76,7 +76,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // The important thing about how you configure your gyroscope is that rotating
         // the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
-        private final AHRS m_navx = new AHRS(Port.kUSB); // NavX connected over MXP
+        private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
 
         // These are our modules. We initialize them in the constructor.
         private final SwerveModule m_frontLeftModule;
@@ -154,15 +154,15 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * robot is currently facing to the 'forwards' direction.
          */
         public void zeroGyroscope() {
-                m_navx.zeroYaw();
+                m_pigeon.setYaw(0);
         }
 
         
         /** 
          * @return AHRS
          */
-        public AHRS getGyroscopeObj() {
-                return m_navx;
+        public Pigeon2 getGyroscopeObj() {
+                return m_pigeon;
         }
 
         
@@ -170,7 +170,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return m_navx.getRotation2d();
+                return new Rotation2d(m_pigeon.getYaw());
         }
 
         

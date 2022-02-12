@@ -5,6 +5,7 @@
 package frc.robot.commands.Actions.Align;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -19,6 +20,7 @@ public class IntakeAlign extends CommandBase {
   PIDConst xPID_Constants;
   ChassisSpeeds curSpeeds, newSpeeds;
   double visionSetpoint, visionMeasurement;
+  PhotonTrackedTarget visionTarget;
   PhotonCamera cam = new PhotonCamera(Constants.subsystems.intake.camName);
   /** Creates a new IntakeAlign. */
   public IntakeAlign(DriveSubsystem driveSubsystem) {
@@ -38,11 +40,16 @@ public class IntakeAlign extends CommandBase {
   @Override
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
-    
-    visionMeasurement = cam.getLatestResult().getBestTarget().getPitch();
+    visionTarget = cam.getLatestResult().getBestTarget();
+    visionMeasurement = visionTarget.getPitch();
     visionSetpoint = 0;
-    newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
-    driveSubsystem.drive(newSpeeds);
+    if(visionTarget != null){
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
+    }
+    else{
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, Constants.subsystems.shooter.defaultTurnSpeed);
+    }
+     driveSubsystem.drive(newSpeeds);
   }
 
   // Called once the command ends or is interrupted.
