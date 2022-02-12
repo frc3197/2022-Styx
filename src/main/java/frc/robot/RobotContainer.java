@@ -45,13 +45,13 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  /*
+  
   private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
   private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-*/
+
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
 
@@ -95,7 +95,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     new Button(m_controller1::getAButton).whenHeld(new ShooterXAlign(m_driveSubsystem));
-    /*
+    
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
@@ -112,7 +112,7 @@ public class RobotContainer {
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
-    */
+    
   }
 
   /**
@@ -169,7 +169,7 @@ public class RobotContainer {
   public static DriveSubsystem getDriveSubsystem() {
     return m_driveSubsystem;
   }
-/*
+
   public static ClimberSubsystem getClimberSubsystem() {
     return m_climberSubsystem;
   }
@@ -189,7 +189,7 @@ public class RobotContainer {
   public static ShooterSubsystem getShooterSubsystem() {
     return m_shooterSubsystem;
   }
-*/
+
   public void publishPosition() {
     Logger.updateEntries();
   }

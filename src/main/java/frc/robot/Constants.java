@@ -13,7 +13,6 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.DutyCycle;
 import frc.robot.other.PIDConst;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -32,8 +31,8 @@ public final class Constants {
 
     public static final class dimensions {
         //TODO: Test maybe flip
-        public static final double TRACKWIDTH = Units.inchesToMeters(25);
-        public static final double WHEELBASE = Units.inchesToMeters(23.75);
+        public static final double TRACKWIDTH = Units.inchesToMeters(30);
+        public static final double WHEELBASE = Units.inchesToMeters(25);
         //NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
@@ -66,28 +65,28 @@ public final class Constants {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(194.238);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(134.209);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(335.127);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
                 }
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(87.803);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
                 }
             }
 
@@ -103,7 +102,7 @@ public final class Constants {
             public static final double kP = 0;
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 12;
+            public static final double shooterMaxVoltage = 0;
 
             public static final double kS = 0;
             public static final double kV = 0;
@@ -153,7 +152,8 @@ public final class Constants {
             public static final int hoodEncoderID = 0;
             // inches
             public static final int LLHeight = 36;
-            public static final int HubHeight = 0;
+            //TODO: METERS
+            public static final double HubHeight = 2.64;
             public static final double LLAng = 0;
         }
 
