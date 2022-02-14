@@ -154,7 +154,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * robot is currently facing to the 'forwards' direction.
          */
         public void zeroGyroscope() {
-                m_pigeon.setYaw(0);
+                m_pigeon.setFusedHeading(0);
         }
 
         
@@ -170,7 +170,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return new Rotation2d(m_pigeon.getYaw());
+                return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
         }
 
         
