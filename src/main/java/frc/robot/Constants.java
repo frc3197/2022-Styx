@@ -31,8 +31,8 @@ public final class Constants {
 
     public static final class dimensions {
         //TODO: Test maybe flip
-        public static final double TRACKWIDTH = Units.inchesToMeters(30);
-        public static final double WHEELBASE = Units.inchesToMeters(25);
+        public static final double TRACKWIDTH = Units.inchesToMeters(23.75);
+        public static final double WHEELBASE = Units.inchesToMeters(19);
         //NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
@@ -61,32 +61,33 @@ public final class Constants {
             public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
             public static final class modInfo {
+                
                 public static final class flMod {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.945);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(205.049);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.750);
                 }
-
+                    // MOD 1 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(0);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(232.734);
                 }
             }
 
