@@ -21,7 +21,7 @@ public class IntakeAlign extends CommandBase {
   ChassisSpeeds curSpeeds, newSpeeds;
   double visionSetpoint, visionMeasurement;
   PhotonTrackedTarget visionTarget;
-  PhotonCamera cam = new PhotonCamera(Constants.subsystems.intake.camName);
+  PhotonCamera cam = new PhotonCamera("IntakeCam");
   /** Creates a new IntakeAlign. */
   public IntakeAlign(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
