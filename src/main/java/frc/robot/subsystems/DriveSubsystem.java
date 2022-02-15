@@ -90,7 +90,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
-        static PhotonCamera cam = new PhotonCamera("IntakeCam");
+        static PhotonCamera cam = new PhotonCamera("intakeCam");
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
                         new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
