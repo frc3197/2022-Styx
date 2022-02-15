@@ -20,11 +20,10 @@ public class IntakeAlign extends CommandBase {
   PIDConst xPID_Constants;
   ChassisSpeeds curSpeeds, newSpeeds;
   double visionSetpoint, visionMeasurement;
-  PhotonCamera cam;
   /** Creates a new IntakeAlign. */
   public IntakeAlign(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
-    cam = driveSubsystem.getCam();
+    
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
   
@@ -40,9 +39,9 @@ public class IntakeAlign extends CommandBase {
   @Override
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
-    visionMeasurement = cam.getLatestResult().getBestTarget().getYaw();
+    visionMeasurement = driveSubsystem.getCamYaw();
     visionSetpoint = 0;
-    if(cam.getLatestResult().hasTargets()){
+    if(DriveSubsystem.getCam().getLatestResult().hasTargets()){
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{

@@ -90,7 +90,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
-        private PhotonCamera cam = new PhotonCamera("IntakeCam");
+        static PhotonCamera cam = new PhotonCamera("IntakeCam");
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
                         new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
@@ -174,8 +174,16 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 return m_navx.getRotation2d();
         }
 
-        public PhotonCamera getCam(){return cam;}
+        public static PhotonCamera getCam(){return cam;}
         
+  public double getCamYaw(){
+        var result = cam.getLatestResult();
+        double output = 0;
+        if(result.hasTargets()){
+          output = result.getBestTarget().getYaw();
+        }
+        return output;
+      }
 
         /**
          * Sets the gyroscope angle to zero. This can be used to set the direction the
