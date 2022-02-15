@@ -15,6 +15,7 @@ import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
+import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_2B_1;
@@ -102,9 +103,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-/*
-    new Button(m_controller1::getAButton).whenHeld(new ShooterXAlign(m_driveSubsystem));
-    
+    //new Button(m_controller1::getAButton).whenPressed(new ResetGyro(m_driveSubsystem));
+
+    new Button(m_controller1::getAButton).whenHeld(new IntakeAlign(m_driveSubsystem));
+    /*
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
@@ -139,7 +141,6 @@ public class RobotContainer {
   }
 
   public void recalibrateGyroscope() {
-    m_driveSubsystem.getGyroscopeObj().zeroGyroBiasNow();
     m_driveSubsystem.zeroGyroscope();
   }
 

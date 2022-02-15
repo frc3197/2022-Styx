@@ -8,12 +8,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import org.photonvision.PhotonCamera;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
   private WPI_TalonFX intakeMotor;
+  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     armMotor = new CANSparkMax(Constants.subsystems.intake.armMotorID, MotorType.kBrushless);
@@ -28,4 +31,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void useArm(double val){armMotor.set(val);}
   public void useIntake(double val){intakeMotor.set(val);}
+  
 }

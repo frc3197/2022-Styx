@@ -44,7 +44,7 @@ public class DriveCommand extends CommandBase implements Loggable {
     @Override
     public void execute() {
         brakeMode = DriveSubsystem.getBrakeMode();
-        fieldRelative = false;
+        fieldRelative = true;
         // Stored in a new object for Oblog functionality
         inputX = m_translationXSupplier.getAsDouble();
         inputY = m_translationYSupplier.getAsDouble();
