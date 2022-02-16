@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+<<<<<<< Updated upstream
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+=======
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -14,12 +17,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
-import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.General.Shoot;
+<<<<<<< Updated upstream
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
 import frc.robot.commands.Actions.Movement.MoveToPosition;
 import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
+=======
+>>>>>>> Stashed changes
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_2B_1;
@@ -107,6 +112,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+<<<<<<< Updated upstream
     //new Button(m_controller1::getAButton).whenPressed(new ResetGyro(m_driveSubsystem));
 
     new Button(m_controller1::getAButton).whenHeld(new IntakeAlign(m_driveSubsystem));
@@ -115,6 +121,8 @@ public class RobotContainer {
     new Button(m_controller1::getBButton).whenPressed(new RunBasicTrajectory(m_driveSubsystem, "New Path"));
 
     /*
+=======
+>>>>>>> Stashed changes
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));

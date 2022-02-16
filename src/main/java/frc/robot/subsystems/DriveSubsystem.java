@@ -8,9 +8,12 @@ import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
+<<<<<<< Updated upstream
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.SerialPort.Port;
+=======
+>>>>>>> Stashed changes
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
