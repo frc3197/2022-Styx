@@ -17,6 +17,7 @@ import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.Movement.MoveToPosition;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
+import frc.robot.commands.Groups.Auto_1B;
 import frc.robot.commands.Groups.Auto_2B_1;
 import frc.robot.commands.Groups.Auto_2B_2;
 import frc.robot.commands.Groups.Auto_2B_3;
@@ -78,6 +79,7 @@ public class RobotContainer {
     m_chooser.addOption("2Ball1", new Auto_2B_1());
     m_chooser.addOption("2Ball2", new Auto_2B_2());
     m_chooser.addOption("2Ball3", new Auto_2B_3());
+    m_chooser.addOption("1Ball", new Auto_1B());
 
     SmartDashboard.putData(m_chooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
