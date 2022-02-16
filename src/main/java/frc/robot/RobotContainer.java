@@ -4,12 +4,8 @@
 
 package frc.robot;
 
-<<<<<<< Updated upstream
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
-=======
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -17,24 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
-import frc.robot.commands.Actions.General.Shoot;
-<<<<<<< Updated upstream
-import frc.robot.commands.Actions.Movement.DriveForwardDistance;
+import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.Movement.MoveToPosition;
-import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
-=======
->>>>>>> Stashed changes
 import frc.robot.commands.Continuous.DriveCommand;
-import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_2B_1;
 import frc.robot.commands.Groups.Auto_2B_2;
 import frc.robot.commands.Groups.Auto_2B_3;
-import frc.robot.commands.Groups.ClimbSequence;
-import frc.robot.commands.Groups.IntakeSequence;
-import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.commands.Toggles.Defend;
-import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.FilteredController;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -57,11 +42,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   
-  //private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-  //private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
-  //private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  //private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
-  //private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
+  private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
+  private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
@@ -112,7 +97,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-<<<<<<< Updated upstream
     //new Button(m_controller1::getAButton).whenPressed(new ResetGyro(m_driveSubsystem));
 
     new Button(m_controller1::getAButton).whenHeld(new IntakeAlign(m_driveSubsystem));
@@ -121,8 +105,6 @@ public class RobotContainer {
     new Button(m_controller1::getBButton).whenPressed(new RunBasicTrajectory(m_driveSubsystem, "New Path"));
 
     /*
-=======
->>>>>>> Stashed changes
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
@@ -194,7 +176,7 @@ public class RobotContainer {
   public static DriveSubsystem getDriveSubsystem() {
     return m_driveSubsystem;
   }
-/*
+
   public static ClimberSubsystem getClimberSubsystem() {
     return m_climberSubsystem;
   }
@@ -214,7 +196,7 @@ public class RobotContainer {
   public static ShooterSubsystem getShooterSubsystem() {
     return m_shooterSubsystem;
   }
-*/
+
   public void publishPosition() {
     Logger.updateEntries();
   }

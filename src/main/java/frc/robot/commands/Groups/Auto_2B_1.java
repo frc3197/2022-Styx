@@ -30,7 +30,7 @@ public class Auto_2B_1 extends AutoRoutine {
     addCommands(
       // TODO: Test and find distance/rpm
 
-     new SequentialCommandGroup(new SetNewOdometry(super.getDriveSubsystem(), new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))), new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), 0), new SequentialCommandGroup(new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem),new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()), new RunBasicTrajectory(super.getDriveSubsystem(),, "2 ball #1")), new ShooterAlignSequence(super.getDriveSubsystem(),super.getHoodSubsystem()), new Shoot(super.getLifterSubsystem()))))
-      );
+     new SequentialCommandGroup(new SetNewOdometry(super.getDriveSubsystem(), new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))), new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), 0), new SequentialCommandGroup(new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem()),new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()), new RunBasicTrajectory(super.getDriveSubsystem(), "2 ball #1")), new ShooterAlignSequence(super.getDriveSubsystem(),super.getHoodSubsystem()), new Shoot(super.getLifterSubsystem()))))
+      ));
   }
 }
