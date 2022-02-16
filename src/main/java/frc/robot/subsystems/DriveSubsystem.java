@@ -179,32 +179,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         }
         return output;
       }
-
-        /**
-         * Sets the gyroscope angle to zero. This can be used to set the direction the
-         * robot is currently facing to the 'forwards' direction.
-         */
-        /*
-        public void zeroGyroscope() {
-                m_pigeon.setYaw(0);
-                //TODO: URGENT! TEST WHICH FUNCTION ZEROES THE HEADING!
-        }
-
         
-        public Pigeon2 getGyroscopeObj() {
-                return m_pigeon;
-        }
-
-        
-    
-        public Rotation2d getGyroscopeRotation() {
-                return new Rotation2d(m_pigeon.getYaw() % 360);
-        }
-        
-        public void normalizeGyro(){
-                if(m_pigeon.getYaw() < 0){m_pigeon.setYaw(360);}
-        }
-        */
         /** 
          * @param chassisSpeeds
          */
