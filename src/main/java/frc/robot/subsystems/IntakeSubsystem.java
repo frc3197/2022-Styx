@@ -14,6 +14,7 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
   private WPI_TalonFX intakeMotor;
+  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     armMotor = new CANSparkMax(Constants.subsystems.intake.armMotorID, MotorType.kBrushless);
@@ -28,4 +29,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void useArm(double val){armMotor.set(val);}
   public void useIntake(double val){intakeMotor.set(val);}
+  
 }

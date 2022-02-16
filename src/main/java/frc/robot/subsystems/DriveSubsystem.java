@@ -4,10 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.Pigeon2;
+import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
-import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
+
+import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
@@ -76,9 +77,9 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // The important thing about how you configure your gyroscope is that rotating
         // the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
-        private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
-
+       // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
+        private AHRS m_navx = new AHRS(Port.kUSB);
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
@@ -86,14 +87,13 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
+        static PhotonCamera cam = new PhotonCamera("intakeCam");
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
                         new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
                         Constants.auto.follower.ROT_PID_CONTROLLER);
-
-        public static Translation2d m_CCR = new Translation2d();
         @Log
         private static boolean brakeMode = Constants.subsystems.swerve.brakeModeOn;
         @Log
@@ -105,6 +105,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 Constants.auto.follower.Y_PID_CONTROLLER.setTolerance(.02);
                 Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(.02);
                 follower.setTolerance(new Pose2d(.1, .1, new Rotation2d(Math.toRadians(5))));
+                zeroGyroscope();
 
                 m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
                                 // This parameter is optional, but will allow you to see the current state of
@@ -148,21 +149,16 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
         }
-
-        /**
-         * Sets the gyroscope angle to zero. This can be used to set the direction the
-         * robot is currently facing to the 'forwards' direction.
-         */
         public void zeroGyroscope() {
-                m_pigeon.setFusedHeading(0);
+                m_navx.zeroYaw();
         }
 
         
         /** 
          * @return AHRS
          */
-        public Pigeon2 getGyroscopeObj() {
-                return m_pigeon;
+        public AHRS getGyroscopeObj() {
+                return m_navx;
         }
 
         
@@ -170,9 +166,19 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return Rotation2d.fromDegrees(m_pigeon.getFusedHeading());
+                return m_navx.getRotation2d();
         }
 
+        public static PhotonCamera getCam(){return cam;}
+        
+  public double getCamYaw(){
+        var result = cam.getLatestResult();
+        double output = 0;
+        if(result.hasTargets()){
+          output = result.getBestTarget().getYaw();
+        }
+        return output;
+      }
         
         /** 
          * @param chassisSpeeds
@@ -183,16 +189,16 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         @Override
         public void periodic() {
-                SmartDashboard.putNumber("New CCR X",m_CCR.getX());
-                SmartDashboard.putNumber("New CCR Y",m_CCR.getY());
                 SmartDashboard.putNumber("GyroOutputRaw", getGyroscopeRotation().getDegrees());
                 SmartDashboard.putNumber("GyroOutputAuto", -getGyroscopeRotation().getDegrees()); // Left/CCW should
                                                                                                   // increase the gyro
                 
-                SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds, m_CCR);
+                SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
-                
                 updateOdometry(states);
+                SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
+                SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
+                SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
                 setAllStates(states);
                
                 
