@@ -4,16 +4,13 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
-import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -97,8 +94,6 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
                         Constants.auto.follower.ROT_PID_CONTROLLER);
-
-        public static Translation2d m_CCR = new Translation2d();
         @Log
         private static boolean brakeMode = Constants.subsystems.swerve.brakeModeOn;
         @Log
@@ -219,15 +214,16 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         @Override
         public void periodic() {
-                SmartDashboard.putNumber("New CCR X",m_CCR.getX());
-                SmartDashboard.putNumber("New CCR Y",m_CCR.getY());
                 SmartDashboard.putNumber("GyroOutputRaw", getGyroscopeRotation().getDegrees());
                 SmartDashboard.putNumber("GyroOutputAuto", -getGyroscopeRotation().getDegrees()); // Left/CCW should
                                                                                                   // increase the gyro
                 
-                SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds, m_CCR);
+                SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
                 updateOdometry(states);
+                SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
+                SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
+                SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
                 setAllStates(states);
                
                 

@@ -30,7 +30,7 @@ import io.github.oblarg.oblog.annotations.Log;
 public final class Constants {
 
     public static final class dimensions {
-        //TODO: Test maybe flip
+        
         public static final double TRACKWIDTH = Units.inchesToMeters(23.75);
         public static final double WHEELBASE = Units.inchesToMeters(19);
         //NOTE : REAL VALUES ARE 24.25 and 19.25
@@ -56,7 +56,7 @@ public final class Constants {
             public static final boolean brakeModeOn = false;
             //TODO: TUNE
 
-            public static final PIDConst xALIGN_PID = new PIDConst(.225, 0, 0.0);
+            public static final PIDConst xALIGN_PID = new PIDConst(.17, 0, 0.003);
 
             public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
@@ -184,7 +184,7 @@ public final class Constants {
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(.13, 0, .39,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5     
-            public static final double LINEAR_VELOCITY_DEFAULT = 1;
+            public static final double LINEAR_VELOCITY_DEFAULT = 2;
             // MUST SET KINEMATICS, see documentation
             public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(LINEAR_VELOCITY_DEFAULT,
                     subsystems.swerve.MAX_ANG_VEL_RAD);

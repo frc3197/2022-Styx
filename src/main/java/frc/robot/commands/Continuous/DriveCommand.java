@@ -48,7 +48,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         // Stored in a new object for Oblog functionality
         inputX = m_translationXSupplier.getAsDouble();
         inputY = m_translationYSupplier.getAsDouble();
-        inputRot = m_rotationSupplier.getAsDouble();
+        inputRot = -m_rotationSupplier.getAsDouble();
 
         if (!brakeMode) {
             RobotDriveTrainState = "Brake Mode Off";

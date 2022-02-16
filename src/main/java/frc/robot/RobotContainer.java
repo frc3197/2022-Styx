@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,7 +17,9 @@ import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.DriveForwardDistance;
+import frc.robot.commands.Actions.Movement.MoveToPosition;
 import frc.robot.commands.Actions.Movement.ResetGyro;
+import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_2B_1;
@@ -62,9 +66,9 @@ public class RobotContainer {
   private static SendableChooser m_chooser;
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
-      () -> -modifyAxis(filteredController1.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getYLeft(.2)) * -DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
-      () -> -modifyAxis(filteredController1.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getXLeft(.2)) * -DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
       () -> -modifyAxis(filteredController1.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
           * Constants.outputs.turnRate);
@@ -106,6 +110,10 @@ public class RobotContainer {
     //new Button(m_controller1::getAButton).whenPressed(new ResetGyro(m_driveSubsystem));
 
     new Button(m_controller1::getAButton).whenHeld(new IntakeAlign(m_driveSubsystem));
+    new Button(m_controller1::getXButton).whenHeld(new ShooterXAlign(m_driveSubsystem));
+    new Button(m_controller1::getYButton).whenPressed(new MoveToPosition(m_driveSubsystem, new Pose2d(1, 0, new Rotation2d())));
+    new Button(m_controller1::getBButton).whenPressed(new RunBasicTrajectory(m_driveSubsystem, "New Path"));
+
     /*
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
