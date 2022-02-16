@@ -54,7 +54,10 @@ public class RobotContainer {
 
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
-  private static SendableChooser m_chooser;
+  private static SendableChooser m_autoChooser;
+  private static SendableChooser m_allianceChooser;
+
+
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
       () -> -modifyAxis(filteredController1.getYLeft(.2)) * -DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
@@ -74,14 +77,21 @@ public class RobotContainer {
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
-    m_chooser = new SendableChooser<>();
-    m_chooser.setDefaultOption("Nothing", null);
-    m_chooser.addOption("2Ball1", new Auto_2B_1());
-    m_chooser.addOption("2Ball2", new Auto_2B_2());
-    m_chooser.addOption("2Ball3", new Auto_2B_3());
-    m_chooser.addOption("1Ball", new Auto_1B());
+    m_autoChooser = new SendableChooser<>();
+    m_autoChooser.setDefaultOption("Nothing", null);
+    m_autoChooser.addOption("2Ball1", new Auto_2B_1());
+    m_autoChooser.addOption("2Ball2", new Auto_2B_2());
+    m_autoChooser.addOption("2Ball3", new Auto_2B_3());
+    m_autoChooser.addOption("1Ball", new Auto_1B());
 
-    SmartDashboard.putData(m_chooser);
+    
+    m_allianceChooser = new SendableChooser<>();
+    m_allianceChooser.setDefaultOption("Nothing", null);
+    m_allianceChooser.addOption("Red", "Red");
+    m_allianceChooser.addOption("Blue", "Blue");
+    
+    SmartDashboard.putData(m_allianceChooser);
+    SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     Logger.configureLoggingAndConfig(this, false);
     Logger.setCycleWarningsEnabled(false);
@@ -133,7 +143,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (Command) m_chooser.getSelected();
+    return (Command) m_autoChooser.getSelected();
   }
 
   public void resetOdometry() {
@@ -142,6 +152,10 @@ public class RobotContainer {
 
   public void recalibrateGyroscope() {
     m_driveSubsystem.zeroGyroscope();
+  }
+
+  public static SendableChooser getAllianceChooser(){
+    return m_allianceChooser;
   }
 
   /**

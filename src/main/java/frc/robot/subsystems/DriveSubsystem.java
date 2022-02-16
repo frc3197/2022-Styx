@@ -4,12 +4,18 @@
 
 package frc.robot.subsystems;
 
+import java.sql.Driver;
+
+import javax.xml.namespace.QName;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import org.photonvision.PhotonCamera;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,6 +31,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
@@ -35,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * <p>
          * This can be reduced to cap the robot's maximum speed. Typically, this is
          * useful during initial testing of the robot.
- */
+         */
         public static final double MAX_VOLTAGE = Constants.subsystems.swerve.MAX_VOLTAGE;
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
@@ -50,7 +57,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * <p>
          * This is a measure of how fast the robot should be able to drive in a straight
          * line.
- */
+         */
         public static final double MAX_VELOCITY_METERS_PER_SECOND = Constants.subsystems.swerve.MAX_VEL_METERS;
         /**
          * The maximum angular velocity of the robot in radians per second.
@@ -58,7 +65,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          * This is a measure of how fast the robot can rotate in place.
          */
         // Here we calculate the theoretical maximum angular velocity. You can also
-// replace this with a measured amount.
+        // replace this with a measured amount.
         public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = Constants.subsystems.swerve.MAX_ANG_VEL_RAD;
 
         private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
@@ -77,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // The important thing about how you configure your gyroscope is that rotating
         // the robot counter-clockwise should
         // cause the angle reading to increase until it wraps back over to zero.
-       // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
+        // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
         private AHRS m_navx = new AHRS(Port.kUSB);
         private final SwerveModule m_frontLeftModule;
@@ -88,6 +95,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         static PhotonCamera cam = new PhotonCamera("intakeCam");
+
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
                         new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
@@ -98,7 +106,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         private static boolean brakeMode = Constants.subsystems.swerve.brakeModeOn;
         @Log
         private static boolean fieldRelative = Constants.subsystems.swerve.feildRelativeOn;
-        
+
         public DriveSubsystem() {
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
                 Constants.auto.follower.X_PID_CONTROLLER.setTolerance(.02);
@@ -128,7 +136,8 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(2,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_OFFSET);
@@ -136,7 +145,8 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(4,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_OFFSET);
@@ -144,43 +154,76 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(6,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST, Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
+                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
+                // TODO: Verify indexes for pipelines
+
+                cam.setPipelineIndex(0);
+
         }
+
         public void zeroGyroscope() {
                 m_navx.zeroYaw();
         }
 
-        
-        /** 
+        /**
          * @return AHRS
          */
         public AHRS getGyroscopeObj() {
                 return m_navx;
         }
 
-        
-        /** 
+        /**
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
                 return m_navx.getRotation2d();
         }
 
-        public static PhotonCamera getCam(){return cam;}
-        
-  public double getCamYaw(){
-        var result = cam.getLatestResult();
-        double output = 0;
-        if(result.hasTargets()){
-          output = result.getBestTarget().getYaw();
+        public static PhotonCamera getCam() {
+                return cam;
         }
-        return output;
-      }
-        
-        /** 
+
+        public static void setAlliancePipeline() {
+                if (DriverStation.isFMSAttached()) {
+                        switch (DriverStation.getAlliance().toString()) {
+                                case "Blue":
+                                        cam.setPipelineIndex(0);
+                                        break;
+                                case "Red":
+                                        cam.setPipelineIndex(1);
+                                        break;
+                        }
+                }
+                else if(RobotContainer.getAllianceChooser().getSelected() != null){
+                        switch (RobotContainer.getAllianceChooser().getSelected().toString()) {
+                                case "Blue":
+                                        cam.setPipelineIndex(0);
+                                        break;
+                                case "Red":
+                                        cam.setPipelineIndex(1);
+                                        break;
+                        }
+                }
+                else{
+                        cam.setPipelineIndex(0);
+                }
+
+        }
+
+        public double getCamYaw() {
+                var result = cam.getLatestResult();
+                double output = 0;
+                if (result.hasTargets()) {
+                        output = result.getBestTarget().getYaw();
+                }
+                return output;
+        }
+
+        /**
          * @param chassisSpeeds
          */
         public void drive(ChassisSpeeds chassisSpeeds) {
@@ -192,7 +235,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 SmartDashboard.putNumber("GyroOutputRaw", getGyroscopeRotation().getDegrees());
                 SmartDashboard.putNumber("GyroOutputAuto", -getGyroscopeRotation().getDegrees()); // Left/CCW should
                                                                                                   // increase the gyro
-                
+
                 SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
                 updateOdometry(states);
@@ -200,13 +243,10 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
                 setAllStates(states);
-               
-                
 
         }
 
-        
-        /** 
+        /**
          * @param states
          */
         public void updateOdometry(SwerveModuleState[] states) {
@@ -214,41 +254,42 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 states[2], states[3]);
         }
 
-        
-        /** 
+        /**
          * @return Pose2d
          */
         public Pose2d getPose2d() {
                 return m_odometry.getPoseMeters();
         }
-        public void setPose2d(Pose2d newPose){
+
+        public void setPose2d(Pose2d newPose) {
                 m_odometry.resetPosition(newPose, newPose.getRotation());
         }
-        /** 
+
+        /**
          * @param states
          */
-        public void setAllStates(SwerveModuleState[] states){
+        public void setAllStates(SwerveModuleState[] states) {
                 m_frontLeftModule.set(-states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                states[0].angle.getRadians());
-m_frontRightModule.set(-states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                states[1].angle.getRadians());
-m_backLeftModule.set(-states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                states[2].angle.getRadians());
-m_backRightModule.set(-states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
-                states[3].angle.getRadians());
+                                states[0].angle.getRadians());
+                m_frontRightModule.set(-states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+                                states[1].angle.getRadians());
+                m_backLeftModule.set(-states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+                                states[2].angle.getRadians());
+                m_backRightModule.set(-states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
+                                states[3].angle.getRadians());
                 updateOdometry(states);
-                
+
         }
-        public void resetOdometry(){
+
+        public void resetOdometry() {
                 // THIS MUST BE CALLED AFTER GYRO RESET
                 m_odometry.resetPosition(Constants.auto.startingPos.DEFAULT_POS, getGyroscopeRotation());
         }
 
-        
-        /** 
+        /**
          * @param resetPos
          */
-        public void resetOdometry(Pose2d resetPos){
+        public void resetOdometry(Pose2d resetPos) {
                 m_odometry.resetPosition(resetPos, getGyroscopeRotation());
         }
 
@@ -261,8 +302,7 @@ m_backRightModule.set(-states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_
                 m_backRightModule.set(0, Math.toRadians(45));
         }
 
-        
-        /** 
+        /**
          * @param goalPose
          * @param linearVelocity
          */
@@ -270,73 +310,73 @@ m_backRightModule.set(-states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_
 
                 // Calculate the velocities for the chassis
                 ChassisSpeeds adjustedVelocities = follower.calculate(getPose2d(), goalPose, linearVelocity,
-                        goalPose.getRotation());
+                                goalPose.getRotation());
 
-                //SwerveModuleState[] moduleStates = m_kinematics.toSwerveModuleStates(adjustedVelocities);
+                // SwerveModuleState[] moduleStates =
+                // m_kinematics.toSwerveModuleStates(adjustedVelocities);
                 drive(adjustedVelocities);
         }
-        
-        /** 
+
+        /**
          * @param goalPose
          */
         public void trajectoryFollow(Pose2d goalPose) {
 
                 // Calculate the velocities for the chassis
-                ChassisSpeeds adjustedVelocities = follower.calculate(getPose2d(), goalPose, Constants.auto.follower.LINEAR_VELOCITY_DEFAULT,
-                goalPose.getRotation());
+                ChassisSpeeds adjustedVelocities = follower.calculate(getPose2d(), goalPose,
+                                Constants.auto.follower.LINEAR_VELOCITY_DEFAULT,
+                                goalPose.getRotation());
 
-                //SwerveModuleState[] moduleStates = m_kinematics.toSwerveModuleStates(adjustedVelocities);
+                // SwerveModuleState[] moduleStates =
+                // m_kinematics.toSwerveModuleStates(adjustedVelocities);
                 drive(adjustedVelocities);
         }
 
-        
-        /** 
+        /**
          * @return boolean
          */
         public boolean finishedMovement() {
                 return follower.atReference();
         }
 
-	
-        /** 
+        /**
          * @return SwerveDriveKinematics
          */
         public SwerveDriveKinematics getKinematics() {
-			return m_kinematics;
-	}
+                return m_kinematics;
+        }
 
-	
-        /** 
+        /**
          * @return boolean
          */
         public static boolean getFieldRelative() {
-		return fieldRelative;
-	}
-        public ChassisSpeeds getChassisSpeeds(){
+                return fieldRelative;
+        }
+
+        public ChassisSpeeds getChassisSpeeds() {
                 return m_chassisSpeeds;
         }
 
-	
-        /** 
+        /**
          * @return boolean
          */
         public static boolean getBrakeMode() {
-		return brakeMode;
+                return brakeMode;
         }
-        
+
         @Config
-        /** 
+        /**
          * @param x
          */
-        public static void setFieldRelative(boolean x){
+        public static void setFieldRelative(boolean x) {
                 fieldRelative = x;
         }
 
         @Config
-        /** 
+        /**
          * @param x
          */
-        public static void setBrakeMode(boolean x){
+        public static void setBrakeMode(boolean x) {
                 brakeMode = x;
         }
 }
