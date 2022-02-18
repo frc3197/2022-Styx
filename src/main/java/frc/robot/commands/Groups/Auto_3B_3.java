@@ -7,8 +7,6 @@ package frc.robot.commands.Groups;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
@@ -21,7 +19,6 @@ import frc.robot.other.SetNewOdometry;
 public class Auto_3B_3 extends AutoRoutine {
   public Auto_3B_3() {
     addCommands(
-      
         new SequentialCommandGroup(
           new SetNewOdometry(super.getDriveSubsystem(),
             new Pose2d(300.00, 80.71, new Rotation2d(Units.degreesToRadians(88.24)))),
