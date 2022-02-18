@@ -26,10 +26,13 @@ public class Auto_3B_3 extends AutoRoutine {
           new SetNewOdometry(super.getDriveSubsystem(),
             new Pose2d(300.00, 80.71, new Rotation2d(Units.degreesToRadians(88.24)))),
             new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem()),
-              new RunBasicTrajectory(super.getDriveSubsystem(), "3 ball #1.1"))
-            new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem())
+              new RunBasicTrajectory(super.getDriveSubsystem(), "3 ball #1.1")),
+            new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem()),
+            new ShootSequence(super.getShooterSubsystem(), super.getLifterSubsystem()),
+            new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem()),
+              new RunBasicTrajectory(super.getDriveSubsystem(), "3 ball #1.2")),
+            new ShootSequence(super.getShooterSubsystem(), super.getLifterSubsystem())
         )
-      )
     );
   }
 }
