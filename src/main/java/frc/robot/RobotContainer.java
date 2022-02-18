@@ -52,6 +52,7 @@ public class RobotContainer {
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
 
+  
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
   private static SendableChooser m_autoChooser;
