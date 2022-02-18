@@ -129,9 +129,12 @@ public final class Constants {
             public static final int armMotorRightID = 11;
             public static final double spoolSpeed = 0;
             public static final int armEncoderLeftID = 30;
-            public static final int fLimitID = 0;
-            public static final int bLimitID = 0;
-            public static final int armVoltage = 0;
+            public static final int armSpeed = 0;
+            
+            public static final int FL_LimitID = 0;
+            public static final int FR_LimitID = 0;
+            public static final int BR_LimitID = 0;
+            public static final int BL_LimitID = 0;
         }
         public static final class lifter{
 
