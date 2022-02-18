@@ -7,7 +7,6 @@ package frc.robot.commands.Actions.General;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.climber;
 import frc.robot.other.PIDConst;
 import frc.robot.subsystems.ClimberSubsystem;
 

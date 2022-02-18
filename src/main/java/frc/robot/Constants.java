@@ -27,7 +27,7 @@ import io.github.oblarg.oblog.annotations.Log;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public final class Constants implements Loggable{
 
     public static final class dimensions {
         
