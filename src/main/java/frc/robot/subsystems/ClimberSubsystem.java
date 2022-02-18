@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -18,6 +19,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private WPI_TalonFX armMotorLeft, armMotorRight;
   private DigitalInput AFL_Limit, AFR_Limit, ABL_Limit, ABR_Limit;
   private SparkMaxLimitSwitch SUL_Limit, SUR_Limit, SLL_Limit, SLR_Limit;
+  private SparkMaxRelativeEncoder armEncoderLeft,armEncoderRight;
 
   // TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
@@ -28,6 +30,9 @@ public class ClimberSubsystem extends SubsystemBase {
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
+
+    armEncoderLeft = (SparkMaxRelativeEncoder) spoolMotorLeft.getEncoder();
+    armEncoderRight = (SparkMaxRelativeEncoder) spoolMotorRight.getEncoder();
 
     AFL_Limit = new DigitalInput(Constants.subsystems.climber.FL_LimitID);
     AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
@@ -106,7 +111,12 @@ public class ClimberSubsystem extends SubsystemBase {
   public boolean getSU_Limits(){
     return getSUL_Limit() && getSUR_Limit();
   }
-
+  public double getArmEncoderValueLeft(){
+    return armEncoderLeft.getPosition();
+  }
+  public double getArmEncoderValueRight(){
+    return armEncoderRight.getPosition();
+  }
   public void setArmVoltage(double val) {
     armMotorLeft.setVoltage(val);
   }

@@ -135,6 +135,11 @@ public final class Constants {
             public static final int FR_LimitID = 0;
             public static final int BR_LimitID = 0;
             public static final int BL_LimitID = 0;
+
+            public static final double armMaxVoltage = 6;
+            public static final double armRotationTolerance = 0;
+            public static final PIDConst climberArmCost = new PIDConst(0, 0, 0);
+            //TODO: TUNE
         }
         public static final class lifter{
 

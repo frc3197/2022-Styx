@@ -56,8 +56,7 @@ public class RobotContainer {
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
   private static SendableChooser m_autoChooser;
-  private static SendableChooser m_allianceChooser; //Does this matter since all of the autos are relitive (I guess it could matter for the ball detection if we use align intake?)
-
+  private static SendableChooser m_allianceChooser; 
 
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,

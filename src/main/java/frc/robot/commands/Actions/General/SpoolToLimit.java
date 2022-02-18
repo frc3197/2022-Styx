@@ -31,10 +31,10 @@ public class SpoolToLimit extends CommandBase {
     spoolLimitsBack = climberSubsystem.getSL_Limits();
     spoolLimitsForward = climberSubsystem.getSU_Limits();
 
-    if (!spoolLimitsForward && direction.equals("Forward")) {
+    if (!spoolLimitsForward && direction.equals("Up")) {
       climberSubsystem.setSpoolSpeed(Constants.subsystems.climber.armSpeed);
     }
-    if (!spoolLimitsBack && direction.equals("Backward")) {
+    if (!spoolLimitsBack && direction.equals("Down")) {
       climberSubsystem.setSpoolSpeed(-Constants.subsystems.climber.armSpeed);
     }
   }
@@ -48,9 +48,9 @@ public class SpoolToLimit extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (direction.equals("Forward") && spoolLimitsForward) {
+    if (direction.equals("Up") && spoolLimitsForward) {
       return true;
-    } else if (direction.equals("Backward") && spoolLimitsBack) {
+    } else if (direction.equals("Down") && spoolLimitsBack) {
       return true;
     } else {
       return false;
