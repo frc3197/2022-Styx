@@ -27,14 +27,14 @@ public class AutoRoutine extends SequentialCommandGroup {
     public AutoRoutine(Command... commands){
         addCommands(commands);
         //TODO: Check if needed / move to before addCommands(); 
-        /*
+        
         addRequirements(m_driveSubsystem);
         addRequirements(m_climberSubsystem);
         addRequirements(m_hoodSubsystem);
         addRequirements(m_intakeSubsystem);
         addRequirements(m_lifterSubsystem);
         addRequirements(m_shooterSubsystem); 
-        */
+        
     }
 
 
