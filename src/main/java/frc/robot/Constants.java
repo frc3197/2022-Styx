@@ -14,6 +14,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import frc.robot.other.PIDConst;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
 /**
@@ -29,9 +30,10 @@ import io.github.oblarg.oblog.annotations.Log;
 public final class Constants {
 
     public static final class dimensions {
+        
         public static final double TRACKWIDTH = Units.inchesToMeters(23.75);
         public static final double WHEELBASE = Units.inchesToMeters(19);
-        // NOTE : REAL VALUES ARE 24.25 and 19.25
+        //NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
     public static final class subsystems {
@@ -52,13 +54,14 @@ public final class Constants {
             public static final double MAX_ANG_ACCEL = 8 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
-            // TODO: TUNE
+            //TODO: TUNE
 
-            public static final PIDConst xALIGN_PID = new PIDConst(.225, 0, 0.0);
+            public static final PIDConst xALIGN_PID = new PIDConst(.17, 0, 0.003);
 
             public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
 
             public static final class modInfo {
+                
                 public static final class flMod {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
@@ -70,28 +73,32 @@ public final class Constants {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(205.049);                }
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(205.049);
+                }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.750);                }
-
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.750);
+                }
+                    // MOD 1 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(232.734);                }
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(232.734);
+                }
             }
 
         }
 
         public static final class shooter {
-            public static final int shooterMotorID = 30;
+            public static final int shooterMotorID = 12;
             public static final int shooterEncoderID = 30;
 
-            public static final double shooterWheelDiamInches = 0;
+
+			public static final double shooterWheelDiamInches = 0;
 
             public static final double kP = 0;
             public static final double kI = 0;
@@ -105,10 +112,9 @@ public final class Constants {
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
-
         public static final class intake {
 
-            public static final int intakeMotorID = 30;
+            public static final int intakeMotorID = 9;
             public static final double intakeSpeed = 0;
             public static final NetworkTable camName = null;
             public static int armMotorID = 30;
@@ -116,44 +122,40 @@ public final class Constants {
             public static double armSpeed = 0;
             public static int armUpperLimitID;
         }
-
         public static final class climber {
             public static final int spoolMotorLeftID = 30;
             public static final int spoolMotorRightID = 30;
-            public static final int armMotorLeftID = 30;
-            public static final int armMotorRightID = 30;
+            public static final int armMotorLeftID = 10;
+            public static final int armMotorRightID = 11;
             public static final double spoolSpeed = 0;
             public static final int armEncoderLeftID = 30;
             public static final int fLimitID = 0;
             public static final int bLimitID = 0;
             public static final int armVoltage = 0;
         }
-
-        public static final class lifter {
+        public static final class lifter{
 
             public static final double lifterShootSpeed = 0;
             public static final double lifterIntakeSpeed = 0;
 
-            public static final int lowerBBChannel = 30;
-            public static final int upperBBChannel = 30;
+            public static final int lifterBBChannel = 30;
+            public static final int feederBBChannel = 30;
 
-            public static final int lowerMotorID = 30;
-            public static final int upperMotorID = 30;
+            public static final int lifterMotorID = 8;
+            public static final int feederMotorID = 30;
 
             public static final double upperSpeed = 0;
-
             public static final double lowerSpeed = 0;
-            public static final int feederMotorID = 30;
             public static final double lifterFeedSpeed = 0;
-
+        
+        
         }
-
-        public static final class hood {
+        public static final class hood{
             public static final int hoodMotorID = 30;
-            public static final int hoodEncoderID = 30;
+            public static final int hoodEncoderID = 4;
             // inches
             public static final int LLHeight = 36;
-            // TODO: METERS
+            //TODO: METERS
             public static final double HubHeight = 2.64;
             public static final double LLAng = 0;
         }
@@ -179,8 +181,8 @@ public final class Constants {
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(.13, 0, .39,
                     ROT_PROFILE);
-            // DRIVING DEFAULT IS 5
-            public static final double LINEAR_VELOCITY_DEFAULT = 1;
+            // DRIVING DEFAULT IS 5     
+            public static final double LINEAR_VELOCITY_DEFAULT = 2;
             // MUST SET KINEMATICS, see documentation
             public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(LINEAR_VELOCITY_DEFAULT,
                     subsystems.swerve.MAX_ANG_VEL_RAD);
