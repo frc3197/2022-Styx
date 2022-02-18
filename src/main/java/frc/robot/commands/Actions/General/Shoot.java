@@ -11,7 +11,7 @@ import frc.robot.subsystems.LifterSubsystem;
 public class Shoot extends CommandBase {
   LifterSubsystem lifter;
   Timer timer;
-  boolean lowerBBState, upperBBState,isOver;
+  boolean feederBBState, lifterBBState,isOver;
   /** Creates a new Shoot. */
   public Shoot(LifterSubsystem lifter) {
     this.lifter = lifter;
@@ -24,8 +24,8 @@ public class Shoot extends CommandBase {
   @Override
   public void initialize() {
     lifter.setBothMotors(0);
-    lowerBBState = LifterSubsystem.getLowerBB();
-    upperBBState = LifterSubsystem.getUpperBB();
+    feederBBState = LifterSubsystem.getfeederBB();
+    lifterBBState = LifterSubsystem.getlifterBB();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,21 +34,21 @@ public class Shoot extends CommandBase {
     double curTime = timer.get();
     // WAIT .25 SECONDS BEFORE FIRST SHOT
       if(curTime > .25){
-      if(lowerBBState && upperBBState){
+      if(feederBBState && lifterBBState){
         lifter.releaseBoth();
         // THIS IS THE TIME IT TAKES TO ACTUALLY SHOOT
         Timer.delay(0);
         isOver = true;
       }
-      else if(upperBBState){
-        lifter.releaseUpper();
+      else if(lifterBBState){
+        lifter.releaselifter();
         // THIS IS THE TIME IT TAKES TO ACTUALLY SHOOT
         Timer.delay(0);
         isOver = true;
       }
       else{
-        lifter.setLowerMotor(lifter.getLowerSpeed());
-        lifter.setUpperMotor(lifter.getUpperSpeed());
+        lifter.setfeederMotor(lifter.getfeederSpeed());
+        lifter.setlifterMotor(lifter.getlifterSpeed());
       }
     }
   }

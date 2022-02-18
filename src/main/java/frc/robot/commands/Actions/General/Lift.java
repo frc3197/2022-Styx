@@ -10,7 +10,7 @@ import frc.robot.subsystems.LifterSubsystem;
 
 public class Lift extends CommandBase {
   LifterSubsystem lifterSubsystem;
-  boolean lowerBBState, upperBBState;
+  boolean feederBBState, lifterBBState;
   /** Creates a new Lift. */
   public Lift(LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
@@ -25,15 +25,15 @@ public class Lift extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lowerBBState = LifterSubsystem.getLowerBB();
-    upperBBState = LifterSubsystem.getUpperBB();
+    feederBBState = LifterSubsystem.getfeederBB();
+    lifterBBState = LifterSubsystem.getlifterBB();
     lifterSubsystem.feed();
-    if(upperBBState && lowerBBState){
+    if(lifterBBState && feederBBState){
       lifterSubsystem.setBothMotors(0);
     }
-    else if(upperBBState && !lowerBBState){
-      lifterSubsystem.setUpperMotor(0);
-      lifterSubsystem.setLowerMotor(Constants.subsystems.lifter.lifterIntakeSpeed);
+    else if(lifterBBState && !feederBBState){
+      lifterSubsystem.setlifterMotor(0);
+      lifterSubsystem.setfeederMotor(Constants.subsystems.lifter.lifterIntakeSpeed);
     }
     else{lifterSubsystem.setBothMotors(Constants.subsystems.lifter.lifterIntakeSpeed);}
 

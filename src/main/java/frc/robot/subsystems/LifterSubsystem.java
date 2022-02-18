@@ -14,99 +14,97 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LifterSubsystem extends SubsystemBase {
-  private static DigitalInput upperBB;
-  private static DigitalInput lowerBB;
-  private WPI_TalonFX lowerFx, upperFx;
+  private static DigitalInput lifterBB;
+  private static DigitalInput feederBB;
+  private WPI_TalonFX lifterWheel;
   private CANSparkMax feederWheel;
-  private boolean lowerMotorState, upperMotorState;
-  private double lowerSpeed, upperSpeed;
+  private boolean feederMotorState, lifterMotorState;
+  private double feederSpeed, lifterSpeed;
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
-    lowerFx = new WPI_TalonFX(Constants.subsystems.lifter.lowerMotorID);
-    lowerBB = new DigitalInput(Constants.subsystems.lifter.lowerBBChannel);
-    upperFx = new WPI_TalonFX(Constants.subsystems.lifter.upperMotorID);
-    upperBB = new DigitalInput(Constants.subsystems.lifter.upperBBChannel);
+    lifterWheel = new WPI_TalonFX(Constants.subsystems.lifter.lifterMotorID);
+    lifterBB = new DigitalInput(Constants.subsystems.lifter.lifterBBChannel);
     feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
-
-    lowerSpeed = Constants.subsystems.lifter.lowerSpeed;
-    upperSpeed = Constants.subsystems.lifter.upperSpeed;
+    feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
+    feederSpeed = Constants.subsystems.lifter.feederSpeed;
+    lifterSpeed = Constants.subsystems.lifter.lifterSpeed;
   }
 
   @Override
   public void periodic() {
-    upperMotorState = (upperFx.get() != 0);
-    lowerMotorState = (lowerFx.get() != 0);
+    lifterMotorState = (lifterWheel.get() != 0);
+    feederMotorState = (feederWheel.get() != 0);
     // This method will be called once per scheduler run
   }
 
   /**
    * @return boolean
    */
-  public static boolean getLowerBB() {
-    return lowerBB.get();
+  public static boolean getfeederBB() {
+    return feederBB.get();
   }
 
   /**
    * @return boolean
    */
-  public static boolean getUpperBB() {
-    return upperBB.get();
+  public static boolean getlifterBB() {
+    return lifterBB.get();
   }
 
   
   /** 
    * @return double
    */
-  public double getLowerSpeed() {
-    return lowerSpeed;
+  public double getfeederSpeed() {
+    return feederSpeed;
   }
 
   
   /** 
    * @return double
    */
-  public double getUpperSpeed() {
-    return upperSpeed;
+  public double getlifterSpeed() {
+    return lifterSpeed;
   }
 
   /**
    * @param liftSpeed
    */
-  public void setLowerMotor(double liftSpeed) {
-    lowerFx.set(liftSpeed);
+  public void setfeederMotor(double liftSpeed) {
+    feederWheel.set(liftSpeed);
   }
 
   /**
    * @param liftSpeed
    */
-  public void setUpperMotor(double liftSpeed) {
-    upperFx.set(liftSpeed);
+  public void setlifterMotor(double liftSpeed) {
+    lifterWheel.set(liftSpeed);
   }
 
   /**
    * @param liftSpeed
    */
   public void setBothMotors(double liftSpeed) {
-    setLowerMotor(liftSpeed);
-    setUpperMotor(liftSpeed);
+    setfeederMotor(liftSpeed);
+    setlifterMotor(liftSpeed);
   }
 
   public void toggleLowerMotor() {
-    setLowerMotor(lowerMotorState ? 0 : lowerSpeed);
+    setfeederMotor(feederMotorState ? 0 : feederSpeed);
   }
 
-  public void toggleUpperMotor() {
-    setUpperMotor(upperMotorState ? 0 : upperSpeed);
+  public void togglelifterMotor() {
+    setlifterMotor(lifterMotorState ? 0 : lifterSpeed);
   }
 
   public void releaseBoth() {
-    releaseUpper();
+    releaselifter();
     releaseLower();
   }
 
-  public void releaseUpper() {
+  public void releaselifter() {
     Timer.delay(.25);
-    toggleUpperMotor();
+    togglelifterMotor();
   }
 
   public void releaseLower() {
