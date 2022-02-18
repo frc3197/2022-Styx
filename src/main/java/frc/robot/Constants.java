@@ -144,8 +144,8 @@ public final class Constants {
             public static final int lifterMotorID = 8;
             public static final int feederMotorID = 30;
 
-            public static final double upperSpeed = 0;
-            public static final double lowerSpeed = 0;
+            public static final double lifterSpeed = 0;
+            public static final double feederSpeed = 0;
             public static final double lifterFeedSpeed = 0;
         
         
