@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -15,7 +16,8 @@ import frc.robot.Constants;
 public class ClimberSubsystem extends SubsystemBase {
   private CANSparkMax spoolMotorLeft, spoolMotorRight;
   private WPI_TalonFX armMotorLeft, armMotorRight;
-  private DigitalInput fLimit, bLimit;
+  private DigitalInput AFL_Limit, AFR_Limit, ABL_Limit, ABR_Limit;
+  private SparkMaxLimitSwitch SUL_Limit, SUR_Limit, SLL_Limit, SLR_Limit;
 
   // TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
@@ -26,8 +28,21 @@ public class ClimberSubsystem extends SubsystemBase {
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
-    fLimit = new DigitalInput(Constants.subsystems.climber.fLimitID);
-    bLimit = new DigitalInput(Constants.subsystems.climber.bLimitID);
+
+    AFL_Limit = new DigitalInput(Constants.subsystems.climber.FL_LimitID);
+    AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
+    ABL_Limit = new DigitalInput(Constants.subsystems.climber.BL_LimitID);
+    ABR_Limit = new DigitalInput(Constants.subsystems.climber.BR_LimitID);
+
+    SUL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SLL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SLR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
+
+    SUL_Limit.enableLimitSwitch(true);
+    SUR_Limit.enableLimitSwitch(true);
+    SLL_Limit.enableLimitSwitch(true);
+    SLR_Limit.enableLimitSwitch(true);    
   }
 
   @Override
@@ -35,40 +50,73 @@ public class ClimberSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  
-  /** 
-   * @param output
-   */
-  public void setSpoolMotor(double output) {
-    spoolMotorLeft.set(output);
+  public boolean getAFL_Limit() {
+    return AFL_Limit.get();
+  }
+
+  public boolean getAFR_Limit() {
+    return AFR_Limit.get();
+  }
+
+  public boolean getABL_Limit() {
+    return ABL_Limit.get();
+  }
+
+  public boolean getABR_Limit() {
+    return ABR_Limit.get();
+  }
+
+  public boolean getSLR_Limit() {
+    return SLR_Limit.isPressed();
+  }
+
+  public boolean getSLL_Limit() {
+    return SLL_Limit.isPressed();
+  }
+
+  public boolean getSUR_Limit() {
+    return SUR_Limit.isPressed();
+  }
+
+  public boolean getSUL_Limit() {
+    return SUL_Limit.isPressed();
   }
 
   
-  /** 
-   * @param output
-   */
-  public void setarmMotor(double output) {
-    armMotorLeft.set(output);
-  }
 
-  
-  /** 
+
+
+  /**
    * @return boolean
    */
-  public boolean getfLimit() {
-    return fLimit.get();
+  public boolean getFrontLimits() {
+    return getAFL_Limit() && getAFR_Limit();
   }
 
-  
-  /** 
+  /**
    * @return boolean
    */
-  public boolean getbLimit() {
-    return bLimit.get();
+  public boolean getBackLimits() {
+    return getABL_Limit() && getABR_Limit();
+  }
+  
+  public boolean getSL_Limits(){
+    return getSLL_Limit() && getSLR_Limit();
+  }
+  public boolean getSU_Limits(){
+    return getSUL_Limit() && getSUR_Limit();
   }
 
-  public void setArmVoltage(double val)
-  {
+  public void setArmVoltage(double val) {
     armMotorLeft.setVoltage(val);
   }
+
+  public void setArmSpeed(double speed) {
+    armMotorLeft.set(speed);
+  }
+
+  public void setSpoolSpeed(double speed) {
+    spoolMotorLeft.set(speed);
+  }
+
 }
