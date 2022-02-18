@@ -4,10 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Driver;
-
-import javax.xml.namespace.QName;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -15,7 +11,6 @@ import com.swervedrivespecialties.swervelib.SwerveModule;
 import org.photonvision.PhotonCamera;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
