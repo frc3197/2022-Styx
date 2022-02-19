@@ -14,11 +14,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 //TODO: Test
 public class RetractIntake extends CommandBase {
   IntakeSubsystem m_intakeSubsystem;
-  SparkMaxLimitSwitch upperLimit;
+  private SparkMaxLimitSwitch upperLimit;  
+
+  
   /** Creates a new DeployIntake. */
   public RetractIntake(IntakeSubsystem m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
-    upperLimit = m_intakeSubsystem.getArmMotor().getReverseLimitSwitch(Type.kNormallyOpen);
+    upperLimit = m_intakeSubsystem.getArmMotor().getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     addRequirements(m_intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
