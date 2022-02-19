@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -24,8 +25,10 @@ public class LifterSubsystem extends SubsystemBase {
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
     lifterWheel = new WPI_TalonFX(Constants.subsystems.lifter.lifterMotorID);
+    lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 100);
     lifterBB = new DigitalInput(Constants.subsystems.lifter.lifterBBChannel);
     feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
+    feederWheel.setControlFramePeriodMs(100);
     feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
     feederSpeed = Constants.subsystems.lifter.feederSpeed;
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;

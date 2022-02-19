@@ -23,8 +23,10 @@ public class HoodSubsystem extends SubsystemBase {
   //Back is reverse!!!
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
+    hoodMotor.setControlFramePeriodMs(100);
     hoodMotor.setIdleMode(IdleMode.kBrake);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
+    
   }
 
   @Override

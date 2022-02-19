@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlFrame;
+import com.ctre.phoenix.motorcontrol.ControlFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,9 +30,16 @@ public class ClimberSubsystem extends SubsystemBase {
     spoolMotorRight = new CANSparkMax(Constants.subsystems.climber.spoolMotorRightID, MotorType.kBrushless);
     armMotorLeft = new WPI_TalonFX(Constants.subsystems.climber.armMotorLeftID);
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
-    spoolMotorRight.follow(spoolMotorLeft);
+    spoolMotorLeft.follow(spoolMotorRight);
     armMotorRight.follow(armMotorLeft);
-    
+    spoolMotorLeft.setControlFramePeriodMs(100);
+    spoolMotorRight.setControlFramePeriodMs(100);
+    armMotorLeft.setControlFramePeriod(ControlFrame.Control_3_General, 100);
+    armMotorRight.setControlFramePeriod(ControlFrame.Control_3_General, 100);
+
+
+    spoolMotorLeft.setIdleMode(IdleMode.kBrake);
+    spoolMotorRight.setIdleMode(IdleMode.kBrake);
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
     ABL_Limit = armMotorLeft.getSensorCollection().isRevLimitSwitchClosed();
@@ -45,7 +55,7 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("Spool Lower Limit Right", getSLR_Limit());
-    SmartDashboard.putBoolean("Spool Lower Liit Left", getSLL_Limit());
+    SmartDashboard.putBoolean("Spool Lower Limit Left", getSLL_Limit());
     SmartDashboard.putBoolean("Spool Upper Limit Right", getSUR_Limit());
     SmartDashboard.putBoolean("Spool Upper Limit Left", getSUL_Limit());
     
@@ -134,14 +144,19 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void setArmVoltage(double val) {
     armMotorLeft.setVoltage(val);
+    armMotorRight.setVoltage(val);
   }
 
   public void setArmSpeed(double speed) {
     armMotorLeft.set(speed);
+    armMotorRight.set(speed);
+
   }
 
   public void setSpoolSpeed(double speed) {
     spoolMotorLeft.set(speed);
+    spoolMotorRight.set(speed);
+
   }
 
 }
