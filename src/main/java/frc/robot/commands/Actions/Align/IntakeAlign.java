@@ -23,7 +23,7 @@ public class IntakeAlign extends CommandBase {
     
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-  
+    xPID.setTolerance(2);
     addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }

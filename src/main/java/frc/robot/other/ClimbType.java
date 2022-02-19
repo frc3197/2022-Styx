@@ -4,8 +4,6 @@
 
 package frc.robot.other;
 
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 /** Add your docs here. */
 public enum ClimbType {
     high(0, 0, 0, 0), transversal(0, 0, 0, 0);
