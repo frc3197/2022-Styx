@@ -6,7 +6,6 @@ package frc.robot.commands.Actions.General;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.climber;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class Climb extends CommandBase {

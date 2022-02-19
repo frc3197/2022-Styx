@@ -55,7 +55,9 @@ public class RobotContainer {
   
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
+  @SuppressWarnings("rawtypes")
   private static SendableChooser m_autoChooser;
+  @SuppressWarnings("rawtypes")
   private static SendableChooser m_allianceChooser; 
 
   public static final DriveCommand m_driveCommand = new DriveCommand(
@@ -153,7 +155,7 @@ public class RobotContainer {
   public void recalibrateGyroscope() {
     m_driveSubsystem.zeroGyroscope();
   }
-
+  @SuppressWarnings("rawtypes")
   public static SendableChooser getAllianceChooser(){
     return m_allianceChooser;
   }
