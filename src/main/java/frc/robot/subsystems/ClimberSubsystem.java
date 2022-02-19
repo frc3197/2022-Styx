@@ -11,6 +11,7 @@ import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -30,20 +31,36 @@ public class ClimberSubsystem extends SubsystemBase {
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
+    
 
     armEncoderLeft = (SparkMaxRelativeEncoder) spoolMotorLeft.getEncoder();
     armEncoderRight = (SparkMaxRelativeEncoder) spoolMotorRight.getEncoder();
 
+<<<<<<< Updated upstream
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
     ABL_Limit = armMotorLeft.getSensorCollection().isRevLimitSwitchClosed();
     ABR_Limit = armMotorRight.getSensorCollection().isRevLimitSwitchClosed();
     // TODO:CONVERT
+=======
+    AFL_Limit = new DigitalInput(Constants.subsystems.climber.FL_LimitID);
+    AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
+    ABL_Limit = new DigitalInput(Constants.subsystems.climber.BL_LimitID);
+    ABR_Limit = new DigitalInput(Constants.subsystems.climber.BR_LimitID);
+    //AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
+    //TODO:CONVERT
+    // 4 is green aka the top of arm is forward hits back limit
+    //8 is blue aka the top of arm is back hits front limit
+>>>>>>> Stashed changes
 
-    SUL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SUR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUL_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUR_Limit = spoolMotorRight.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SLL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+<<<<<<< Updated upstream
     SLR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+=======
+    SLR_Limit = spoolMotorRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
+>>>>>>> Stashed changes
 
     SUL_Limit.enableLimitSwitch(true);
     SUR_Limit.enableLimitSwitch(true);
@@ -53,6 +70,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Spool Lower Limit Right", getSLR_Limit());
+    SmartDashboard.putBoolean("Spool Lower Liit Left", getSLL_Limit());
+    SmartDashboard.putBoolean("Spool Upper Limit Right", getSUR_Limit());
+    SmartDashboard.putBoolean("Spool Upper Limit Left", getSUL_Limit());
+    
     // This method will be called once per scheduler run
   }
 
