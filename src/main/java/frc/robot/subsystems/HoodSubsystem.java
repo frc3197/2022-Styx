@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.subsystems.hood;
 
+
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   private CANSparkMax hoodMotor;
   private CANCoder encoder;
+  //Back is reverse!!!
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     hoodMotor.setIdleMode(IdleMode.kBrake);
