@@ -10,15 +10,16 @@ import com.revrobotics.SparkMaxLimitSwitch.Type;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 //TODO: Test
 public class RetractIntake extends CommandBase {
-  IntakeSubsystem m_intakeSubsystem;
+  IntakeArm m_intakeSubsystem;
   private SparkMaxLimitSwitch upperLimit;  
 
   
   /** Creates a new DeployIntake. */
-  public RetractIntake(IntakeSubsystem m_intakeSubsystem) {
+  public RetractIntake(IntakeArm m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
     upperLimit = m_intakeSubsystem.getArmMotor().getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     addRequirements(m_intakeSubsystem);

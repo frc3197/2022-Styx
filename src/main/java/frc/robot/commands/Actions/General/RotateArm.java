@@ -8,15 +8,16 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
+import frc.robot.subsystems.ClimberArm;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class RotateArm extends CommandBase {
-  ClimberSubsystem climberSubsystem;
+  ClimberArm climberSubsystem;
   double initalPos,currentPos,targetVal;
   PIDController pid; 
   PIDConst pidConst;
   /** Creates a new RotateArm. */
-  public RotateArm(ClimberSubsystem climberSubsystem,double targetVal) {
+  public RotateArm(ClimberArm climberSubsystem,double targetVal) {
     this.climberSubsystem = climberSubsystem;
     this.targetVal = targetVal;
     addRequirements(climberSubsystem);

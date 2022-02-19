@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
@@ -25,10 +26,10 @@ public class LifterSubsystem extends SubsystemBase {
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
     lifterWheel = new WPI_TalonFX(Constants.subsystems.lifter.lifterMotorID);
-    lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 100);
+    lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
     lifterBB = new DigitalInput(Constants.subsystems.lifter.lifterBBChannel);
     feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
-    feederWheel.setControlFramePeriodMs(100);
+    feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
     feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
     feederSpeed = Constants.subsystems.lifter.feederSpeed;
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;

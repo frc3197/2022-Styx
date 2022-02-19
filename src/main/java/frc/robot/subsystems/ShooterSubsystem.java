@@ -10,9 +10,11 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Constants.subsystems.shooter;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
@@ -23,13 +25,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
     shooterMotor = new WPI_TalonFX(Constants.subsystems.shooter.shooterMotorID);
-
-
     shooterEncoder = new Encoder(Constants.subsystems.shooter.shooterEncoderA, Constants.subsystems.shooter.shooterEncoderB);
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("RPM", getShooterVelocity());
     // This method will be called once per scheduler run
   }
 

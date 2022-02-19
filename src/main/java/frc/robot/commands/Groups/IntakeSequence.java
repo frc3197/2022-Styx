@@ -9,6 +9,7 @@ import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
 import frc.robot.commands.Actions.General.RetractIntake;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LifterSubsystem;
 
@@ -18,16 +19,18 @@ import frc.robot.subsystems.LifterSubsystem;
 public class IntakeSequence extends ParallelCommandGroup {
   LifterSubsystem lifterSubsystem;
   IntakeSubsystem intakeSubsystem;
+  IntakeArm intakeArmSubsystem;
   //MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
-  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem) {
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
+    this.intakeArmSubsystem = intakeArmSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DeployIntake(intakeSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+    addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
 
-    andThen(new RetractIntake(intakeSubsystem));
+    andThen(new RetractIntake(intakeArmSubsystem));
 
 
   }}

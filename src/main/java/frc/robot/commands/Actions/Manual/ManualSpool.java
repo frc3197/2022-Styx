@@ -15,7 +15,6 @@ public class ManualSpool extends CommandBase {
   public ManualSpool(ClimberSubsystem climberSubsystem, String direction) {
     this.climberSubsystem = climberSubsystem;
     this.direction = direction;
-    addRequirements(climberSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

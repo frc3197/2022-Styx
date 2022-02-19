@@ -32,9 +32,11 @@ import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
+import frc.robot.subsystems.ClimberArm;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LifterSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -54,15 +56,15 @@ public class RobotContainer {
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   
   private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final static ClimberArm m_climberArmSubsystem = new ClimberArm();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
   private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final static IntakeArm m_intakeArmSubsystem = new IntakeArm();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
-
-  
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
   @SuppressWarnings("rawtypes")
@@ -105,8 +107,6 @@ public class RobotContainer {
     SmartDashboard.putData(m_allianceChooser);
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
-    Logger.configureLoggingAndConfig(this, false);
-    Logger.setCycleWarningsEnabled(false);
     recalibrateGyroscope();
     // Configure the button bindings
     configureButtonBindings();
@@ -128,16 +128,12 @@ public class RobotContainer {
     new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem));
-    
-    new Button(m_controller1::getBButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Forward"));
-    new Button(m_controller1::getXButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Backward"));
-    new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
-    new Button(m_controller1::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
-
-
-    
-
+    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
+      
+    new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
+    new Button(m_controller1::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
+    new Button(m_controller1::getXButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Backward"));
+    new Button(m_controller1::getBButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Forward"));
     
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
@@ -209,16 +205,21 @@ public class RobotContainer {
     return m_driveSubsystem;
   }
 
-  //public static ClimberSubsystem getClimberSubsystem() {
-    //return m_climberSubsystem;
-  //}
-
+  public static ClimberSubsystem getClimberSubsystem() {
+    return m_climberSubsystem;
+  }
+  public static ClimberArm getClimberArmSubsystem(){
+    return m_climberArmSubsystem;
+  }
   public static HoodSubsystem getHoodSubsystem() {
     return m_hoodSubsystem;
   }
 
   public static IntakeSubsystem getIntakeSubsystem() {
     return m_intakeSubsystem;
+  }
+  public static IntakeArm getIntakeArmSubsystem(){
+    return m_intakeArmSubsystem;
   }
 
   public static LifterSubsystem getLifterSubsystem() {

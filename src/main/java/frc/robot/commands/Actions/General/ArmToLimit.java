@@ -6,15 +6,16 @@ package frc.robot.commands.Actions.General;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.ClimberArm;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ArmToLimit extends CommandBase {
-  ClimberSubsystem climberSubsystem;
+  ClimberArm climberSubsystem;
   boolean armLimitsBack, armLimitsForward;
   String direction;
 
   /** Creates a new ArmToLimit. */
-  public ArmToLimit(ClimberSubsystem climberSubsystem, String direction) {
+  public ArmToLimit(ClimberArm climberSubsystem, String direction) {
     this.climberSubsystem = climberSubsystem;
     this.direction = direction;
     // Use addRequirements() here to declare subsystem dependencies.

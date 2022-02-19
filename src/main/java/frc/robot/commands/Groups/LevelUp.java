@@ -29,12 +29,12 @@ public class LevelUp extends AutoRoutine {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
         new ParallelCommandGroup(
-            new SequentialCommandGroup(new Wait(climbType.waitTime), new ArmToLimit(super.getClimberSubsystem(), "Backward")),
+            new SequentialCommandGroup(new Wait(climbType.waitTime), new ArmToLimit(super.getClimberArmSubsystem(), "Backward")),
             new SpoolToLimit(super.getClimberSubsystem(), "Up")),
         new SpoolToLimit(super.getClimberSubsystem(), "Down"),
-        new RotateArm(super.getClimberSubsystem(), climbType.fTicks),
-        new SpoolToLimit(super.getClimberSubsystem(), "Up"), new RotateArm(super.getClimberSubsystem(), climbType.hook),
-        new ParallelCommandGroup(new RotateArm(super.getClimberSubsystem(), climbType.unhook),
+        new RotateArm(super.getClimberArmSubsystem(), climbType.fTicks),
+        new SpoolToLimit(super.getClimberSubsystem(), "Up"), new RotateArm(super.getClimberArmSubsystem(), climbType.hook),
+        new ParallelCommandGroup(new RotateArm(super.getClimberArmSubsystem(), climbType.unhook),
             new SpoolToLimit(super.getClimberSubsystem(), "Down")));
   }
 

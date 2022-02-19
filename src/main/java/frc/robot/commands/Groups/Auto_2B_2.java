@@ -35,7 +35,7 @@ public class Auto_2B_2 extends AutoRoutine {
             new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), 0),
                                           // TODO: Test and find rpm
                 new SequentialCommandGroup(
-                    new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem()),
+                    new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
                         new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()),
                             new RunBasicTrajectory(super.getDriveSubsystem(), "2 ball #2")),
                         new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem()),

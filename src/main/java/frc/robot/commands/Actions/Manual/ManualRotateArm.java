@@ -6,16 +6,16 @@ package frc.robot.commands.Actions.Manual;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.subsystems.climber;
+import frc.robot.subsystems.ClimberArm;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ManualRotateArm extends CommandBase {
-  ClimberSubsystem climberSubsystem;
+  ClimberArm climberSubsystem;
   String direction;
   /** Creates a new ManualRotateArm. */
-  public ManualRotateArm(ClimberSubsystem climberSubsystem, String direction) {
+  public ManualRotateArm(ClimberArm climberSubsystem, String direction) {
     this.climberSubsystem = climberSubsystem;
     this.direction = direction;
-    addRequirements(climberSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

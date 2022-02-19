@@ -122,7 +122,7 @@ public final class Constants implements Loggable{
             public static double armSpeed = .1;
         }
         public static final class climber {
-            public static final int spoolMotorLeftID = 16;
+            public static final int spoolMotorLeftID = 19;
             public static final int spoolMotorRightID = 17;
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
@@ -148,7 +148,7 @@ public final class Constants implements Loggable{
             public static final int lifterBBChannel = 6;
             public static final int feederBBChannel = 8;
 
-            public static final int lifterMotorID = 8;
+            public static final int lifterMotorID = 16;
 
 
             public static final int feederMotorID = 18;

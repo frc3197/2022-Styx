@@ -35,7 +35,7 @@ public class Auto_2B_1 extends AutoRoutine {
                 new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))),
             new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), 0),
                 new SequentialCommandGroup(
-                    new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem()),
+                    new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
                         new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()),
                             new RunBasicTrajectory(super.getDriveSubsystem(), "2 ball #1")),
                         new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem()),
