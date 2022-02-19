@@ -133,7 +133,7 @@ public class RobotContainer {
     new Button(m_controller1::getBButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Forward"));
     new Button(m_controller1::getXButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Backward"));
     new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
-    new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
+    new Button(m_controller1::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
 
 
     

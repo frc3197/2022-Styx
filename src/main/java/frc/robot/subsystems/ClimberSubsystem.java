@@ -9,8 +9,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -32,10 +30,6 @@ public class ClimberSubsystem extends SubsystemBase {
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
     
-
-    armEncoderLeft = (SparkMaxRelativeEncoder) spoolMotorLeft.getEncoder();
-    armEncoderRight = (SparkMaxRelativeEncoder) spoolMotorRight.getEncoder();
-
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
     ABL_Limit = armMotorLeft.getSensorCollection().isRevLimitSwitchClosed();
@@ -46,11 +40,6 @@ public class ClimberSubsystem extends SubsystemBase {
     SUR_Limit = spoolMotorRight.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SLL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SLR_Limit = spoolMotorRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
-
-    SUL_Limit.enableLimitSwitch(true);
-    SUR_Limit.enableLimitSwitch(true);
-    SLL_Limit.enableLimitSwitch(true);
-    SLR_Limit.enableLimitSwitch(true);
   }
 
   @Override
