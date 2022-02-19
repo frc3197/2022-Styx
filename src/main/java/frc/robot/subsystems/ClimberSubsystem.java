@@ -36,31 +36,16 @@ public class ClimberSubsystem extends SubsystemBase {
     armEncoderLeft = (SparkMaxRelativeEncoder) spoolMotorLeft.getEncoder();
     armEncoderRight = (SparkMaxRelativeEncoder) spoolMotorRight.getEncoder();
 
-<<<<<<< Updated upstream
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
     ABL_Limit = armMotorLeft.getSensorCollection().isRevLimitSwitchClosed();
     ABR_Limit = armMotorRight.getSensorCollection().isRevLimitSwitchClosed();
     // TODO:CONVERT
-=======
-    AFL_Limit = new DigitalInput(Constants.subsystems.climber.FL_LimitID);
-    AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
-    ABL_Limit = new DigitalInput(Constants.subsystems.climber.BL_LimitID);
-    ABR_Limit = new DigitalInput(Constants.subsystems.climber.BR_LimitID);
-    //AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
-    //TODO:CONVERT
-    // 4 is green aka the top of arm is forward hits back limit
-    //8 is blue aka the top of arm is back hits front limit
->>>>>>> Stashed changes
 
     SUL_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SUR_Limit = spoolMotorRight.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SLL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-<<<<<<< Updated upstream
-    SLR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-=======
     SLR_Limit = spoolMotorRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
->>>>>>> Stashed changes
 
     SUL_Limit.enableLimitSwitch(true);
     SUR_Limit.enableLimitSwitch(true);
@@ -88,7 +73,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean getAFR_Limit() {
-    if (AFr_Limit == 0) {
+    if (AFR_Limit == 0) {
       return false;
     } else {
       return true;
