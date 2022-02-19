@@ -14,13 +14,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
+import frc.robot.commands.Actions.General.Climb;
+import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Movement.MoveToPosition;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
+import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_1B;
 import frc.robot.commands.Groups.Auto_2B_1;
 import frc.robot.commands.Groups.Auto_2B_2;
 import frc.robot.commands.Groups.Auto_2B_3;
+import frc.robot.commands.Groups.IntakeSequence;
+import frc.robot.commands.Groups.LevelUp;
+import frc.robot.commands.Groups.ShooterAlignSequence;
+import frc.robot.commands.Toggles.Defend;
+import frc.robot.commands.Toggles.ToggleManualHood;
+import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -111,17 +120,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //new Button(m_controller1::getAButton).whenPressed(new ResetGyro(m_driveSubsystem));
 
-    new Button(m_controller1::getAButton).whenHeld(new IntakeAlign(m_driveSubsystem));
-    new Button(m_controller1::getXButton).whenHeld(new ShooterXAlign(m_driveSubsystem));
-    new Button(m_controller1::getYButton).whenPressed(new MoveToPosition(m_driveSubsystem, new Pose2d(1, 0, new Rotation2d())));
-    new Button(m_controller1::getBButton).whenPressed(new RunBasicTrajectory(m_driveSubsystem, "New Path"));
-
-    /*
+    
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
-    new Button(m_controller1::getYButton).toggleWhenPressed(new ClimbSequence(m_climberSubsystem));
     new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
@@ -131,11 +133,14 @@ public class RobotContainer {
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
+    new Button(m_controller2::getStartButtonPressed).toggleWhenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
+    new Button(m_controller2::getYButton).whenPressed(new Climb(m_climberSubsystem, "Up"));
+    new Button(m_controller2::getAButton).whenPressed(new Climb(m_climberSubsystem, "Down"));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
-   */ 
+   
   }
 
   /**
