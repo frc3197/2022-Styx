@@ -11,15 +11,16 @@ import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
   private CANSparkMax spoolMotorLeft, spoolMotorRight;
   private WPI_TalonFX armMotorLeft, armMotorRight;
-  private DigitalInput AFL_Limit, AFR_Limit, ABL_Limit, ABR_Limit;
+  private int AFL_Limit, AFR_Limit, ABL_Limit, ABR_Limit;
   private SparkMaxLimitSwitch SUL_Limit, SUR_Limit, SLL_Limit, SLR_Limit;
-  private SparkMaxRelativeEncoder armEncoderLeft,armEncoderRight;
+  private SparkMaxRelativeEncoder armEncoderLeft, armEncoderRight;
 
   // TODO: Write Climber Subsystem
   /** Creates a new ClimberSubsystem. */
@@ -30,47 +31,70 @@ public class ClimberSubsystem extends SubsystemBase {
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
     spoolMotorRight.follow(spoolMotorLeft);
     armMotorRight.follow(armMotorLeft);
+    
 
     armEncoderLeft = (SparkMaxRelativeEncoder) spoolMotorLeft.getEncoder();
     armEncoderRight = (SparkMaxRelativeEncoder) spoolMotorRight.getEncoder();
 
-    AFL_Limit = new DigitalInput(Constants.subsystems.climber.FL_LimitID);
-    AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
-    ABL_Limit = new DigitalInput(Constants.subsystems.climber.BL_LimitID);
-    ABR_Limit = new DigitalInput(Constants.subsystems.climber.BR_LimitID);
-    //AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
-    //TODO:CONVERT
+    AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
+    AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
+    ABL_Limit = armMotorLeft.getSensorCollection().isRevLimitSwitchClosed();
+    ABR_Limit = armMotorRight.getSensorCollection().isRevLimitSwitchClosed();
+    // TODO:CONVERT
 
-    SUL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SUR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUL_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUR_Limit = spoolMotorRight.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     SLL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SLR_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
+    SLR_Limit = spoolMotorRight.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);  
 
     SUL_Limit.enableLimitSwitch(true);
     SUR_Limit.enableLimitSwitch(true);
     SLL_Limit.enableLimitSwitch(true);
-    SLR_Limit.enableLimitSwitch(true);    
+    SLR_Limit.enableLimitSwitch(true);
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Spool Lower Limit Right", getSLR_Limit());
+    SmartDashboard.putBoolean("Spool Lower Liit Left", getSLL_Limit());
+    SmartDashboard.putBoolean("Spool Upper Limit Right", getSUR_Limit());
+    SmartDashboard.putBoolean("Spool Upper Limit Left", getSUL_Limit());
+    
     // This method will be called once per scheduler run
   }
 
   public boolean getAFL_Limit() {
-    return AFL_Limit.get();
+    if (AFL_Limit == 0) {
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
   public boolean getAFR_Limit() {
-    return AFR_Limit.get();
+    if (AFR_Limit == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public boolean getABL_Limit() {
-    return ABL_Limit.get();
+    if (ABL_Limit == 0) {
+      return false;
+    } else {
+      return true;
+    }
+
   }
 
   public boolean getABR_Limit() {
-    return ABR_Limit.get();
+    if (ABR_Limit == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public boolean getSLR_Limit() {
@@ -89,10 +113,6 @@ public class ClimberSubsystem extends SubsystemBase {
     return SUL_Limit.isPressed();
   }
 
-  
-
-
-
   /**
    * @return boolean
    */
@@ -106,19 +126,23 @@ public class ClimberSubsystem extends SubsystemBase {
   public boolean getBackLimits() {
     return getABL_Limit() && getABR_Limit();
   }
-  
-  public boolean getSL_Limits(){
+
+  public boolean getSL_Limits() {
     return getSLL_Limit() && getSLR_Limit();
   }
-  public boolean getSU_Limits(){
+
+  public boolean getSU_Limits() {
     return getSUL_Limit() && getSUR_Limit();
   }
-  public double getArmEncoderValueLeft(){
+
+  public double getArmEncoderValueLeft() {
     return armEncoderLeft.getPosition();
   }
-  public double getArmEncoderValueRight(){
+
+  public double getArmEncoderValueRight() {
     return armEncoderRight.getPosition();
   }
+
   public void setArmVoltage(double val) {
     armMotorLeft.setVoltage(val);
   }
