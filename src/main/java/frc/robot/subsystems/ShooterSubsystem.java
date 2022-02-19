@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -17,17 +18,14 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
   private WPI_TalonFX shooterMotor;
 
-  private CANCoder shooterEncoder;
+  private Encoder shooterEncoder;
   // Note: Hood will most likely use built-in encoder
 
   public ShooterSubsystem() {
     shooterMotor = new WPI_TalonFX(Constants.subsystems.shooter.shooterMotorID);
 
 
-    shooterEncoder = new CANCoder(Constants.subsystems.shooter.shooterEncoderID);
-
-    shooterEncoder.configSensorInitializationStrategy(SensorInitializationStrategy.BootToZero);
-
+    shooterEncoder = new Encoder(Constants.subsystems.shooter.shooterEncoderA, Constants.subsystems.shooter.shooterEncoderB);
   }
 
   @Override
@@ -49,8 +47,9 @@ public class ShooterSubsystem extends SubsystemBase {
    * Returns the velocity of the shooter wheel in RPM.
    * @return double
    */
-  public double getShooterVelocity(){   
-    return shooterEncoder.getVelocity() / 360 / 60 ;
+  public double getShooterVelocity(){ 
+    //TODO: VERIFY  
+    return shooterEncoder.getRate() / 360 / 60 ;
   }
 
   public void setVoltage(double voltage)

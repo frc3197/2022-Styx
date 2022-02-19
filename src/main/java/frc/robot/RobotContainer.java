@@ -47,7 +47,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   
-  private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  //private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
   private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
@@ -128,9 +128,9 @@ public class RobotContainer {
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
-    new Button(m_controller2::getStartButtonPressed).whenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
-    new Button(m_controller2::getYButton).whenPressed(new Climb(m_climberSubsystem, "Up"));
-    new Button(m_controller2::getAButton).whenPressed(new Climb(m_climberSubsystem, "Down"));
+    //new Button(m_controller2::getStartButtonPressed).whenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
+    //new Button(m_controller2::getYButton).whenPressed(new Climb(m_climberSubsystem, "Up"));
+    //new Button(m_controller2::getAButton).whenPressed(new Climb(m_climberSubsystem, "Down"));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
@@ -195,9 +195,9 @@ public class RobotContainer {
     return m_driveSubsystem;
   }
 
-  public static ClimberSubsystem getClimberSubsystem() {
-    return m_climberSubsystem;
-  }
+  //public static ClimberSubsystem getClimberSubsystem() {
+    //return m_climberSubsystem;
+  //}
 
   public static HoodSubsystem getHoodSubsystem() {
     return m_hoodSubsystem;

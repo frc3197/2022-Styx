@@ -29,5 +29,5 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void useArm(double val){armMotor.set(val);}
   public void useIntake(double val){intakeMotor.set(val);}
-  
+  public CANSparkMax getArmMotor(){return armMotor;}
 }

@@ -95,7 +95,8 @@ public final class Constants implements Loggable{
 
         public static final class shooter {
             public static final int shooterMotorID = 12;
-            public static final int shooterEncoderID = 30;
+            public static final int shooterEncoderA = 1;
+            public static final int shooterEncoderB = 0;
 
 
 			public static final double shooterWheelDiamInches = 0;
@@ -117,10 +118,8 @@ public final class Constants implements Loggable{
             public static final int intakeMotorID = 9;
             public static final double intakeSpeed = 0;
             public static final NetworkTable camName = null;
-            public static int armMotorID = 30;
-            public static int armLowerLimitID = 30;
+            public static int armMotorID = 14;
             public static double armSpeed = 0;
-            public static int armUpperLimitID;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 16;
@@ -128,7 +127,8 @@ public final class Constants implements Loggable{
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
             public static final double spoolSpeed = 0;
-            public static final int armEncoderLeftID = 30;
+            public static final int armEncoderLeftA = 3;
+            public static final int armEncoderLeftB = 2;
             public static final int armSpeed = 0;
             
             public static final int FL_LimitID = 0;
@@ -146,11 +146,13 @@ public final class Constants implements Loggable{
             public static final double lifterShootSpeed = 0;
             public static final double lifterIntakeSpeed = 0;
 
-            public static final int lifterBBChannel = 30;
-            public static final int feederBBChannel = 30;
+            public static final int lifterBBChannel = 5;
+            public static final int feederBBChannel = 6;
 
             public static final int lifterMotorID = 8;
-            public static final int feederMotorID = 30;
+
+
+            public static final int feederMotorID = 18;
 
             public static final double lifterSpeed = 0;
             public static final double feederSpeed = 0;
@@ -159,7 +161,7 @@ public final class Constants implements Loggable{
         
         }
         public static final class hood{
-            public static final int hoodMotorID = 115;
+            public static final int hoodMotorID = 15;
             public static final int hoodEncoderID = 4;
             // inches
             public static final int LLHeight = 36;

@@ -4,6 +4,9 @@
 
 package frc.robot.commands.Actions.General;
 
+import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -11,11 +14,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 //TODO: Test
 public class RetractIntake extends CommandBase {
   IntakeSubsystem m_intakeSubsystem;
-  DigitalInput upperLimit;
+  SparkMaxLimitSwitch upperLimit;
   /** Creates a new DeployIntake. */
   public RetractIntake(IntakeSubsystem m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
-    upperLimit = new DigitalInput(Constants.subsystems.intake.armUpperLimitID);
+    upperLimit = m_intakeSubsystem.getArmMotor().getReverseLimitSwitch(Type.kNormallyOpen);
     addRequirements(m_intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +26,7 @@ public class RetractIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(upperLimit.get()){cancel();}
+    if(upperLimit.isPressed()){cancel();}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +40,6 @@ public class RetractIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return upperLimit.get();
+    return upperLimit.isPressed();
   }
 }

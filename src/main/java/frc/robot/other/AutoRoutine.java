@@ -18,7 +18,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class AutoRoutine extends SequentialCommandGroup {
   
     private static DriveSubsystem m_driveSubsystem = RobotContainer.getDriveSubsystem();
-    private static ClimberSubsystem m_climberSubsystem = RobotContainer.getClimberSubsystem();
+    private static ClimberSubsystem m_climberSubsystem = null;
     private static HoodSubsystem m_hoodSubsystem = RobotContainer.getHoodSubsystem();
     private static IntakeSubsystem m_intakeSubsystem = RobotContainer.getIntakeSubsystem();
     private static LifterSubsystem m_lifterSubsystem = RobotContainer.getLifterSubsystem();
