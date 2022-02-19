@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -13,11 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
-import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.General.Climb;
 import frc.robot.commands.Actions.General.Shoot;
-import frc.robot.commands.Actions.Movement.MoveToPosition;
-import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_1B;
@@ -133,7 +128,7 @@ public class RobotContainer {
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
-    new Button(m_controller2::getStartButtonPressed).toggleWhenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
+    new Button(m_controller2::getStartButtonPressed).whenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
     new Button(m_controller2::getYButton).whenPressed(new Climb(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenPressed(new Climb(m_climberSubsystem, "Down"));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
