@@ -7,18 +7,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import com.revrobotics.SparkMaxLimitSwitch;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   private CANSparkMax armMotor;
   private WPI_TalonFX intakeMotor;
-  
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     armMotor = new CANSparkMax(Constants.subsystems.intake.armMotorID, MotorType.kBrushless);
     intakeMotor = new WPI_TalonFX(Constants.subsystems.intake.intakeMotorID);
+    //REVERSE IS UP!!!
+
 
   }
 
