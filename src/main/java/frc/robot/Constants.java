@@ -123,8 +123,8 @@ public final class Constants implements Loggable{
             public static int armUpperLimitID;
         }
         public static final class climber {
-            public static final int spoolMotorLeftID = 30;
-            public static final int spoolMotorRightID = 30;
+            public static final int spoolMotorLeftID = 16;
+            public static final int spoolMotorRightID = 17;
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
             public static final double spoolSpeed = 0;
@@ -159,7 +159,7 @@ public final class Constants implements Loggable{
         
         }
         public static final class hood{
-            public static final int hoodMotorID = 30;
+            public static final int hoodMotorID = 115;
             public static final int hoodEncoderID = 4;
             // inches
             public static final int LLHeight = 36;
