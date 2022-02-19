@@ -5,14 +5,15 @@
 package frc.robot.commands.Actions.General;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.HoodSubsystem;
 
-public class Intake extends CommandBase {
-  IntakeSubsystem intakeSubsystem;
-  /** Creates a new Intake. */
-  public Intake(IntakeSubsystem intakeSubsystem) {
-    this.intakeSubsystem = intakeSubsystem;
+public class CalibrateHood extends CommandBase {
+  HoodSubsystem hood;
+  /** Creates a new CalibrateHood. */
+  public CalibrateHood(HoodSubsystem hood) {
+    this.hood = hood;
+    addRequirements(hood);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -21,15 +22,11 @@ public class Intake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intakeSubsystem.useIntake(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

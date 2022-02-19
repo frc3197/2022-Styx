@@ -26,7 +26,6 @@ public class RetractIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(upperLimit.isPressed()){cancel();}
   }
 
   // Called every time the scheduler runs while the command is scheduled.

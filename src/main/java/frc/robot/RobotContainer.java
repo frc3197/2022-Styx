@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.General.Climb;
+import frc.robot.commands.Actions.General.DeployIntake;
+import frc.robot.commands.Actions.General.Intake;
+import frc.robot.commands.Actions.General.Lift;
+import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
@@ -84,11 +88,11 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
     m_autoChooser = new SendableChooser<>();
-    m_autoChooser.setDefaultOption("Nothing", null);
-    m_autoChooser.addOption("2Ball1", new Auto_2B_1());
-    m_autoChooser.addOption("2Ball2", new Auto_2B_2());
-    m_autoChooser.addOption("2Ball3", new Auto_2B_3());
-    m_autoChooser.addOption("1Ball", new Auto_1B());
+    //m_autoChooser.setDefaultOption("Nothing", null);
+    //m_autoChooser.addOption("2Ball1", new Auto_2B_1());
+    //m_autoChooser.addOption("2Ball2", new Auto_2B_2());
+    //m_autoChooser.addOption("2Ball3", new Auto_2B_3());
+   // m_autoChooser.addOption("1Ball", new Auto_1B());
 
     
     m_allianceChooser = new SendableChooser<>();
@@ -118,11 +122,13 @@ public class RobotContainer {
 
     
     // DRIVER 1
-    new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
+    //new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem));
+    new Button(m_controller1::getAButton).whileHeld(new Intake(m_intakeSubsystem));
+    
 
     
     // DRIVER 2 

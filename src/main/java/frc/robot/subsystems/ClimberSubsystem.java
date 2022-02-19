@@ -38,7 +38,7 @@ public class ClimberSubsystem extends SubsystemBase {
     AFR_Limit = new DigitalInput(Constants.subsystems.climber.FR_LimitID);
     ABL_Limit = new DigitalInput(Constants.subsystems.climber.BL_LimitID);
     ABR_Limit = new DigitalInput(Constants.subsystems.climber.BR_LimitID);
-    AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
+    //AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     //TODO:CONVERT
 
     SUL_Limit = spoolMotorLeft.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);

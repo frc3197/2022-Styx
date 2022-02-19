@@ -116,10 +116,10 @@ public final class Constants implements Loggable{
         public static final class intake {
 
             public static final int intakeMotorID = 9;
-            public static final double intakeSpeed = 0;
+            public static final double intakeSpeed = .5;
             public static final NetworkTable camName = null;
             public static int armMotorID = 14;
-            public static double armSpeed = 0;
+            public static double armSpeed = .5;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 16;
@@ -144,19 +144,17 @@ public final class Constants implements Loggable{
         public static final class lifter{
 
             public static final double lifterShootSpeed = 0;
-            public static final double lifterIntakeSpeed = 0;
 
-            public static final int lifterBBChannel = 5;
-            public static final int feederBBChannel = 6;
+            public static final int lifterBBChannel = 6;
+            public static final int feederBBChannel = 8;
 
             public static final int lifterMotorID = 8;
 
 
             public static final int feederMotorID = 18;
 
-            public static final double lifterSpeed = 0;
-            public static final double feederSpeed = 0;
-            public static final double lifterFeedSpeed = 0;
+            public static final double lifterSpeed = -.2;
+            public static final double feederSpeed = .2;
         
         
         }

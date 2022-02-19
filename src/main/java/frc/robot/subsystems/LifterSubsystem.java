@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -34,6 +35,10 @@ public class LifterSubsystem extends SubsystemBase {
   public void periodic() {
     lifterMotorState = (lifterWheel.get() != 0);
     feederMotorState = (feederWheel.get() != 0);
+    SmartDashboard.putBoolean("Lifter BB", getlifterBB());
+    
+    SmartDashboard.putBoolean("Feeder BB", getfeederBB());
+
     // This method will be called once per scheduler run
   }
 
@@ -41,14 +46,14 @@ public class LifterSubsystem extends SubsystemBase {
    * @return boolean
    */
   public static boolean getfeederBB() {
-    return feederBB.get();
+    return !feederBB.get();
   }
 
   /**
    * @return boolean
    */
   public static boolean getlifterBB() {
-    return lifterBB.get();
+    return !lifterBB.get();
   }
 
   
@@ -112,7 +117,7 @@ public class LifterSubsystem extends SubsystemBase {
     toggleLowerMotor();
   }
   public void feed(){
-    feederWheel.set(Constants.subsystems.lifter.lifterFeedSpeed);
+    feederWheel.set(feederSpeed);
   }
   public void disableFeed(){
     feederWheel.set(0);
