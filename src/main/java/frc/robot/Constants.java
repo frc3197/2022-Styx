@@ -119,7 +119,7 @@ public final class Constants implements Loggable{
             public static final double intakeSpeed = .5;
             public static final NetworkTable camName = null;
             public static int armMotorID = 14;
-            public static double armSpeed = .5;
+            public static double armSpeed = .1;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 16;
