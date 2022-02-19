@@ -17,6 +17,8 @@ import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
 import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.commands.Actions.General.Shoot;
+import frc.robot.commands.Actions.Manual.ManualRotateArm;
+import frc.robot.commands.Actions.Manual.ManualSpool;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_1B;
@@ -51,7 +53,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   
-  //private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
   private final static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
@@ -127,9 +129,11 @@ public class RobotContainer {
     //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem));
-    new Button(m_controller1::getAButton).whileHeld(new Intake(m_intakeSubsystem));
-    new Button(m_controller1::getYButton).whileHeld(new DeployIntake(m_intakeSubsystem));
-    new Button(m_controller1::getBButton).whileHeld(new RetractIntake(m_intakeSubsystem));
+    
+    new Button(m_controller1::getBButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Forward"));
+    new Button(m_controller1::getXButton).whenHeld(new ManualRotateArm(m_climberSubsystem, "Backward"));
+    new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
+    new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
 
 
     
