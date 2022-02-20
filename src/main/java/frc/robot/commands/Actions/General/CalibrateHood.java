@@ -4,15 +4,20 @@
 
 package frc.robot.commands.Actions.General;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.HoodSubsystem;
 
 public class CalibrateHood extends CommandBase {
   HoodSubsystem hood;
+
   /** Creates a new CalibrateHood. */
   public CalibrateHood(HoodSubsystem hood) {
     this.hood = hood;
     addRequirements(hood);
+    
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,15 +27,23 @@ public class CalibrateHood extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    hood.setHood(-Constants.subsystems.hood.hoodSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    hood.setHoodValue(0);
+    hood.setHood(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(hood.getHoodBackLimit()==true){
+        return true;
+    }
+    else{return false;}
   }
 }
