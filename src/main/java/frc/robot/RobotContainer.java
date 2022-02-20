@@ -128,7 +128,7 @@ public class RobotContainer {
     new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     //new Button(m_controller1::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
+    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
       
     new Button(m_controller1::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
     new Button(m_controller1::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));

@@ -30,8 +30,6 @@ public class IntakeSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
 
-    andThen(new RetractIntake(intakeArmSubsystem));
-
 
   }}
 

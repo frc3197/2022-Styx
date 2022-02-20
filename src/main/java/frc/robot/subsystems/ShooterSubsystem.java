@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
@@ -25,12 +26,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
     shooterMotor = new WPI_TalonFX(Constants.subsystems.shooter.shooterMotorID);
+    shooterMotor.setInverted(true);
     shooterEncoder = new Encoder(Constants.subsystems.shooter.shooterEncoderA, Constants.subsystems.shooter.shooterEncoderB);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("RPM", getShooterRPM());
+    SmartDashboard.putNumber("RPM", shooterEncoder.getDistance() / 2048);
+    SmartDashboard.putNumber("Rate", getRawRate());
     // This method will be called once per scheduler run
   }
 
@@ -50,7 +53,10 @@ public class ShooterSubsystem extends SubsystemBase {
    */
   public double getShooterRPM(){ 
     //TODO: VERIFY  
-    return shooterEncoder.getRate() / 360 / 60 ;
+    return shooterEncoder.getRate() / 8192 / 60 ;
+  }
+  public double getRawRate(){
+    return shooterEncoder.getRate();
   }
 
   public void setVoltage(double voltage)
