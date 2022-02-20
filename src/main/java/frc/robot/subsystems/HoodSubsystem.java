@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
@@ -21,14 +22,15 @@ public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   private CANSparkMax hoodMotor;
   private CANCoder encoder;
-  
+  private SparkMaxLimitSwitch backLimit;  
+
   //Back is reverse!!!
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
     hoodMotor.setIdleMode(IdleMode.kBrake);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
-    
+    backLimit = hoodMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   }
 
   @Override
@@ -45,10 +47,19 @@ public class HoodSubsystem extends SubsystemBase {
     hoodMotor.set(x);
   }
   
+
+  public boolean getHoodBackLimit(){
+    return backLimit.isPressed();
+
+  }
   /** 
    * Returns the position of the hood in raw sensor units.
    * @return double
    */
+  public void setHoodValue(int value){
+    encoder.setPosition(value);
+  }
+  
   public double getHoodPosition(){
     return encoder.getPosition();
   }

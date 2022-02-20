@@ -166,6 +166,7 @@ public final class Constants implements Loggable{
             //TODO: METERS
             public static final double HubHeight = 2.64;
             public static final double LLAng = 0;
+            public static final double hoodSpeed = .2;
         }
 
     }
