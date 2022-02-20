@@ -33,7 +33,7 @@ public class Spool extends CommandBase {
   @Override
   public void execute() {
 
-    double pidOutput = (pid.calculate(shooter.getShooterVelocity(), rpm));
+    double pidOutput = (pid.calculate(shooter.getShooterRPM(), rpm));
     double ffOutput = (ff.calculate(rpm));
     shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);
     

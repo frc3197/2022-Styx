@@ -18,7 +18,7 @@ public class IntakeArm extends SubsystemBase {
   /** Creates a new IntakeArm. */
   public IntakeArm() {
     armMotor = new CANSparkMax(Constants.subsystems.intake.armMotorID, MotorType.kBrushless);
-    armMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
+    armMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,255);
     armMotor.setIdleMode(IdleMode.kBrake);
 
   }

@@ -23,8 +23,8 @@ public class ClimberArm extends SubsystemBase {
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
     armMotorRight.follow(armMotorLeft);
 
-    armMotorLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
-    armMotorRight.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
+    armMotorLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 100);
+    armMotorRight.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 100);
 
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();

@@ -99,17 +99,17 @@ public final class Constants implements Loggable{
             public static final int shooterEncoderB = 0;
 
 
-			public static final double shooterWheelDiamInches = 0;
+			public static final double shooterWheelDiamInches = 6;
 
-            public static final double kP = 0;
+            public static final double kP = 1.2278 * Math.pow(10, -7);
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 0;
+            public static final double shooterMaxVoltage = 7;
 
-            public static final double kS = 0;
-            public static final double kV = 0;
-            public static final double kA = 0;
-            public static final double targetRPM = 0;
+            public static final double kS = .86683;
+            public static final double kV = .00011228;
+            public static final double kA = 4.4195 * Math.pow(10, -5);
+            public static final double targetRPM = 5800;
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
@@ -117,7 +117,7 @@ public final class Constants implements Loggable{
 
             public static final int intakeMotorID = 9;
             public static final double intakeSpeed = .5;
-            public static final NetworkTable camName = null;
+            public static final String camName = "intakeCam";
             public static int armMotorID = 14;
             public static double armSpeed = .1;
         }
@@ -126,16 +126,11 @@ public final class Constants implements Loggable{
             public static final int spoolMotorRightID = 17;
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
-            public static final double spoolSpeed = 0;
+            public static final double spoolSpeed = 0.7;
             public static final int armEncoderLeftA = 3;
             public static final int armEncoderLeftB = 2;
-            public static final int armSpeed = 0;
-            
-            public static final int FL_LimitID = 0;
-            public static final int FR_LimitID = 0;
-            public static final int BR_LimitID = 0;
-            public static final int BL_LimitID = 0;
-
+            public static final double armSpeed = 0.3;
+        
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 0;
             public static final PIDConst climberArmCost = new PIDConst(0, 0, 0);
@@ -143,13 +138,10 @@ public final class Constants implements Loggable{
         }
         public static final class lifter{
 
-            public static final double lifterShootSpeed = 0;
-
             public static final int lifterBBChannel = 6;
             public static final int feederBBChannel = 8;
 
-            public static final int lifterMotorID = 16;
-
+            public static final int lifterMotorID = 8;
 
             public static final int feederMotorID = 18;
 

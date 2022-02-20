@@ -30,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("RPM", getShooterVelocity());
+    SmartDashboard.putNumber("RPM", getShooterRPM());
     // This method will be called once per scheduler run
   }
 
@@ -48,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
    * Returns the velocity of the shooter wheel in RPM.
    * @return double
    */
-  public double getShooterVelocity(){ 
+  public double getShooterRPM(){ 
     //TODO: VERIFY  
     return shooterEncoder.getRate() / 360 / 60 ;
   }
