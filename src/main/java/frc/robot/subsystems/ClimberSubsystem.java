@@ -15,6 +15,10 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
+import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -83,7 +87,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void setSpoolSpeed(double speed) {
     spoolMotorLeft.set(speed);
-    spoolMotorRight.set(-speed);
+    spoolMotorRight.set(speed);
 
   }
 

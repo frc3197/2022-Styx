@@ -27,6 +27,7 @@ public class ManualSpool extends CommandBase {
   public void execute() {
     if(direction.equals("Up")){
       climberSubsystem.setSpoolSpeed(.5);
+      
     }
     else if(direction.equals("Down")){
       climberSubsystem.setSpoolSpeed(-.5);

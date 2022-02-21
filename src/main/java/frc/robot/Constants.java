@@ -109,17 +109,17 @@ public final class Constants implements Loggable{
             public static final double kS = .86683;
             public static final double kV = .00011228;
             public static final double kA = 4.4195 * Math.pow(10, -5);
-            public static final double targetRPM = 5800;
+            public static final double targetRPM = 5300;
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
         public static final class intake {
 
             public static final int intakeMotorID = 9;
-            public static final double intakeSpeed = .5;
+            public static final double intakeSpeed = 1;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
-            public static double armSpeed = .1;
+            public static double armSpeed = .4;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 19;
@@ -145,8 +145,8 @@ public final class Constants implements Loggable{
 
             public static final int feederMotorID = 18;
 
-            public static final double lifterSpeed = -.2;
-            public static final double feederSpeed = .2;
+            public static final double lifterSpeed = -.7;
+            public static final double feederSpeed = .6;
         
         
         }

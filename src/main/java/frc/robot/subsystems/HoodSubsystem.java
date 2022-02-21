@@ -29,13 +29,15 @@ public class HoodSubsystem extends SubsystemBase {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
     hoodMotor.setIdleMode(IdleMode.kBrake);
+    hoodMotor.setInverted(false);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
-    backLimit = hoodMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    backLimit = hoodMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
+    SmartDashboard.putBoolean("Back Limit Pressed", getHoodBackLimit());
     // This method will be called once per scheduler run
   }
   

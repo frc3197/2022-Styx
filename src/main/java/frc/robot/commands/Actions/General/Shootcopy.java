@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.LifterSubsystem;
 
-public class Shoot extends CommandBase {
+public class Shootcopy extends CommandBase {
   LifterSubsystem lifter;
   Timer timer;
   boolean feederBBState, lifterBBState,isOver;
   /** Creates a new Shoot. */
-  public Shoot(LifterSubsystem lifter) {
+  public Shootcopy(LifterSubsystem lifter) {
     this.lifter = lifter;
     timer = new Timer();
     isOver = false;
@@ -27,24 +27,26 @@ public class Shoot extends CommandBase {
     lifter.setBothMotors(0);
     feederBBState = LifterSubsystem.getfeederBB();
     lifterBBState = LifterSubsystem.getlifterBB();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    if(timer.get() > 5){
     lifter.setBothMotors(Constants.subsystems.lifter.lifterSpeed);
-  }
+  }}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     lifter.setBothMotors(0);
+    timer.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false ;
+    return timer.get() > 10 ;
   }
 }

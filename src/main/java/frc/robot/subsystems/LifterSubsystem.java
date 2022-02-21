@@ -33,6 +33,10 @@ public class LifterSubsystem extends SubsystemBase {
     feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
     feederSpeed = Constants.subsystems.lifter.feederSpeed;
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;
+
+    lifterWheel.setInverted(false);
+    feederWheel.setInverted(true);
+
   }
 
   @Override

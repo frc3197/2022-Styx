@@ -29,6 +29,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     System.out.print(Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
+    m_robotContainer.recalibrateGyroscope();
+
     
   }
 
@@ -82,8 +84,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    m_robotContainer.recalibrateGyroscope();
-    m_robotContainer.resetOdometry();
+    //m_robotContainer.resetOdometry();
     System.out.println(Constants.subsystems.swerve.MAX_VEL_METERS);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

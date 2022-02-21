@@ -4,9 +4,12 @@
 
 package frc.robot.commands.Groups;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Actions.General.Shoot;
+import frc.robot.commands.Actions.General.Shootcopy;
+import frc.robot.commands.Actions.ScuffedOneBall.ScuffedOneBallShoot;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.other.AutoRoutine;
 import frc.robot.other.Wait;
@@ -19,6 +22,6 @@ public class Auto_1B extends AutoRoutine {
   public Auto_1B() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelRaceGroup(new SequentialCommandGroup(new Wait(.25), new Shoot(super.getLifterSubsystem())), new Spool(super.getShooterSubsystem(), 0)));
+    addCommands(new ParallelCommandGroup(new SequentialCommandGroup(new Shootcopy(super.getLifterSubsystem())), new Spool(super.getShooterSubsystem(), 3300)));
   }
 }

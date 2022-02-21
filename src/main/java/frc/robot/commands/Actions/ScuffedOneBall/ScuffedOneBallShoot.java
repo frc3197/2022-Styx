@@ -2,37 +2,31 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Actions.General;
+package frc.robot.commands.Actions.ScuffedOneBall;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.LifterSubsystem;
 
-public class Shoot extends CommandBase {
+public class ScuffedOneBallShoot extends CommandBase {
   LifterSubsystem lifter;
   Timer timer;
   boolean feederBBState, lifterBBState,isOver;
   /** Creates a new Shoot. */
-  public Shoot(LifterSubsystem lifter) {
+  public ScuffedOneBallShoot(LifterSubsystem lifter) {
     this.lifter = lifter;
-    timer = new Timer();
-    isOver = false;
     addRequirements(lifter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    lifter.setBothMotors(0);
-    feederBBState = LifterSubsystem.getfeederBB();
-    lifterBBState = LifterSubsystem.getlifterBB();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
     lifter.setBothMotors(Constants.subsystems.lifter.lifterSpeed);
   }
 
@@ -45,6 +39,6 @@ public class Shoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false ;
+    return false;
   }
 }
