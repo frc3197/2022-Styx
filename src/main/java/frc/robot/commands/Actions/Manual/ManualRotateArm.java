@@ -5,9 +5,7 @@
 package frc.robot.commands.Actions.Manual;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.subsystems.climber;
-import frc.robot.subsystems.ClimberArm;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.Climber.ClimberArm;
 
 public class ManualRotateArm extends CommandBase {
   ClimberArm climberSubsystem;

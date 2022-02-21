@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
-import frc.robot.subsystems.ClimberArm;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.Climber.ClimberArm;
 
 public class RotateArm extends CommandBase {
   ClimberArm climberSubsystem;

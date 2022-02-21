@@ -5,8 +5,7 @@
 package frc.robot.commands.Actions.Manual;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.subsystems.climber;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.Climber.ClimberSubsystem;
 
 public class ManualSpool extends CommandBase {
   ClimberSubsystem climberSubsystem;

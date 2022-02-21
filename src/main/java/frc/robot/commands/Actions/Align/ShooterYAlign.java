@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
 import frc.robot.other.RangeLookup;
-import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class ShooterYAlign extends CommandBase {
   HoodSubsystem hoodSubsystem;

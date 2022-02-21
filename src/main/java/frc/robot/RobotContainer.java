@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,14 +33,14 @@ import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
-import frc.robot.subsystems.ClimberArm;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.HoodSubsystem;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LifterSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Climber.ClimberArm;
+import frc.robot.subsystems.Climber.ClimberSubsystem;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Intake.IntakeArm;
+import frc.robot.subsystems.Intake.IntakeSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
+import frc.robot.subsystems.Shooter.ShooterSubsystem;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -53,6 +52,8 @@ import io.github.oblarg.oblog.Logger;
  * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+@SuppressWarnings("unused")
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
@@ -130,7 +131,8 @@ public class RobotContainer {
     //new Button(m_controller1::getRightBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
+    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    //TODO: ^^^^^^^^^^^^^^^^^^^^^
     new Button(m_controller1::getAButton).whenHeld(new RetractIntake(m_intakeArmSubsystem));
     //new Button(m_controller1::getAButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
 

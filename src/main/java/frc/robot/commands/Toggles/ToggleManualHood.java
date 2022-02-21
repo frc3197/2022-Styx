@@ -6,7 +6,7 @@ package frc.robot.commands.Toggles;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class ToggleManualHood extends CommandBase {
   HoodSubsystem m_hoodSubsystem;

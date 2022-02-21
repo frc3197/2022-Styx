@@ -4,11 +4,9 @@
 
 package frc.robot.commands.Actions.General;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.lifter;
-import frc.robot.subsystems.LifterSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 public class Lift extends CommandBase {
   LifterSubsystem lifterSubsystem;
@@ -27,6 +25,7 @@ public class Lift extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //TODO:VERIFY
     feederBBState = LifterSubsystem.getfeederBB();
     lifterBBState = LifterSubsystem.getlifterBB();
     if(lifterBBState && feederBBState){

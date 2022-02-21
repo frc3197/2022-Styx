@@ -9,8 +9,8 @@ import frc.robot.Constants;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.other.Wait;
-import frc.robot.subsystems.LifterSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
+import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

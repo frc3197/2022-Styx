@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.Shooter;
 
 import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.sensors.CANCoder;
@@ -58,7 +58,7 @@ public class HoodSubsystem extends SubsystemBase {
    * Returns the position of the hood in raw sensor units.
    * @return double
    */
-  public void setHoodValue(int value){
+  public void setEncoderVal(int value){
     encoder.setPosition(value);
   }
   

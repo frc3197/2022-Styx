@@ -8,10 +8,9 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
-import frc.robot.commands.Actions.General.RetractIntake;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LifterSubsystem;
+import frc.robot.subsystems.Intake.IntakeArm;
+import frc.robot.subsystems.Intake.IntakeSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

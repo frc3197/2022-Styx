@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.other.extra_libraries.PathPlanner;
 import frc.robot.other.extra_libraries.PathPlannerTrajectory;
 import frc.robot.other.extra_libraries.PathPlannerTrajectory.PathPlannerState;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Drive.DriveSubsystem;
 
 public class RunBasicTrajectory extends CommandBase {
   private Pose2d currentPosition;

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.Drive;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
@@ -208,7 +208,6 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 }
 
         }
-        //TODO: Make a toggleDriverMode
 
         public double getCamYaw() {
                 var result = cam.getLatestResult();
@@ -217,6 +216,9 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                         output = result.getBestTarget().getYaw();
                 }
                 return output;
+        }
+        public void toggleDriverMode(){
+                cam.setDriverMode(cam.getDriverMode() ? false : true);
         }
 
         /**

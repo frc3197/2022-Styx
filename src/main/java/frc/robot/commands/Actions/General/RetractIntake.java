@@ -5,16 +5,12 @@
 package frc.robot.commands.Actions.General;
 
 import com.revrobotics.SparkMaxLimitSwitch;
-import com.revrobotics.SparkMaxLimitSwitch.Type;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.IntakeSubsystem;
-//TODO: Test
+import frc.robot.subsystems.Intake.IntakeArm;
 public class RetractIntake extends CommandBase {
   IntakeArm m_intakeSubsystem;
+  //TODO:VERIFY UPPER LIMITS
   private SparkMaxLimitSwitch upperLimit;  
 
   

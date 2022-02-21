@@ -4,14 +4,13 @@
 
 package frc.robot.commands.Actions.General;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class CalibrateHood extends CommandBase {
   HoodSubsystem hood;
-
+//TODO: Check Limits in Shuffleboard and test
   /** Creates a new CalibrateHood. */
   public CalibrateHood(HoodSubsystem hood) {
     this.hood = hood;
@@ -34,7 +33,7 @@ public class CalibrateHood extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hood.setHoodValue(0);
+    hood.setEncoderVal(0);
     hood.setHood(0);
   }
 

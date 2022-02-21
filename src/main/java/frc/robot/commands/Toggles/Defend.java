@@ -5,7 +5,7 @@
 package frc.robot.commands.Toggles;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Drive.DriveSubsystem;
 // ONLY WORKS AS A TOGGLE COMMAND
 public class Defend extends CommandBase {
   DriveSubsystem m_drivetrain;

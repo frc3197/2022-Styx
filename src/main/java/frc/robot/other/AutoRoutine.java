@@ -7,14 +7,14 @@ package frc.robot.other;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ClimberArm;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.HoodSubsystem;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LifterSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Climber.ClimberArm;
+import frc.robot.subsystems.Climber.ClimberSubsystem;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Intake.IntakeArm;
+import frc.robot.subsystems.Intake.IntakeSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
+import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 /** Add your docs here. */
 public class AutoRoutine extends SequentialCommandGroup {

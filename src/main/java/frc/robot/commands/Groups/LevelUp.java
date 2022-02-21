@@ -13,7 +13,7 @@ import frc.robot.commands.Actions.General.SpoolToLimit;
 import frc.robot.other.AutoRoutine;
 import frc.robot.other.ClimbType;
 import frc.robot.other.Wait;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.Climber.ClimberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

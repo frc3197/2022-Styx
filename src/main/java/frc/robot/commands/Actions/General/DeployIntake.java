@@ -5,15 +5,10 @@
 package frc.robot.commands.Actions.General;
 
 import com.revrobotics.SparkMaxLimitSwitch;
-import com.revrobotics.SparkMaxRelativeEncoder;
-import com.revrobotics.SparkMaxLimitSwitch.Type;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.IntakeArm;
-import frc.robot.subsystems.IntakeSubsystem;
-//TODO: Test
+import frc.robot.subsystems.Intake.IntakeArm;
 public class DeployIntake extends CommandBase {
   IntakeArm m_intakeSubsystem;
   private SparkMaxLimitSwitch lowerLimit;
