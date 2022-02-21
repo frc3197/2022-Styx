@@ -18,7 +18,6 @@ import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
 import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.commands.Actions.General.Shoot;
-import frc.robot.commands.Actions.General.Shootcopy;
 import frc.robot.commands.Actions.Manual.ManualRotateArm;
 import frc.robot.commands.Actions.Manual.ManualSpool;
 import frc.robot.commands.Actions.Movement.ResetGyro;
@@ -134,7 +133,6 @@ public class RobotContainer {
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
     new Button(m_controller1::getAButton).whenHeld(new RetractIntake(m_intakeArmSubsystem));
     //new Button(m_controller1::getAButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
-    new Button(m_controller1::getXButton).whenPressed(new Shootcopy(m_lifterSubsystem));
 
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM));

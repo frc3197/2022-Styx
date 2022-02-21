@@ -126,7 +126,7 @@ public final class Constants implements Loggable{
             public static final int spoolMotorRightID = 17;
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
-            public static final double spoolSpeed = 0.7;
+            public static final double spoolSpeed = .7;
             public static final int armEncoderLeftA = 3;
             public static final int armEncoderLeftB = 2;
             public static final double armSpeed = 0.3;

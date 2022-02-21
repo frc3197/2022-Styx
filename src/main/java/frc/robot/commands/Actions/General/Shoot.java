@@ -12,34 +12,43 @@ import frc.robot.subsystems.LifterSubsystem;
 public class Shoot extends CommandBase {
   LifterSubsystem lifter;
   Timer timer;
-  boolean feederBBState, lifterBBState,isOver;
+  double delay;
+  /** Creates a new Shoot. */
+  public Shoot(LifterSubsystem lifter, double delay) {
+    this.lifter = lifter;
+    this.delay = delay;
+    timer = new Timer();
+    addRequirements(lifter);
+  }
+
   /** Creates a new Shoot. */
   public Shoot(LifterSubsystem lifter) {
     this.lifter = lifter;
+    this.delay = 0;
     timer = new Timer();
-    isOver = false;
     addRequirements(lifter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.start();
     lifter.setBothMotors(0);
-    feederBBState = LifterSubsystem.getfeederBB();
-    lifterBBState = LifterSubsystem.getlifterBB();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    if(timer.get() > delay){
     lifter.setBothMotors(Constants.subsystems.lifter.lifterSpeed);
-  }
+  }}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     lifter.setBothMotors(0);
+    timer.stop();
+    timer.reset();
   }
 
   // Returns true when the command should end.
