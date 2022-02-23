@@ -44,6 +44,42 @@ public class RangeLookup  {
         }
         return hoodVal;
     }
+    public static int getRPM(double range){
+        int rpm;
+        switch(normalizeRange(range)){
+            case 5:
+            rpm = 0;
+            break;
+            case 10:
+            rpm = 0;
+            break;
+            case 15:
+            rpm = 0;
+            break;
+            case 20:
+            rpm = 0;
+            break;
+            case 25:
+            rpm = 0;
+            break;
+            case 30:
+            rpm = 0;
+            break;
+            case 35:
+            rpm = 0;
+            break;
+            case 40:
+            rpm = 0;
+            break;
+            case 45:
+            rpm = 0;
+            break;
+            default:
+            rpm = 0;
+            break;
+        }
+        return rpm;
+    }
 
 
     private static int normalizeRange(double range){
@@ -53,4 +89,4 @@ public class RangeLookup  {
     public static double convertLLYtoRange(double ty){
         return (Constants.subsystems.hood.HubHeight - Constants.subsystems.hood.LLHeight) / Math.tan(Constants.subsystems.hood.LLAng + ty);
     }
-}
+

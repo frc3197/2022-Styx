@@ -25,10 +25,11 @@ public class ShooterYAlign extends CommandBase {
     this.hoodSubsystem = hoodSubsystem;
     yPID_Constants = Constants.subsystems.swerve.yALIGN_PID;
     yPID = new PIDController(yPID_Constants.p, yPID_Constants.i, yPID_Constants.d);
-    
+    yPID.setTolerance(5);
     addRequirements(hoodSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+
 
   // Called when the command is initially scheduled.
   @Override
@@ -39,6 +40,7 @@ public class ShooterYAlign extends CommandBase {
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
     visionSetpoint = RangeLookup.getHoodValue(RangeLookup.convertLLYtoRange(visionMeasurement));
+    visionSetpoint = -750;
     hoodSubsystem.setHood(yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
   }
 

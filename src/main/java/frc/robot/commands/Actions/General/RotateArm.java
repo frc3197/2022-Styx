@@ -36,7 +36,7 @@ public class RotateArm extends CommandBase {
   @Override
   public void execute() {
     currentPos = climberSubsystem.getArmEncoderValueLeft();
-    climberSubsystem.setArmVoltage(pid.calculate(currentPos, targetVal) * Constants.subsystems.climber.armMaxVoltage);
+    climberSubsystem.setArmVoltage(-pid.calculate(currentPos, targetVal));
   }
 
   // Called once the command ends or is interrupted.

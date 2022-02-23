@@ -56,7 +56,7 @@ public final class Constants implements Loggable{
 
             public static final PIDConst xALIGN_PID = new PIDConst(.17, 0, 0.003);
 
-            public static final PIDConst yALIGN_PID = new PIDConst(0, 0, 0);
+            public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
 
             public static final class modInfo {
                 
@@ -124,14 +124,14 @@ public final class Constants implements Loggable{
             public static final int spoolMotorRightID = 17;
             public static final int armMotorLeftID = 10;
             public static final int armMotorRightID = 11;
-            public static final double spoolSpeed = .7;
-            public static final int armEncoderLeftA = 3;
-            public static final int armEncoderLeftB = 2;
+            public static final double spoolSpeed = 1;
+            public static final int armEncoderLeftA = 2;
+            public static final int armEncoderLeftB = 3;
             public static final double armSpeed = 0.3;
         
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 0;
-            public static final PIDConst climberArmCost = new PIDConst(0, 0, 0);
+            public static final PIDConst climberArmCost = new PIDConst(.015, .01, 0);
             //TODO: TUNE
         }
         public static final class lifter{

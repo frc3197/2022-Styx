@@ -32,7 +32,7 @@ public class Spool extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    
     double pidOutput = (pid.calculate(shooter.getShooterRPM(), rpm));
     double ffOutput = (ff.calculate(rpm));
     shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);

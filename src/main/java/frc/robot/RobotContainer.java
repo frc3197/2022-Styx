@@ -16,6 +16,7 @@ import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
 import frc.robot.commands.Actions.General.RetractIntake;
+import frc.robot.commands.Actions.General.RotateArm;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Manual.ManualRotateArm;
 import frc.robot.commands.Actions.Manual.ManualSpool;
@@ -148,6 +149,7 @@ public class RobotContainer {
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
+    new Button(m_controller2::getStartButton).whenHeld(new RotateArm(m_climberArmSubsystem, 150));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
    
   }

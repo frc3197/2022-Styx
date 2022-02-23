@@ -21,7 +21,7 @@ import frc.robot.Constants.subsystems.hood;
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   private CANSparkMax hoodMotor;
-  private CANCoder encoder;
+  private static CANCoder encoder;
   private SparkMaxLimitSwitch backLimit;  
 
   //Back is reverse!!!
@@ -66,6 +66,8 @@ public class HoodSubsystem extends SubsystemBase {
     return encoder.getPosition();
   }
 
-
+  public static void resetHoodEncoder(){
+    encoder.setPosition(0);
+  }
 
 }

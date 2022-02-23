@@ -87,10 +87,26 @@ public class LifterSubsystem extends SubsystemBase {
     feederWheel.set(liftSpeed);
   }
 
+    /**
+   * @param liftSpeed
+   */
+  public void setfeederMotor(double liftSpeed, double delay) {
+    Timer.delay(delay);
+    feederWheel.set(liftSpeed);
+  }
+
   /**
    * @param liftSpeed
    */
   public void setlifterMotor(double liftSpeed) {
+    lifterWheel.set(liftSpeed);
+  }
+  
+  /**
+   * @param liftSpeed
+   */
+  public void setlifterMotor(double liftSpeed, double delay) {
+    Timer.delay(delay);
     lifterWheel.set(liftSpeed);
   }
 
@@ -98,6 +114,11 @@ public class LifterSubsystem extends SubsystemBase {
    * @param liftSpeed
    */
   public void setBothMotors(double liftSpeed) {
+    setfeederMotor(liftSpeed);
+    setlifterMotor(liftSpeed);
+  }
+  public void setBothMotors(double liftSpeed, double wait) {
+    Timer.delay(wait);
     setfeederMotor(liftSpeed);
     setlifterMotor(liftSpeed);
   }

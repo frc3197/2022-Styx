@@ -6,21 +6,23 @@ package frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.revrobotics.SparkMaxRelativeEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberArm extends SubsystemBase {
   private WPI_TalonFX armMotorLeft, armMotorRight;
   private int AFL_Limit, AFR_Limit, ABL_Limit, ABR_Limit;
+  private static Encoder encoder;
   
 
   /** Creates a new ClimberArm. */
   public ClimberArm() {
     armMotorLeft = new WPI_TalonFX(Constants.subsystems.climber.armMotorLeftID);
     armMotorRight = new WPI_TalonFX(Constants.subsystems.climber.armMotorRightID);
+    encoder = new Encoder(Constants.subsystems.climber.armEncoderLeftA, Constants.subsystems.climber.armEncoderLeftB);
     armMotorRight.follow(armMotorLeft);
 
     armMotorLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 100);
@@ -37,6 +39,9 @@ public class ClimberArm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Arm Encoder Value", getArmEncoderValueLeft());
+    SmartDashboard.putBoolean("Back Limits", getABL_Limit() || getABR_Limit());
+    SmartDashboard.putBoolean("Front Limits", getAFL_Limit() || getAFR_Limit());
     // This method will be called once per scheduler run
   }
   
@@ -98,6 +103,8 @@ public void setArmSpeed(double speed) {
 
 }
 public double getArmEncoderValueLeft(){
-  return 0;
+  return encoder.getDistance();
 }
-}
+public static void resetEncoderValue(){
+  encoder.reset();
+}}
