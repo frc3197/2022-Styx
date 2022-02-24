@@ -37,6 +37,16 @@ public class IntakeSequence extends ParallelCommandGroup {
 
 
   }
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem) {
+    this.lifterSubsystem = lifterSubsystem;
+    this.intakeSubsystem = intakeSubsystem;
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+
+    addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+
+
+  }
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem, BooleanSupplier booleanSupplier) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
@@ -45,7 +55,7 @@ public class IntakeSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    addCommands(new ParallelDeadlineGroup(new WaitForInput(booleanSupplier, "Open"), new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem)), new RetractIntake(intakeArmSubsystem));
+    addCommands(new ParallelDeadlineGroup(new WaitForInput(booleanSupplier, "Closed"), new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem)), new RetractIntake(intakeArmSubsystem));
 
 
   }}

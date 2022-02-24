@@ -152,7 +152,7 @@ public final class Constants implements Loggable{
             public static final int LLHeight = 36;
             public static final double HubHeight = 104;
             public static final double LLAng = 20;
-            public static final double hoodSpeed = .2;
+            public static final double hoodSpeed = .4;
         }
 
     }

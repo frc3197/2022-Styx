@@ -27,7 +27,7 @@ public class CalibrateHood extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hood.setHood(-Constants.subsystems.hood.hoodSpeed);
+    hood.setHood(Constants.subsystems.hood.hoodSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,9 +40,6 @@ public class CalibrateHood extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(hood.getHoodBackLimit()==true){
-        return true;
-    }
-    else{return false;}
+    return hood.getHoodBackLimit();
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Actions.General;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
@@ -11,9 +12,11 @@ import frc.robot.subsystems.Shooter.LifterSubsystem;
 public class Lift extends CommandBase {
   LifterSubsystem lifterSubsystem;
   boolean feederBBState, lifterBBState;
+  Timer timer = new Timer();
   /** Creates a new Lift. */
   public Lift(LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
+    timer.reset();
     addRequirements(lifterSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,11 +32,13 @@ public class Lift extends CommandBase {
     feederBBState = LifterSubsystem.getfeederBB();
     lifterBBState = LifterSubsystem.getlifterBB();
     if(lifterBBState && feederBBState){
+      Timer.delay(.01);
       lifterSubsystem.setBothMotors(0);
     }
     else if(lifterBBState && !feederBBState){
-      lifterSubsystem.setlifterMotor(0);
       lifterSubsystem.setfeederMotor(Constants.subsystems.lifter.feederSpeed);
+      Timer.delay(.01);
+      lifterSubsystem.setlifterMotor(0);
     }
     else{lifterSubsystem.setBothMotors(Constants.subsystems.lifter.lifterSpeed);}
 
