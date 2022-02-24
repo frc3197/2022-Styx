@@ -5,9 +5,12 @@
 package frc.robot.commands.Continuous;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.other.RangeLookup;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 public class Spool extends CommandBase {
@@ -15,9 +18,9 @@ public class Spool extends CommandBase {
   private double rpm;
   ShooterSubsystem shooter;
   PIDController pid;
+  double visionMeasurement;
   SimpleMotorFeedforward ff;
-  public Spool(ShooterSubsystem shooter, double rpm) {
-    this.rpm = rpm;
+  public Spool(ShooterSubsystem shooter) {
     this.shooter = shooter;
     pid = new PIDController(Constants.subsystems.shooter.kP, Constants.subsystems.shooter.kI, Constants.subsystems.shooter.kD);
     ff = new SimpleMotorFeedforward(Constants.subsystems.shooter.kS, Constants.subsystems.shooter.kV, Constants.subsystems.shooter.kA);
@@ -32,10 +35,13 @@ public class Spool extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
+    rpm = (RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement))).getRPM();
     double pidOutput = (pid.calculate(shooter.getShooterRPM(), rpm));
     double ffOutput = (ff.calculate(rpm));
     shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);
+
+    if(pid.atSetpoint()){RobotContainer.getDriver2().setRumble(.8);}
     
   }
 

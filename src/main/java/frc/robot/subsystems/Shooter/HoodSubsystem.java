@@ -4,30 +4,29 @@
 
 package frc.robot.subsystems.Shooter;
 
-import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
+import com.revrobotics.SparkMaxLimitSwitch;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.hood;
-
+import frc.robot.other.RangeLookup;
 
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   private CANSparkMax hoodMotor;
   private static CANCoder encoder;
-  private SparkMaxLimitSwitch backLimit;  
+  private SparkMaxLimitSwitch backLimit;
 
-  //Back is reverse!!!
+  // Back is reverse!!!
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
-    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
     hoodMotor.setIdleMode(IdleMode.kBrake);
     hoodMotor.setInverted(false);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
@@ -38,35 +37,40 @@ public class HoodSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
     SmartDashboard.putBoolean("Back Limit Pressed", getHoodBackLimit());
+    SmartDashboard.putNumber("Raw Range", RangeLookup
+        .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)));
+    SmartDashboard.putNumber("Normalized Range", RangeLookup.normalizeRange(RangeLookup
+    .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))));
     // This method will be called once per scheduler run
   }
-  
-  /** 
+
+  /**
    * @param mode
    * @param x
    */
-  public void setHood(double x){
+  public void setHood(double x) {
     hoodMotor.set(x);
   }
-  
 
-  public boolean getHoodBackLimit(){
+  public boolean getHoodBackLimit() {
     return backLimit.isPressed();
 
   }
-  /** 
+
+  /**
    * Returns the position of the hood in raw sensor units.
+   * 
    * @return double
    */
-  public void setEncoderVal(int value){
+  public void setEncoderVal(int value) {
     encoder.setPosition(value);
   }
-  
-  public double getHoodPosition(){
+
+  public double getHoodPosition() {
     return encoder.getPosition();
   }
 
-  public static void resetHoodEncoder(){
+  public static void resetHoodEncoder() {
     encoder.setPosition(0);
   }
 

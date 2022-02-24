@@ -39,8 +39,7 @@ public class ShooterYAlign extends CommandBase {
   @Override
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
-    visionSetpoint = RangeLookup.getHoodValue(RangeLookup.convertLLYtoRange(visionMeasurement));
-    visionSetpoint = -750;
+    visionSetpoint = (RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement))).getHoodAngle();
     hoodSubsystem.setHood(yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
   }
 

@@ -4,89 +4,102 @@
 
 package frc.robot.other;
 
+import edu.wpi.first.math.util.Units;
 import frc.robot.Constants;
 
 /** Add your docs here. */
-public class RangeLookup  {
-    public static int getHoodValue(double range){
-        int hoodVal;
-        switch(normalizeRange(range)){
-            case 5:
-            hoodVal = 0;
-            break;
-            case 10:
-            hoodVal = 0;
-            break;
-            case 15:
-            hoodVal = 0;
-            break;
-            case 20:
-            hoodVal = 0;
-            break;
-            case 25:
-            hoodVal = 0;
-            break;
-            case 30:
-            hoodVal = 0;
-            break;
-            case 35:
-            hoodVal = 0;
-            break;
-            case 40:
-            hoodVal = 0;
-            break;
-            case 45:
-            hoodVal = 0;
-            break;
+public class RangeLookup {
+
+    public static RangePair getRangePair(double range) {
+        RangePair rangePair = new RangePair(0, 0);
+        switch (normalizeRange(range)) {
+            case 70:
+                rangePair = new RangePair(-390, 3000);
+                break;
+            case 80:
+                rangePair = new RangePair(-430, 3300);
+                break;
+            case 90:
+                rangePair = new RangePair(-470, 3000);
+                break;
+            case 100:
+                rangePair = new RangePair(-500, 3200);
+                break;
+            case 110:
+                rangePair = new RangePair(-540, 3200);
+                break;
+            case 120:
+                rangePair = new RangePair(-625, 3400);
+                break;
+            case 130:
+                rangePair = new RangePair(-650, 3500);
+                break;
+            case 140:
+                rangePair = new RangePair(-720, 3700);
+                break;
+            case 150:
+                rangePair = new RangePair(-820, 4400);
+                break;
+            case 160:
+                rangePair = new RangePair(-780, 4600);
+                break;
+                case 170:
+                rangePair = new RangePair(-830, 4800);
+                break;
+        
+                case 180:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 190:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 200:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 210:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 220:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 230:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 240:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 250:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 260:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 270:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 280:
+                rangePair = new RangePair(0, 5800);
+                break;
+                case 290:
+                rangePair = new RangePair(0, 5800);
+                break;
             default:
-            hoodVal = 0;
-            break;
+                rangePair = new RangePair(0, 2500);
+                break;
         }
-        return hoodVal;
-    }
-    public static int getRPM(double range){
-        int rpm;
-        switch(normalizeRange(range)){
-            case 5:
-            rpm = 0;
-            break;
-            case 10:
-            rpm = 0;
-            break;
-            case 15:
-            rpm = 0;
-            break;
-            case 20:
-            rpm = 0;
-            break;
-            case 25:
-            rpm = 0;
-            break;
-            case 30:
-            rpm = 0;
-            break;
-            case 35:
-            rpm = 0;
-            break;
-            case 40:
-            rpm = 0;
-            break;
-            case 45:
-            rpm = 0;
-            break;
-            default:
-            rpm = 0;
-            break;
-        }
-        return rpm;
+        return rangePair;
     }
 
-
-    private static int normalizeRange(double range){
-        return (int) (5*(Math.round(range/5)));
+    public static int normalizeRange(double range) {
+        return (int) (10 * (Math.round(range / 10)));
     }
 
-    public static double convertLLYtoRange(double ty){
-        return (Constants.subsystems.hood.HubHeight - Constants.subsystems.hood.LLHeight) / Math.tan(Constants.subsystems.hood.LLAng + ty);
+    public static double convertLLYtoRange(double ty) {
+        if(ty != 0){
+        return (Constants.subsystems.hood.HubHeight - Constants.subsystems.hood.LLHeight)
+                / Math.tan(Units.degreesToRadians(Constants.subsystems.hood.LLAng + ty));
     }
-
+    else{
+        return 0;
+    }
+}}

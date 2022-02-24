@@ -5,6 +5,7 @@
 package frc.robot.other;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 /** Add your docs here. */
 public class FilteredController {
@@ -112,6 +113,10 @@ public class FilteredController {
             return false;
         }
 
+    }
+    public void setRumble(double value){
+        controller.setRumble(RumbleType.kLeftRumble, value);
+        controller.setRumble(RumbleType.kRightRumble, value);
     }
 
 

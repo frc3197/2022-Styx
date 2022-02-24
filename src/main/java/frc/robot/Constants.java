@@ -54,7 +54,7 @@ public final class Constants implements Loggable{
             public static final boolean brakeModeOn = false;
             //TODO: TUNE
 
-            public static final PIDConst xALIGN_PID = new PIDConst(.17, 0, 0.003);
+            public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
 
             public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
 
@@ -114,7 +114,7 @@ public final class Constants implements Loggable{
         public static final class intake {
 
             public static final int intakeMotorID = 9;
-            public static final double intakeSpeed = 1;
+            public static final double intakeSpeed = .4;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
             public static double armSpeed = .4;
@@ -153,9 +153,8 @@ public final class Constants implements Loggable{
             public static final int hoodEncoderID = 4;
             // inches
             public static final int LLHeight = 36;
-            //TODO: METERS
-            public static final double HubHeight = 2.64;
-            public static final double LLAng = 0;
+            public static final double HubHeight = 104;
+            public static final double LLAng = 20;
             public static final double hoodSpeed = .2;
         }
 

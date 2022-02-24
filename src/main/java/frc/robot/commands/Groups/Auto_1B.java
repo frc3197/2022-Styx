@@ -18,6 +18,6 @@ public class Auto_1B extends AutoRoutine {
   public Auto_1B() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelCommandGroup(new SequentialCommandGroup(new Shoot(super.getLifterSubsystem(),3)), new Spool(super.getShooterSubsystem(), 3300)));
+    addCommands(new ParallelCommandGroup(new SequentialCommandGroup(new Shoot(super.getLifterSubsystem(),3)), new Spool(super.getShooterSubsystem())));
   }
 }

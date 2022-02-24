@@ -5,7 +5,6 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import frc.robot.Constants;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.other.Wait;
@@ -23,6 +22,6 @@ public class ShootSequence extends ParallelRaceGroup {
     this.m_shooterSubsystem = m_shooterSubsystem;
     this.m_lifterSubsystem = m_lifterSubsystem;
     addRequirements();
-    addCommands(new Spool(m_shooterSubsystem, Constants.subsystems.shooter.targetRPM), new Wait(.5), new Shoot(m_lifterSubsystem));
+    addCommands(new Spool(m_shooterSubsystem), new Wait(.5), new Shoot(m_lifterSubsystem));
   }
 }

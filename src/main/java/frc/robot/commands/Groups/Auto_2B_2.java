@@ -32,7 +32,7 @@ public class Auto_2B_2 extends AutoRoutine {
         new SequentialCommandGroup(
             new SetNewOdometry(super.getDriveSubsystem(),
                 new Pose2d(256.74, 104.07, new Rotation2d(Units.degreesToRadians(66)))),
-            new ParallelRaceGroup(new Spool(super.getShooterSubsystem(), 0),
+            new ParallelRaceGroup(new Spool(super.getShooterSubsystem()),
                                           // TODO: Test and find rpm
                 new SequentialCommandGroup(
                     new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
