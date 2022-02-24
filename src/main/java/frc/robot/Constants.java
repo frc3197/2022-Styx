@@ -112,7 +112,7 @@ public final class Constants implements Loggable{
         public static final class intake {
 
             public static final int intakeMotorID = 9;
-            public static final double intakeSpeed = .4;
+            public static final double intakeSpeed = .8;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
             public static double armSpeed = .4;
