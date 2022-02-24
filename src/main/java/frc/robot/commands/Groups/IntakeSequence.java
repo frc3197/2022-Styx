@@ -4,10 +4,14 @@
 
 package frc.robot.commands.Groups;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.commands.Actions.General.DeployIntake;
 import frc.robot.commands.Actions.General.Intake;
 import frc.robot.commands.Actions.General.Lift;
+import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.subsystems.Intake.IntakeArm;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
@@ -19,6 +23,7 @@ public class IntakeSequence extends ParallelCommandGroup {
   LifterSubsystem lifterSubsystem;
   IntakeSubsystem intakeSubsystem;
   IntakeArm intakeArmSubsystem;
+  BooleanSupplier booleanSupplier;
   //MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem) {
@@ -27,7 +32,20 @@ public class IntakeSequence extends ParallelCommandGroup {
     this.intakeArmSubsystem = intakeArmSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+
+
+  }
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem, BooleanSupplier booleanSupplier) {
+    this.lifterSubsystem = lifterSubsystem;
+    this.intakeSubsystem = intakeSubsystem;
+    this.intakeArmSubsystem = intakeArmSubsystem;
+    this.booleanSupplier = booleanSupplier;
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+
+    addCommands(new ParallelDeadlineGroup(new WaitForInput(booleanSupplier, "Open"), new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem)), new RetractIntake(intakeArmSubsystem));
 
 
   }}
