@@ -215,8 +215,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 }
                 return output;
         }
-        public void toggleDriverMode(){
+        public static void toggleDriverMode(){
                 cam.setDriverMode(cam.getDriverMode() ? false : true);
+        }
+        
+        public static void setDriverMode(boolean x){
+                cam.setDriverMode(x);
         }
 
         /**

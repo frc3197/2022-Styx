@@ -57,7 +57,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    DriveSubsystem.setDriverMode(false);
+  }
 
   
   /** 
@@ -89,6 +91,8 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     m_robotContainer.resetOdometry();
     HoodSubsystem.resetHoodEncoder();
+    //TODO: Test Driver Mode
+    DriveSubsystem.setDriverMode(true);
     ClimberArm.resetEncoderValue();
     System.out.println(Constants.subsystems.swerve.MAX_VEL_METERS);
     if (m_autonomousCommand != null) {
