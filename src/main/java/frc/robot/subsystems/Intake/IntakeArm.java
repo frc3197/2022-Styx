@@ -28,6 +28,7 @@ public class IntakeArm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //TODO: REMOVE
     SmartDashboard.putBoolean("Intake Up Limit", 
     getArmMotor().getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen).isPressed());
     

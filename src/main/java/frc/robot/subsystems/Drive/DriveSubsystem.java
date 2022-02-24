@@ -228,10 +228,6 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         @Override
         public void periodic() {
-                SmartDashboard.putNumber("GyroOutputRaw", getGyroscopeRotation().getDegrees());
-                SmartDashboard.putNumber("GyroOutputAuto", -getGyroscopeRotation().getDegrees()); // Left/CCW should
-                                                                                                  // increase the gyro
-
                 SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
                 updateOdometry(states);

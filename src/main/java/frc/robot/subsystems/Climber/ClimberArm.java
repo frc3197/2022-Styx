@@ -39,9 +39,7 @@ public class ClimberArm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Arm Encoder Value", getArmEncoderValueLeft());
-    SmartDashboard.putBoolean("Back Limits", getABL_Limit() || getABR_Limit());
-    SmartDashboard.putBoolean("Front Limits", getAFL_Limit() || getAFR_Limit());
+    SmartDashboard.putNumber("Arm Encoder", getArmEncoderValueLeft());
     // This method will be called once per scheduler run
   }
   
