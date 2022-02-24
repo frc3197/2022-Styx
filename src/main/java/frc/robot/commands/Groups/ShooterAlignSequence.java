@@ -5,7 +5,6 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants.subsystems.shooter;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.Align.ShooterYAlign;
 import frc.robot.commands.Continuous.Spool;

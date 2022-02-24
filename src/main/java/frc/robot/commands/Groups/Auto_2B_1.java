@@ -28,8 +28,6 @@ public class Auto_2B_1 extends AutoRoutine {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // TODO: Test and find distance/rpm
-
         new SequentialCommandGroup(
             new SetNewOdometry(super.getDriveSubsystem(),
                 new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))),

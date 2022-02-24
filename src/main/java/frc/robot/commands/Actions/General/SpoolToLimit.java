@@ -28,7 +28,7 @@ public class SpoolToLimit extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    spoolLimitsBack = climberSubsystem.getSL_Limits();
+    //TODO: THIS HAS TO BE REDONE
     spoolLimitsForward = climberSubsystem.getSU_Limits();
 
     if (!spoolLimitsForward && direction.equals("Up")) {

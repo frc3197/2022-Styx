@@ -31,7 +31,6 @@ public class AutoRoutine extends SequentialCommandGroup {
 
     public AutoRoutine(Command... commands){
         addCommands(commands);
-        //TODO: Check if needed / move to before addCommands(); 
         addRequirements(m_intakeArmSubsystem);
         addRequirements(m_driveSubsystem);
         addRequirements(m_climberSubsystem);

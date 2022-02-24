@@ -154,8 +154,6 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
-                // TODO: Verify indexes for pipelines
-
                 cam.setPipelineIndex(0);
 
         }

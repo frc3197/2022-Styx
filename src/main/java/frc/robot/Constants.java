@@ -52,8 +52,6 @@ public final class Constants implements Loggable{
             public static final double MAX_ANG_ACCEL = 8 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
-            //TODO: TUNE
-
             public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
 
             public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
@@ -130,9 +128,8 @@ public final class Constants implements Loggable{
             public static final double armSpeed = 0.3;
         
             public static final double armMaxVoltage = 6;
-            public static final double armRotationTolerance = 0;
+            public static final double armRotationTolerance = 2;
             public static final PIDConst climberArmCost = new PIDConst(.015, .01, 0);
-            //TODO: TUNE
         }
         public static final class lifter{
 
