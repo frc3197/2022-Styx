@@ -32,12 +32,12 @@ public class Lift extends CommandBase {
     feederBBState = LifterSubsystem.getfeederBB();
     lifterBBState = LifterSubsystem.getlifterBB();
     if(lifterBBState && feederBBState){
-      Timer.delay(.02);
+      //Timer.delay(.02);
       lifterSubsystem.setBothMotors(0);
     }
     else if(lifterBBState && !feederBBState){
       lifterSubsystem.setfeederMotor(Constants.subsystems.lifter.feederSpeed);
-      Timer.delay(.02);
+      //Timer.delay(.02);
       lifterSubsystem.setlifterMotor(0);
     }
     else{lifterSubsystem.setBothMotors(Constants.subsystems.lifter.lifterSpeed);}

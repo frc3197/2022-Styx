@@ -142,7 +142,7 @@ public final class Constants implements Loggable{
 
             public static final int feederMotorID = 18;
 
-            public static final double lifterSpeed = -.7;
+            public static final double lifterSpeed = -.4;
             public static final double feederSpeed = .6;
         
         
