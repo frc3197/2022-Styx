@@ -24,7 +24,6 @@ public class IntakeAlign extends CommandBase {
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
     xPID.setTolerance(2);
-    addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,12 +31,14 @@ public class IntakeAlign extends CommandBase {
   @Override
   public void initialize() {
     //TODO:TEST
-    DriveSubsystem.toggleDriverMode();
+    DriveSubsystem.setDriverMode(false);
+    DriveSubsystem.setFieldRelative(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    DriveSubsystem.setDriverMode(false);
     curSpeeds = driveSubsystem.getChassisSpeeds();
     visionMeasurement = driveSubsystem.getCamYaw();
     visionSetpoint = 0;
@@ -53,12 +54,13 @@ public class IntakeAlign extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    DriveSubsystem.toggleDriverMode();
+    DriveSubsystem.setDriverMode(true);
+    DriveSubsystem.setFieldRelative(true);
     driveSubsystem.drive(new ChassisSpeeds(0,0,0));}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return xPID.atSetpoint();
+    return false;
   }
 }

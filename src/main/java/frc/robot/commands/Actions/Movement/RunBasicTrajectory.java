@@ -68,7 +68,6 @@ public class RunBasicTrajectory extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     timer.stop();
-    m_drivetrain.defense();
   }
 
 }

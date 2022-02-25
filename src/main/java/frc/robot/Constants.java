@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.other.PIDConst;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -46,6 +47,7 @@ public final class Constants implements Loggable{
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
+                    
             @Log
             public static final double MAX_VOLTAGE = 12.0;
             @Log
@@ -55,7 +57,7 @@ public final class Constants implements Loggable{
             public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
 
             public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
-
+            
             public static final class modInfo {
                 
                 public static final class flMod {
@@ -170,17 +172,16 @@ public final class Constants implements Loggable{
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(
                     MAX_ANG_VEL_RAD_AUTO, subsystems.swerve.MAX_ANG_ACCEL);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(5.25, 1, .4);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(0, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(5.25, 1, .4);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(0, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(.13, 0, .39,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(0, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5     
-            public static final double LINEAR_VELOCITY_DEFAULT = 2;
+            public static final double LINEAR_VELOCITY_DEFAULT = 8;
             // MUST SET KINEMATICS, see documentation
-            public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(LINEAR_VELOCITY_DEFAULT,
-                    subsystems.swerve.MAX_ANG_VEL_RAD);
+            public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(8, 6);
         }
 
         public static final class startingPos {

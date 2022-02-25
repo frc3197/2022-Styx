@@ -22,6 +22,7 @@ import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Manual.ManualRotateArm;
 import frc.robot.commands.Actions.Manual.ManualSpool;
 import frc.robot.commands.Actions.Movement.ResetGyro;
+import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.Auto_1B;
@@ -79,9 +80,9 @@ public class RobotContainer {
 
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
-      () -> -modifyAxis(filteredController1.getYLeft(.2)) * -DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getYLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
-      () -> -modifyAxis(filteredController1.getXLeft(.2)) * -DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
+      () -> -modifyAxis(filteredController1.getXLeft(.2)) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND
           * Constants.outputs.strafe,
       () -> -modifyAxis(filteredController1.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
           * Constants.outputs.turnRate);
@@ -102,7 +103,11 @@ public class RobotContainer {
     //m_autoChooser.addOption("2Ball2", new Auto_2B_2());
     //m_autoChooser.addOption("2Ball3", new Auto_2B_3());
     m_autoChooser.addOption("1Ball", new Auto_1B());
-
+    m_autoChooser.addOption("Strafe Y", new RunBasicTrajectory(m_driveSubsystem, "SideStrafe"));
+    
+    m_autoChooser.addOption("Forward", new RunBasicTrajectory(m_driveSubsystem, "Forward"));
+    
+    m_autoChooser.addOption("Rotate", new RunBasicTrajectory(m_driveSubsystem, "Rotate"));
     
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
@@ -130,7 +135,7 @@ public class RobotContainer {
     // DRIVER 1
     new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
     new Button(m_controller1::getXButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
-    new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
+    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
