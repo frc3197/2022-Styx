@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems.Shooter;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
@@ -35,6 +37,8 @@ public class LifterSubsystem extends SubsystemBase {
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;
 
     lifterWheel.setInverted(false);
+    lifterWheel.setNeutralMode(NeutralMode.Brake);
+    feederWheel.setIdleMode(IdleMode.kBrake);
     feederWheel.setInverted(true);
 
   }

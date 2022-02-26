@@ -64,28 +64,28 @@ public final class Constants implements Loggable{
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.945);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.412);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(205.049);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(203.906);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.750);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.838);
                 }
                     // MOD 1 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(232.734);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(241.875);
                 }
             }
 
@@ -127,7 +127,7 @@ public final class Constants implements Loggable{
             public static final double spoolSpeed = 1;
             public static final int armEncoderLeftA = 2;
             public static final int armEncoderLeftB = 3;
-            public static final double armSpeed = 0.3;
+            public static final double armSpeed = 0.5;
         
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 2;
@@ -142,7 +142,8 @@ public final class Constants implements Loggable{
 
             public static final int feederMotorID = 18;
 
-            public static final double lifterSpeed = -.4;
+            public static final double lifterSpeed = -.2;
+            public static final double lifterShootSpeed = -.4;
             public static final double feederSpeed = .6;
         
         
@@ -172,16 +173,16 @@ public final class Constants implements Loggable{
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(
                     MAX_ANG_VEL_RAD_AUTO, subsystems.swerve.MAX_ANG_ACCEL);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(0, 0, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(3, 1, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(0, 0, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(3, 1, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(0, 0, 0,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5     
-            public static final double LINEAR_VELOCITY_DEFAULT = 8;
+            public static final double LINEAR_VELOCITY_DEFAULT = 2;
             // MUST SET KINEMATICS, see documentation
-            public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(8, 6);
+            public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(2, 2);
         }
 
         public static final class startingPos {

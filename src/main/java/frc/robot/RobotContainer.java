@@ -21,6 +21,7 @@ import frc.robot.commands.Actions.General.RotateArm;
 import frc.robot.commands.Actions.General.Shoot;
 import frc.robot.commands.Actions.Manual.ManualRotateArm;
 import frc.robot.commands.Actions.Manual.ManualSpool;
+import frc.robot.commands.Actions.Movement.DriveStraight;
 import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
@@ -33,6 +34,7 @@ import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Toggles.Defend;
+import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
@@ -98,17 +100,11 @@ public class RobotContainer {
     // Left stick X axis -> left and right movement
     // Right stick X axis -> rotation
     m_autoChooser = new SendableChooser<>();
-    //m_autoChooser.setDefaultOption("Nothing", null);
-    //m_autoChooser.addOption("2Ball1", new Auto_2B_1());
-    //m_autoChooser.addOption("2Ball2", new Auto_2B_2());
-    //m_autoChooser.addOption("2Ball3", new Auto_2B_3());
+    m_autoChooser.setDefaultOption("Nothing", null);
+    m_autoChooser.addOption("2Ball1", new Auto_2B_1());
+    m_autoChooser.addOption("2Ball2", new Auto_2B_2());
+    m_autoChooser.addOption("2Ball3", new Auto_2B_3());
     m_autoChooser.addOption("1Ball", new Auto_1B());
-    m_autoChooser.addOption("Strafe Y", new RunBasicTrajectory(m_driveSubsystem, "SideStrafe"));
-    
-    m_autoChooser.addOption("Forward", new RunBasicTrajectory(m_driveSubsystem, "Forward"));
-    
-    m_autoChooser.addOption("Rotate", new RunBasicTrajectory(m_driveSubsystem, "Rotate"));
-    
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -133,10 +129,11 @@ public class RobotContainer {
 
     
     // DRIVER 1
-    new Button(m_controller1::getAButton).toggleWhenPressed(new Defend(m_driveSubsystem));
-    new Button(m_controller1::getXButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
-    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeAlign(m_driveSubsystem));
+    new Button(m_controller1::getAButton).whenHeld(new Defend(m_driveSubsystem));
+    new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
+    new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
+    
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     //Test Alternative Way
@@ -147,7 +144,9 @@ public class RobotContainer {
     //new Button(m_controller1::getAButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
 
     // DRIVER 2 
-    new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
+    //new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
+    new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem));
+    new Button(m_controller2::getLeftBumper).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
     
     //new Button(m_controller2::getStartButtonPressed).whenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));
@@ -242,6 +241,14 @@ public class RobotContainer {
 
   public static ShooterSubsystem getShooterSubsystem() {
     return m_shooterSubsystem;
+  }
+  public static int getTeamColor(){
+    if(m_allianceChooser.getSelected().equals("Blue")){
+      return 0;
+    }
+    else{
+      return 1;
+    }
   }
 
   public void publishPosition() {

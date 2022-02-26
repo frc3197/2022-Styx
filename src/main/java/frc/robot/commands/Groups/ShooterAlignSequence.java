@@ -5,9 +5,11 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
 import frc.robot.commands.Actions.Align.ShooterYAlign;
 import frc.robot.commands.Continuous.Spool;
+import frc.robot.other.CancelAfterTimer;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
@@ -19,6 +21,7 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
   DriveSubsystem driveSubsystem;
   HoodSubsystem hoodSubsystem;
   ShooterSubsystem shooterSubsystem;
+  double time;
   public ShooterAlignSequence(DriveSubsystem driveSubsystem,HoodSubsystem hoodSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.hoodSubsystem = hoodSubsystem;
@@ -35,6 +38,16 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     //TODO: Test Shooter Align Sequence
-    addCommands(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem), new Spool(shooterSubsystem));
+    addCommands(new ShooterXAlign(driveSubsystem), new Spool(shooterSubsystem), new ShooterYAlign(hoodSubsystem));
+  }
+  
+  public ShooterAlignSequence(DriveSubsystem driveSubsystem,HoodSubsystem hoodSubsystem, double time) {
+    this.driveSubsystem = driveSubsystem;
+    this.hoodSubsystem = hoodSubsystem;
+    this.time = time;
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    //TODO: Test Shooter Align Sequence
+    addCommands(new ParallelRaceGroup(new CancelAfterTimer(time),new ParallelCommandGroup(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem))));
   }
 }

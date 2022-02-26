@@ -24,6 +24,8 @@ public class ClimberSubsystem extends SubsystemBase {
     spoolMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
     spoolMotorRight.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
     
+    spoolMotorLeft.setInverted(true);
+    spoolMotorRight.setInverted(false);
 
     spoolMotorLeft.setIdleMode(IdleMode.kBrake);
     spoolMotorRight.setIdleMode(IdleMode.kBrake);

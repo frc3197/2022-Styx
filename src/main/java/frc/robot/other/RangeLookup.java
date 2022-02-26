@@ -17,34 +17,34 @@ public class RangeLookup {
                 rangePair = new RangePair(-390, 3000);
                 break;
             case 80:
-                rangePair = new RangePair(-430, 3300);
+                rangePair = new RangePair(-430, 3500);
                 break;
             case 90:
-                rangePair = new RangePair(-470, 3000);
+                rangePair = new RangePair(-470, 3500);
                 break;
             case 100:
-                rangePair = new RangePair(-500, 3200);
+                rangePair = new RangePair(-500, 3600);
                 break;
             case 110:
-                rangePair = new RangePair(-540, 3200);
+                rangePair = new RangePair(-540, 3900);
                 break;
             case 120:
-                rangePair = new RangePair(-625, 3400);
+                rangePair = new RangePair(-650, 4200);
                 break;
             case 130:
-                rangePair = new RangePair(-650, 3500);
+                rangePair = new RangePair(-680, 4300);
                 break;
             case 140:
-                rangePair = new RangePair(-720, 3700);
+                rangePair = new RangePair(-720, 4400);
                 break;
             case 150:
-                rangePair = new RangePair(-820, 4400);
+                rangePair = new RangePair(-850, 5100);
                 break;
             case 160:
-                rangePair = new RangePair(-780, 4600);
+                rangePair = new RangePair(-780, 5300);
                 break;
                 case 170:
-                rangePair = new RangePair(-830, 4800);
+                rangePair = new RangePair(-850, 6100);
                 break;
         
                 case 180:

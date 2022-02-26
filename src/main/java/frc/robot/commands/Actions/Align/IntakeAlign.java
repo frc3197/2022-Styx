@@ -6,6 +6,7 @@ package frc.robot.commands.Actions.Align;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
@@ -16,14 +17,24 @@ public class IntakeAlign extends CommandBase {
   PIDController xPID;
   PIDConst xPID_Constants;
   ChassisSpeeds curSpeeds, newSpeeds;
-  double visionSetpoint, visionMeasurement;
+  Timer timer = new Timer();
+  double visionSetpoint, visionMeasurement, delay;
   /** Creates a new IntakeAlign. */
   public IntakeAlign(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
-    
+    delay = 0;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    xPID.setTolerance(2);
+    xPID.setTolerance(0);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+  
+  public IntakeAlign(DriveSubsystem driveSubsystem,double delay) {
+    this.driveSubsystem = driveSubsystem;
+    this.delay = delay;
+    xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
+    xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
+    xPID.setTolerance(0);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,6 +42,8 @@ public class IntakeAlign extends CommandBase {
   @Override
   public void initialize() {
     //TODO:TEST
+    timer.reset();
+    timer.start();
     DriveSubsystem.setDriverMode(false);
     DriveSubsystem.setFieldRelative(false);
   }
@@ -38,7 +51,6 @@ public class IntakeAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.setDriverMode(false);
     curSpeeds = driveSubsystem.getChassisSpeeds();
     visionMeasurement = driveSubsystem.getCamYaw();
     visionSetpoint = 0;
@@ -61,6 +73,15 @@ public class IntakeAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-  }
-}
+    if(delay == 0){
+      if(DriveSubsystem.getCam().getLatestResult().hasTargets()){
+        return visionMeasurement == 0;
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      return timer.get() > delay;
+    }
+}}

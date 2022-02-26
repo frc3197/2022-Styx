@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.General.Shoot;
-import frc.robot.commands.Actions.Movement.DriveForwardDistance;
+import frc.robot.commands.Actions.Movement.DriveStraight;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.other.AutoRoutine;
@@ -35,9 +35,9 @@ public class Auto_2B_3 extends AutoRoutine {
                 new SequentialCommandGroup(
                     new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
                         new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem()),
-                            new RunBasicTrajectory(super.getDriveSubsystem(), "2 ball #3")),
-                        new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem()),
-                        new Shoot(super.getLifterSubsystem())))))
+                        new DriveStraight(super.getDriveSubsystem(), 1.75),
+                        new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem()))),
+                        new Shoot(super.getLifterSubsystem()))))
     );
   }
 }

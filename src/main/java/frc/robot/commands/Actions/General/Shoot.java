@@ -40,7 +40,7 @@ public class Shoot extends CommandBase {
   @Override
   public void execute() {
     if(timer.get() > delay){
-    lifter.setBothMotors(Constants.subsystems.lifter.lifterSpeed);
+    lifter.setBothMotors(Constants.subsystems.lifter.lifterShootSpeed);
   }}
 
   // Called once the command ends or is interrupted.
