@@ -43,7 +43,7 @@ public class IntakeAlign extends CommandBase {
     visionMeasurement = driveSubsystem.getCamYaw();
     visionSetpoint = 0;
     if(DriveSubsystem.getCam().getLatestResult().hasTargets()){
-      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,-xPID.calculate(visionMeasurement, visionSetpoint));
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, Constants.subsystems.shooter.defaultTurnSpeed);

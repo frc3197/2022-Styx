@@ -40,7 +40,7 @@ public class ShooterXAlign extends CommandBase {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("tx").getDouble(720);
     visionSetpoint = 0;
     if(visionMeasurement < 180){
-      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,-xPID.calculate(visionMeasurement, visionSetpoint));
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,defaultTurnSpeed);
