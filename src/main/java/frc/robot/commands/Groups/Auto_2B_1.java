@@ -37,7 +37,7 @@ public class Auto_2B_1 extends AutoRoutine {
                     new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
                         new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem(),3),
                             new DriveStraight(super.getDriveSubsystem(), 1.75),
-                        new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem(),6))),
+                        new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem(),3))),
                         new Shoot(super.getLifterSubsystem(),3)))));
   }
 }
