@@ -25,10 +25,10 @@ public class ManualRotateArm extends CommandBase {
   @Override
   public void execute() {
     if(direction.equals("Forward")){
-      climberSubsystem.setArmSpeed(0.1);
+      climberSubsystem.setArmSpeed(0.175);
     }
     else if(direction.equals("Backward")){
-      climberSubsystem.setArmSpeed(-.1);
+      climberSubsystem.setArmSpeed(-.175);
     }
   }
 

@@ -127,7 +127,7 @@ public final class Constants implements Loggable{
             public static final double spoolSpeed = 1;
             public static final int armEncoderLeftA = 2;
             public static final int armEncoderLeftB = 3;
-            public static final double armSpeed = 0.5;
+            public static final double armSpeed = 1;
         
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 2;

@@ -144,9 +144,9 @@ public class RobotContainer {
     //new Button(m_controller1::getAButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
 
     // DRIVER 2 
-    //new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
-    new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem));
-    new Button(m_controller2::getLeftBumper).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
+    new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
+   // new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(m_shooterSubsystem));
+   // new Button(m_controller2::getLeftBumper).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
     
     //new Button(m_controller2::getStartButtonPressed).whenPressed(new LevelUp(m_climberSubsystem, ClimbType.high));

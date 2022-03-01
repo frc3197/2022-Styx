@@ -38,7 +38,8 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     //TODO: Test Shooter Align Sequence
-    addCommands(new ShooterXAlign(driveSubsystem), new Spool(shooterSubsystem), new ShooterYAlign(hoodSubsystem));
+    addCommands(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem),
+     new Spool(shooterSubsystem));
   }
   
   public ShooterAlignSequence(DriveSubsystem driveSubsystem,HoodSubsystem hoodSubsystem, double time) {
