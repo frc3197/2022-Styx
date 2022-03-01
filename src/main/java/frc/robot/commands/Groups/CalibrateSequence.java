@@ -5,15 +5,12 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.subsystems.hood;
 import frc.robot.commands.Actions.General.ArmToLimit;
 import frc.robot.commands.Actions.General.CalibrateHood;
 import frc.robot.commands.Actions.General.HoodToAngle;
 import frc.robot.commands.Actions.General.RetractIntake;
 import frc.robot.commands.Actions.General.SpoolToLimit;
 import frc.robot.other.AutoRoutine;
-import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

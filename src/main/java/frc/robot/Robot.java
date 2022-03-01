@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Actions.General.CalibrateHood;
 import frc.robot.commands.Groups.CalibrateSequence;
 import frc.robot.subsystems.Climber.ClimberArm;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -23,7 +24,7 @@ import frc.robot.subsystems.Shooter.HoodSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Command m_calibrateCommand = new CalibrateSequence();
+  private Command m_calibrateCommand = new CalibrateHood(RobotContainer.getHoodSubsystem());
   
 
   /**
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     System.out.print(Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
     m_robotContainer.recalibrateGyroscope();
+    m_calibrateCommand.schedule();
     CameraServer.startAutomaticCapture();
 
     

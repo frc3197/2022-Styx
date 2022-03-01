@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -38,6 +39,7 @@ import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
+import frc.robot.other.RangeLookup;
 import frc.robot.subsystems.Climber.ClimberArm;
 import frc.robot.subsystems.Climber.ClimberSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -139,7 +141,7 @@ public class RobotContainer {
     //Test Alternative Way
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
 
-    new Button(m_controller1::getRightBumper).whenHeld(new RetractIntake(m_intakeArmSubsystem));
+    new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     //new Button(m_controller1::getAButton).whenPressed(new CalibrateHood(m_hoodSubsystem));
 
@@ -155,7 +157,7 @@ public class RobotContainer {
     new Button(m_controller2::getXButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Backward"));
     new Button(m_controller2::getBButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Forward"));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
-    //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
+    //new Button(m_controller2::getBackButtonPressed).w               henPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
    
@@ -252,6 +254,7 @@ public class RobotContainer {
   }
 
   public void publishPosition() {
+    SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))  < 170);
     Logger.updateEntries();
   }
   public static FilteredController getDriver1(){return filteredController1;}

@@ -47,10 +47,7 @@ public class LifterSubsystem extends SubsystemBase {
   public void periodic() {
     lifterMotorState = (lifterWheel.get() != 0);
     feederMotorState = (feederWheel.get() != 0);
-    SmartDashboard.putBoolean("Lifter BB", getlifterBB());
-    
-    SmartDashboard.putBoolean("Feeder BB", getfeederBB());
-
+    SmartDashboard.putString("Lifter State", getLifterStateString());
     // This method will be called once per scheduler run
   }
 
@@ -154,5 +151,19 @@ public class LifterSubsystem extends SubsystemBase {
   }
   public void disableFeed(){
     feederWheel.set(0);
+  }
+  public String getLifterStateString(){
+    if(getfeederBB() && getlifterBB()){
+      return "2 Cargo in Lifter";
+    }
+    else if(getlifterBB() && !getfeederBB()){
+      return  "1 Cargo in Lifter - Upper";
+    }
+    else if (getfeederBB() && !getlifterBB()){
+      return "1 Cargo in Lifter - Lower";
+    }
+    else{
+      return "No Cargo in Lifter";
+    }
   }
 }

@@ -28,6 +28,7 @@ public class RangeLookup {
             case 90:
                 rangePair = new RangePair(-470, 3500);
                 break;
+            // VERIFY THIS RANGE 
             case 95:
             rangePair = new RangePair(-465, 3500);
             break;

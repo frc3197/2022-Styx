@@ -240,6 +240,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
+                SmartDashboard.putBoolean("Field Relative", getFieldRelative());
                 setAllStates(states);
 
         }
