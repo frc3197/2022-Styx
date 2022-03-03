@@ -161,8 +161,8 @@ public final class Constants implements Loggable{
     }
 
     public static final class outputs {
-        public static final double strafe = .7;
-        public static final double turnRate = 1;
+        public static final double strafe = .9;
+        public static final double turnRate = .7;
     }
 
     public static final class auto {

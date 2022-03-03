@@ -1,5 +1,6 @@
 package frc.robot.commands.Continuous;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -14,12 +15,13 @@ public class DriveCommand extends CommandBase implements Loggable {
     private final DoubleSupplier m_translationXSupplier;
     @Log
     private double inputX;
-
+    private final SlewRateLimiter xLimiter = new SlewRateLimiter(20);
     private final DoubleSupplier m_translationYSupplier;
     @Log
     private double inputY;
-
+    private final SlewRateLimiter yLimiter = new SlewRateLimiter(15);
     private final DoubleSupplier m_rotationSupplier;
+
     @Log
     private double inputRot;
     @Log(tabName = "Robot States")
@@ -53,16 +55,16 @@ public class DriveCommand extends CommandBase implements Loggable {
         if (!brakeMode) {
             RobotDriveTrainState = "Brake Mode Off";
             m_drivetrainSubsystem.drive(fieldRelative
-                    ? ChassisSpeeds.fromFieldRelativeSpeeds(inputX, inputY, inputRot,
+                    ? ChassisSpeeds.fromFieldRelativeSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot,
                             m_drivetrainSubsystem.getGyroscopeRotation())
-                    : new ChassisSpeeds(inputX, inputY, inputRot));
+                    : new ChassisSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot));
         } else {
             if (inputX != 0.0 || inputY != 0.0 || inputRot != 0.0) {
                 RobotDriveTrainState = "Brake Mode On - Driving";
                 m_drivetrainSubsystem.drive(fieldRelative
-                        ? ChassisSpeeds.fromFieldRelativeSpeeds(inputX, inputY, inputRot,
+                        ? ChassisSpeeds.fromFieldRelativeSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot,
                                 m_drivetrainSubsystem.getGyroscopeRotation())
-                        : new ChassisSpeeds(inputX, inputY, inputRot));
+                        : new ChassisSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot));
             } else {
                 RobotDriveTrainState = "Brake Mode On - Standby";
                 m_drivetrainSubsystem.defense();
