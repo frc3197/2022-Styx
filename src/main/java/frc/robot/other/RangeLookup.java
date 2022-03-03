@@ -81,8 +81,13 @@ public class RangeLookup {
             case 170:
                 rangePair = new RangePair(-850, 6200);
                 break;
-
+            case 175:
+                rangePair = new RangePair(-850, 6500);
+                break;
             case 180:
+                rangePair = new RangePair(-850, 6500);
+                break;
+                case 185:
                 rangePair = new RangePair(0, 5800);
                 break;
             case 190:

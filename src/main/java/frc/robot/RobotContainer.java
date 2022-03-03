@@ -157,7 +157,7 @@ public class RobotContainer {
     new Button(m_controller2::getXButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Backward"));
     new Button(m_controller2::getBButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Forward"));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
-    //new Button(m_controller2::getBackButtonPressed).w               henPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
+    //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
    
@@ -254,7 +254,7 @@ public class RobotContainer {
   }
 
   public void publishPosition() {
-    SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))  < 170);
+    SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))  < 180);
     Logger.updateEntries();
   }
   public static FilteredController getDriver1(){return filteredController1;}
