@@ -10,11 +10,16 @@ import frc.robot.subsystems.Intake.IntakeSubsystem;
 
 public class Intake extends CommandBase {
   IntakeSubsystem intakeSubsystem;
+  String direction;
   /** Creates a new Intake. */
   public Intake(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
+    direction = "Forward";
   }
-
+  public Intake(IntakeSubsystem intakeSubsystem,String direction) {
+    this.intakeSubsystem = intakeSubsystem;
+    this.direction = direction;
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -22,9 +27,13 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed);
+    if(direction.equals("Forward")){intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed);}
+    
+  
+  else if(direction.equals("Backward")){
+    intakeSubsystem.useIntake(-Constants.subsystems.intake.intakeSpeed);
   }
-
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
