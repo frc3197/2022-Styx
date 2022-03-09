@@ -35,6 +35,7 @@ import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Toggles.Defend;
+import frc.robot.commands.Toggles.ToggleBrakeMode;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
@@ -135,11 +136,14 @@ public class RobotContainer {
     new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
-    
+    new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     //Test Alternative Way
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem));
+    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
+    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
+
 
     new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
@@ -255,6 +259,7 @@ public class RobotContainer {
 
   public void publishPosition() {
     SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))  < 180);
+    
     Logger.updateEntries();
   }
   public static FilteredController getDriver1(){return filteredController1;}

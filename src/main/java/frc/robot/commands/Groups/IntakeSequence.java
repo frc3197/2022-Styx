@@ -24,6 +24,7 @@ public class IntakeSequence extends ParallelCommandGroup {
   IntakeSubsystem intakeSubsystem;
   IntakeArm intakeArmSubsystem;
   BooleanSupplier booleanSupplier;
+  String intakeDirection;
   //MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem) {
@@ -33,7 +34,7 @@ public class IntakeSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+    addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem,.2));
 
 
   }
@@ -44,6 +45,17 @@ public class IntakeSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem));
+
+
+  }
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem, String direction) {
+    this.lifterSubsystem = lifterSubsystem;
+    this.intakeSubsystem = intakeSubsystem;
+    intakeDirection = direction;
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+
+    addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem, intakeDirection));
 
 
   }

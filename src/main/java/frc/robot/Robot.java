@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.recalibrateGyroscope();
     m_calibrateCommand.schedule();
     CameraServer.startAutomaticCapture();
+    DriveSubsystem.setDriverMode(true);
 
     
   }
@@ -70,7 +71,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    DriveSubsystem.setDriverMode(false);
+    
   }
 
   

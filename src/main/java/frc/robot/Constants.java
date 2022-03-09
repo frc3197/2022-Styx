@@ -64,28 +64,28 @@ public final class Constants implements Loggable{
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.412);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.330);
                 }
 
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(203.906);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(203.818);
                 }
 
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 2;
                     public static final int MODULE_STEER_MOTOR = 3;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.838);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.047);
                 }
                     // MOD 1 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(241.875);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(238.975);
                 }
             }
 
@@ -102,7 +102,7 @@ public final class Constants implements Loggable{
             public static final double kP = 1.2278 * Math.pow(10, -7);
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 7;
+            public static final double shooterMaxVoltage = 7.05;
 
             public static final double kS = .86683;
             public static final double kV = .00011228;
@@ -117,7 +117,7 @@ public final class Constants implements Loggable{
             public static final double intakeSpeed = .8;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
-            public static double armSpeed = .4;
+            public static double armSpeed = .3;
         }
         public static final class climber {
             public static final int spoolMotorLeftID = 19;
@@ -127,7 +127,7 @@ public final class Constants implements Loggable{
             public static final double spoolSpeed = 1;
             public static final int armEncoderLeftA = 2;
             public static final int armEncoderLeftB = 3;
-            public static final double armSpeed = 1;
+            public static final double armSpeed = .8;
         
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 2;
