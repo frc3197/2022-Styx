@@ -60,32 +60,32 @@ public final class Constants implements Loggable{
             
             public static final class modInfo {
                 
-                public static final class flMod {
+                public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(178.330);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.748);
                 }
 
-                public static final class frMod {
+                public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(203.818);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(329.941);
                 }
 
-                public static final class blMod {
-                    public static final int MODULE_DRIVE_MOTOR = 2;
-                    public static final int MODULE_STEER_MOTOR = 3;
+                public static final class flMod {
+                    public static final int MODULE_DRIVE_MOTOR = 3;
+                    public static final int MODULE_STEER_MOTOR = 2;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(348.047);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(120.234);
                 }
                     // MOD 1 
-                public static final class brMod {
+                public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(238.975);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(296.543);
                 }
             }
 
@@ -161,7 +161,7 @@ public final class Constants implements Loggable{
     }
 
     public static final class outputs {
-        public static final double strafe = .9;
+        public static final double strafe = 1;
         public static final double turnRate = .7;
     }
 
@@ -173,9 +173,9 @@ public final class Constants implements Loggable{
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(
                     MAX_ANG_VEL_RAD_AUTO, subsystems.swerve.MAX_ANG_ACCEL);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(3, 1, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(3, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(3, 1, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(3, 0, 0);
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
                     ROT_PROFILE);

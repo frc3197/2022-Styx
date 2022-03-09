@@ -10,7 +10,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Intake.IntakeArm;
 public class RetractIntake extends CommandBase {
   IntakeArm m_intakeSubsystem;
-  //TODO:VERIFY UPPER LIMITS
   private SparkMaxLimitSwitch upperLimit;  
 
   

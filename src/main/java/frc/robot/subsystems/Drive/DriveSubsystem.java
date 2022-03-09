@@ -86,7 +86,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
         private final SwerveModule m_backRightModule;
-
+        private static boolean isDefending = false;
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         static PhotonCamera cam = new PhotonCamera("intakeCam");
@@ -154,8 +154,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
-                                
-                
+
                 cam.setPipelineIndex(0);
 
         }
@@ -192,8 +191,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                         cam.setPipelineIndex(1);
                                         break;
                         }
-                }
-                else if(RobotContainer.getAllianceChooser().getSelected() != null){
+                } else if (RobotContainer.getAllianceChooser().getSelected() != null) {
                         switch (RobotContainer.getAllianceChooser().getSelected().toString()) {
                                 case "Blue":
                                         cam.setPipelineIndex(0);
@@ -202,8 +200,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                         cam.setPipelineIndex(1);
                                         break;
                         }
-                }
-                else{
+                } else {
                         cam.setPipelineIndex(0);
                 }
 
@@ -217,11 +214,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 }
                 return output;
         }
-        public static void toggleDriverMode(){
+
+        public static void toggleDriverMode() {
                 cam.setDriverMode(cam.getDriverMode() ? false : true);
         }
-        
-        public static void setDriverMode(boolean x){
+
+        public static void setDriverMode(boolean x) {
                 cam.setDriverMode(x);
         }
 
@@ -241,7 +239,9 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
                 SmartDashboard.putBoolean("Field Relative", getFieldRelative());
-                setAllStates(states);
+                if (!isDefending) {
+                        setAllStates(states);
+                }
 
         }
 
@@ -377,5 +377,11 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          */
         public static void setBrakeMode(boolean x) {
                 brakeMode = x;
+        }
+        public static void setDefending(boolean x){
+                isDefending = x;
+        }
+        public static boolean getDefending(){
+                return isDefending;
         }
 }
