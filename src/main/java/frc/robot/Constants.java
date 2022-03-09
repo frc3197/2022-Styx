@@ -42,8 +42,8 @@ public final class Constants implements Loggable{
             // ORDER: FL FR BL BR
             @Log
             public static final double MAX_VEL_METERS = 6380.0 / 60.0
-                    * SdsModuleConfigurations.MK3_FAST.getDriveReduction()
-                    * SdsModuleConfigurations.MK3_FAST.getWheelDiameter() * Math.PI;
+                    * SdsModuleConfigurations.MK4_L2.getDriveReduction()
+                    * SdsModuleConfigurations.MK4_L2.getWheelDiameter() * Math.PI;
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);

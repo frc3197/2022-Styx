@@ -30,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("RPM", shooterEncoder.getDistance() / 2048);
+    SmartDashboard.putNumber("RPM", shooterEncoder.getRate() / 2048 * 60);
     SmartDashboard.putNumber("Rate", getRawRate());
     SmartDashboard.putNumber("Scale Factor", shooterEncoder.getDecodingScaleFactor());
     // This method will be called once per scheduler run
