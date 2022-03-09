@@ -51,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase {
    * @return double
    */
   public double getShooterRPM(){   
-    return shooterEncoder.getRate() / 2048 / 60 ;
+    return shooterEncoder.getRate() / 2048 * 60 ;
   }
   public double getRawRate(){
     return shooterEncoder.getRate();
