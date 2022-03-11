@@ -167,22 +167,21 @@ public final class Constants implements Loggable{
 
     public static final class auto {
 
+       
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
-            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(
-                    MAX_ANG_VEL_RAD_AUTO, subsystems.swerve.MAX_ANG_ACCEL);
+            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(3,3);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(3, 0, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(8, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(3, 0, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(8, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(4, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5     
             public static final double LINEAR_VELOCITY_DEFAULT = 2;
-            // MUST SET KINEMATICS, see documentation
-            public static final TrajectoryConfig T_CONFIG = new TrajectoryConfig(2, 2);
+            
         }
 
         public static final class startingPos {

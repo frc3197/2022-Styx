@@ -58,7 +58,7 @@ public class RunBasicTrajectory extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(target.getTotalTimeSeconds());
+    return false;
   }
 
   
