@@ -6,6 +6,7 @@ package frc.robot.commands.Continuous;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.LinearFilter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -20,10 +21,23 @@ public class Spool extends CommandBase {
   PIDController pid;
   double visionMeasurement;
   SimpleMotorFeedforward ff;
+  LinearFilter filter = LinearFilter.singlePoleIIR(0.1, 0.02);
+  boolean inputExists;
+  double input,ffOutput,pidOutput;
   public Spool(ShooterSubsystem shooter) {
     this.shooter = shooter;
     pid = new PIDController(Constants.subsystems.shooter.kP, Constants.subsystems.shooter.kI, Constants.subsystems.shooter.kD);
     ff = new SimpleMotorFeedforward(Constants.subsystems.shooter.kS, Constants.subsystems.shooter.kV, Constants.subsystems.shooter.kA);
+    inputExists = false;
+    addRequirements(shooter);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+  public Spool(ShooterSubsystem shooter, double input) {
+    this.shooter = shooter;
+    this.input = input;
+    pid = new PIDController(Constants.subsystems.shooter.kP, Constants.subsystems.shooter.kI, Constants.subsystems.shooter.kD);
+    ff = new SimpleMotorFeedforward(Constants.subsystems.shooter.kS, Constants.subsystems.shooter.kV, Constants.subsystems.shooter.kA);
+    inputExists = true;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -37,8 +51,15 @@ public class Spool extends CommandBase {
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
     rpm = RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement)).getRPM();
-    double pidOutput = (pid.calculate(shooter.getShooterRPM(), rpm));
-    double ffOutput = (ff.calculate(rpm));
+    if(inputExists){
+       pidOutput = (pid.calculate(filter.calculate(shooter.getShooterRPM()), input));
+       ffOutput = (ff.calculate(input));
+    }
+    else{
+       pidOutput = (pid.calculate(filter.calculate(shooter.getShooterRPM()), rpm));
+       ffOutput = (ff.calculate(rpm));
+    }
+
     shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);
 
     if(pid.atSetpoint()){RobotContainer.getDriver2().setRumble(.8);}

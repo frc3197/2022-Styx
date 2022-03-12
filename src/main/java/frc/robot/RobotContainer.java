@@ -175,7 +175,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return (Command) m_autoChooser.getSelected();
-    return new RunBasicTrajectory(m_driveSubsystem, "New Path"); 
+    return new RunBasicTrajectory(m_driveSubsystem, "2 ball #1"); 
   }
 
   public void resetOdometry() {

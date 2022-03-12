@@ -56,7 +56,7 @@ public final class Constants implements Loggable{
             public static final boolean brakeModeOn = false;
             public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
             // OLD Y VALUES, .012
-            public static final PIDConst yALIGN_PID = new PIDConst(.05, 0, 0);
+            public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
             
             public static final class modInfo {
                 
@@ -96,18 +96,14 @@ public final class Constants implements Loggable{
             public static final int shooterEncoderA = 1;
             public static final int shooterEncoderB = 0;
 
-
-			public static final double shooterWheelDiamInches = 6;
-
-            public static final double kP = 1.2278 * Math.pow(10, -7);
+            public static final double kP = 1.2278 * Math.pow(10, -5);
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 7.05;
+            public static final double shooterMaxVoltage = 7;
 
             public static final double kS = .86683;
             public static final double kV = .00011228;
             public static final double kA = 4.4195 * Math.pow(10, -5);
-            public static final double targetRPM = 5300;
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }

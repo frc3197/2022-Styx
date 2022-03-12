@@ -14,10 +14,10 @@ public class RangeLookup {
         RangePair rangePair = new RangePair(0, 0);
         switch (normalizeRange(range)) {
             case 70:
-                rangePair = new RangePair(-390, 3000);
+                rangePair = new RangePair(-470, 1800);
                 break;
             case 75:
-                rangePair = new RangePair(-410, 3200);
+                rangePair = new RangePair(-540, 1600);
                 break;
             case 80:
                 rangePair = new RangePair(-430, 3500);
@@ -33,10 +33,10 @@ public class RangeLookup {
             rangePair = new RangePair(-465, 3500);
             break;
             case 100:
-                rangePair = new RangePair(-500, 3600);
+                rangePair = new RangePair(-500, 1600);
                 break;
             case 105:
-            rangePair = new RangePair(-520, 3750);
+            rangePair = new RangePair(-520, 1500);
             break;
             case 110:
                 rangePair = new RangePair(-540, 3900);
