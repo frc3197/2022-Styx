@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Actions.Movement;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
@@ -21,5 +22,6 @@ public class ResetGyro extends InstantCommand {
   @Override
   public void initialize() {
     driveSubsystem.zeroGyroscope();
+    driveSubsystem.setPose2d(new Pose2d());
   }
 }

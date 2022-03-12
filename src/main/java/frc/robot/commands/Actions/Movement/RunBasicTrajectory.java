@@ -7,6 +7,7 @@ package frc.robot.commands.Actions.Movement;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,6 +32,7 @@ public class RunBasicTrajectory extends CommandBase {
     this.m_drivetrain = m_drivetrain;
     rot_pid = Constants.auto.follower.ROT_PID_CONTROLLER;
     target = PathPlanner.loadPath(path, Constants.subsystems.swerve.MAX_VEL_METERS, Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
+    hController.setTolerance(new Pose2d(.1, .1, new Rotation2d(.1)));
   }
 
   @Override
@@ -58,8 +60,8 @@ public class RunBasicTrajectory extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return false;
-  }
+    return hController.atReference();
+    }
 
   
   /** 

@@ -36,7 +36,7 @@ public class Spool extends CommandBase {
   @Override
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
-    rpm = (RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement))).getRPM();
+    rpm = RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement)).getRPM();
     double pidOutput = (pid.calculate(shooter.getShooterRPM(), rpm));
     double ffOutput = (ff.calculate(rpm));
     shooter.setVoltage((pidOutput + ffOutput) * Constants.subsystems.shooter.shooterMaxVoltage);

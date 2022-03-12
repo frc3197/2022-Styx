@@ -55,8 +55,8 @@ public final class Constants implements Loggable{
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
             public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
-
-            public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
+            // OLD Y VALUES, .012
+            public static final PIDConst yALIGN_PID = new PIDConst(.05, 0, 0);
             
             public static final class modInfo {
                 
@@ -155,7 +155,7 @@ public final class Constants implements Loggable{
             public static final int LLHeight = 36;
             public static final double HubHeight = 104;
             public static final double LLAng = 20;
-            public static final double hoodSpeed = .4;
+            public static final double hoodSpeed = .1;
         }
 
     }
@@ -173,9 +173,9 @@ public final class Constants implements Loggable{
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(3,3);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(.5, 0, 0.03);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(1, 0, 0.03);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(.5, 0, 0.03);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(1, 0, 0.03);
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0.01,
                     ROT_PROFILE);

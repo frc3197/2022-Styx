@@ -59,7 +59,7 @@ public class RangeLookup {
             rangePair = new RangePair(-700, 4350);
             break;
             case 140:
-                rangePair = new RangePair(-720, 4400);
+                rangePair = new RangePair(0, 4400);
                 break;
                 
             case 145:
