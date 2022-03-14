@@ -53,6 +53,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         inputRot = m_rotationSupplier.getAsDouble();
 
         if (!brakeMode) {
+            DriveSubsystem.setDefending(false);
             RobotDriveTrainState = "Brake Mode Off";
             m_drivetrainSubsystem.drive(fieldRelative
                     ? ChassisSpeeds.fromFieldRelativeSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot,
@@ -60,6 +61,7 @@ public class DriveCommand extends CommandBase implements Loggable {
                     : new ChassisSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot));
         } else {
             if (inputX != 0.0 || inputY != 0.0 || inputRot != 0.0) {
+                DriveSubsystem.setDefending(false);
                 RobotDriveTrainState = "Brake Mode On - Driving";
                 m_drivetrainSubsystem.drive(fieldRelative
                         ? ChassisSpeeds.fromFieldRelativeSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot,
@@ -67,6 +69,7 @@ public class DriveCommand extends CommandBase implements Loggable {
                         : new ChassisSpeeds(xLimiter.calculate(inputX), yLimiter.calculate(inputY), inputRot));
             } else {
                 RobotDriveTrainState = "Brake Mode On - Standby";
+                DriveSubsystem.setDefending(true);
                 m_drivetrainSubsystem.defense();
             }
         }
