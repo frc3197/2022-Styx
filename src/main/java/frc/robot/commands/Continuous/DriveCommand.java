@@ -9,7 +9,7 @@ import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
 import java.util.function.DoubleSupplier;
-
+@SuppressWarnings("unused")
 public class DriveCommand extends CommandBase implements Loggable {
     private final DriveSubsystem m_drivetrainSubsystem;
     
