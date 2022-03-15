@@ -11,120 +11,120 @@ import frc.robot.Constants;
 public class RangeLookup {
 
     public static RangePair getRangePair(double range) {
-        RangePair rangePair = new RangePair(0, 0);
+        RangePair rangePair;
         switch (normalizeRange(range)) {
             case 70:
-                rangePair = new RangePair(-480, 1800);
+                rangePair = new VoltagePair(-480, .1);
                 break;
             case 75:
-                rangePair = new RangePair(-350, 1500);
+            rangePair = new VoltagePair(-480, 2);
                 break;
             case 80:
-                rangePair = new RangePair(-430, 1500);
+                rangePair = new RPMPair(-430, 1500);
                 break;
             case 85:
-            rangePair = new RangePair(-450, 1500);
+            rangePair = new RPMPair(-450, 1500);
             break;
             case 90:
-                rangePair = new RangePair(-470, 1500);
+                rangePair = new RPMPair(-470, 1500);
                 break;
             // VERIFY THIS RANGE 
             case 95:
-            rangePair = new RangePair(-465, 3500);
+            rangePair = new RPMPair(-465, 3500);
             break;
             case 100:
-                rangePair = new RangePair(-500, 1600);
+                rangePair = new RPMPair(-500, 1600);
                 break;
             case 105:
-            rangePair = new RangePair(-520, 1500);
+            rangePair = new RPMPair(-520, 1500);
             break;
             case 110:
-                rangePair = new RangePair(-540, 3900);
+                rangePair = new RPMPair(-540, 3900);
                 break;
                 
             case 115:
-            rangePair = new RangePair(-600, 3900);
+            rangePair = new RPMPair(-600, 3900);
             break;
             case 120:
-                rangePair = new RangePair(-670, 4300);
+                rangePair = new RPMPair(-670, 4300);
                 break;
                 case 125:
-                rangePair = new RangePair(-675, 4300);
+                rangePair = new RPMPair(-675, 4300);
                 break;
             case 130:
-                rangePair = new RangePair(-680, 4300);
+                rangePair = new RPMPair(-680, 4300);
                 break;
                 
             case 135:
-            rangePair = new RangePair(-700, 4350);
+            rangePair = new RPMPair(-700, 4350);
             break;
             case 140:
-                rangePair = new RangePair(0, 4400);
+                rangePair = new RPMPair(0, 4400);
                 break;
                 
             case 145:
-            rangePair = new RangePair(-790, 4800);
+            rangePair = new RPMPair(-790, 4800);
             break;
             case 150:
-                rangePair = new RangePair(-850, 5100);
+                rangePair = new RPMPair(-850, 5100);
                 break;
                 case 155:
-                rangePair = new RangePair(-820, 5200);
+                rangePair = new RPMPair(-820, 5200);
                 break;
             case 160:
-                rangePair = new RangePair(-780, 5300);
+                rangePair = new RPMPair(-780, 5300);
                 break;
                 case 165:
-                rangePair = new RangePair(-820, 5700);
+                rangePair = new RPMPair(-820, 5700);
                 break;
         
             case 170:
-                rangePair = new RangePair(-850, 6200);
+                rangePair = new RPMPair(-850, 6200);
                 break;
             case 175:
-                rangePair = new RangePair(-850, 6500);
+                rangePair = new RPMPair(-850, 6500);
                 break;
             case 180:
-                rangePair = new RangePair(-850, 6500);
+                rangePair = new RPMPair(-850, 6500);
                 break;
                 case 185:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 190:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 200:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 210:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 220:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 230:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 240:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 250:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 260:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 270:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 280:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             case 290:
-                rangePair = new RangePair(0, 5800);
+                rangePair = new RPMPair(0, 5800);
                 break;
             default:
-                rangePair = new RangePair(0, 2500);
+                rangePair = new RPMPair(0, 2500);
                 break;
         }
         return rangePair;

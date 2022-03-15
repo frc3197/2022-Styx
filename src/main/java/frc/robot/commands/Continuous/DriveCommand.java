@@ -58,7 +58,7 @@ public class DriveCommand extends CommandBase implements Loggable {
 
     }
     public void adjustY(){
-        inputY = yLimiter.calculate(inputY) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        inputY = yLimiter.calculate(inputY);
         //TODO: Test with added defaultSpeeds and theoretical Speeds        
         //inputY = yLimiter.calculate(inputY) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
         //inputY = yLimiter.calculate(inputY) * 4.96824;
