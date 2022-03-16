@@ -14,93 +14,94 @@ public class RangeLookup {
         RangePair rangePair;
         switch (normalizeRange(range)) {
             case 70:
-                rangePair = new VoltagePair(-480, .1);
+                rangePair = new VoltagePair(-400, 6.75);
                 break;
             case 75:
-            rangePair = new VoltagePair(-480, 2);
+                rangePair = new VoltagePair(-480, 6.8);
                 break;
             case 80:
-                rangePair = new RPMPair(-430, 1500);
+                rangePair = new VoltagePair(-520, 7);
                 break;
             case 85:
-            rangePair = new RPMPair(-450, 1500);
-            break;
-            case 90:
-                rangePair = new RPMPair(-470, 1500);
+                rangePair = new VoltagePair(-585, 7.1);
                 break;
-            // VERIFY THIS RANGE 
+            case 90:
+                rangePair = new VoltagePair(-495, 7.2);
+                break;
+            // VERIFY THIS RANGE
             case 95:
-            rangePair = new RPMPair(-465, 3500);
-            break;
+                rangePair = new RPMPair(-600, 1600);
+                break;
+            // Stopped Here
             case 100:
-                rangePair = new RPMPair(-500, 1600);
+                rangePair = new VoltagePair(-640, 6.9);
                 break;
             case 105:
-            rangePair = new RPMPair(-520, 1500);
-            break;
+                rangePair = new VoltagePair(-605, 7);
+                break;
             case 110:
-                rangePair = new RPMPair(-540, 3900);
+                rangePair = new VoltagePair(-605, 7.2);
                 break;
-                
+
             case 115:
-            rangePair = new RPMPair(-600, 3900);
-            break;
-            case 120:
-                rangePair = new RPMPair(-670, 4300);
+                rangePair = new VoltagePair(-615, 7.2);
                 break;
-                case 125:
-                rangePair = new RPMPair(-675, 4300);
+            case 120:
+                rangePair = new VoltagePair(-605, 7.2);
+                break;
+            case 125:
+                rangePair = new VoltagePair(-605, 7.25);
                 break;
             case 130:
-                rangePair = new RPMPair(-680, 4300);
+                rangePair = new VoltagePair(-650, 7.35);
                 break;
-                
+
             case 135:
-            rangePair = new RPMPair(-700, 4350);
-            break;
+                rangePair = new VoltagePair(-650, 7.35);
+                break;
             case 140:
-                rangePair = new RPMPair(0, 4400);
+                rangePair = new VoltagePair(-650, 7.35);
                 break;
-                
+
             case 145:
-            rangePair = new RPMPair(-790, 4800);
-            break;
-            case 150:
-                rangePair = new RPMPair(-850, 5100);
+                rangePair = new VoltagePair(-605, 7.9);
                 break;
-                case 155:
-                rangePair = new RPMPair(-820, 5200);
+            case 150:
+                rangePair = new VoltagePair(-710, 7.8);
+                break;
+            case 155:
+                rangePair = new VoltagePair(-710, 7.9);
                 break;
             case 160:
-                rangePair = new RPMPair(-780, 5300);
+                rangePair = new VoltagePair(-710, 8);
                 break;
-                case 165:
-                rangePair = new RPMPair(-820, 5700);
+            case 165:
+                rangePair = new VoltagePair(-710, 8.1);
                 break;
-        
+
             case 170:
-                rangePair = new RPMPair(-850, 6200);
-                break;
+            rangePair = new VoltagePair(-710, 8.2);
+            break;
             case 175:
-                rangePair = new RPMPair(-850, 6500);
-                break;
+            rangePair = new VoltagePair(-710, 8.4);
+            break;
             case 180:
-                rangePair = new RPMPair(-850, 6500);
-                break;
-                case 185:
-                rangePair = new RPMPair(0, 5800);
-                break;
+            rangePair = new VoltagePair(-710, 8.5);
+            break;
+            case 185:
+            rangePair = new VoltagePair(-710, 8.7);
+            break;
             case 190:
-                rangePair = new RPMPair(0, 5800);
+            rangePair = new VoltagePair(-710, 8.9);
                 break;
             case 200:
-                rangePair = new RPMPair(0, 5800);
+            rangePair = new VoltagePair(-710, 9.1);
                 break;
             case 210:
-                rangePair = new RPMPair(0, 5800);
+            rangePair = new VoltagePair(-710, 9.3);
                 break;
             case 220:
-                rangePair = new RPMPair(0, 5800);
+            rangePair = new VoltagePair(-710, 9.5);
                 break;
             case 230:
                 rangePair = new RPMPair(0, 5800);

@@ -5,6 +5,7 @@
 package frc.robot.subsystems.Climber;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +23,9 @@ public class ClimberSubsystem extends SubsystemBase {
     spoolMotorLeft.setInverted(true);
     spoolMotorRight.setInverted(false);
 
+    spoolMotorLeft.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    spoolMotorRight.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    
     spoolMotorLeft.setNeutralMode(NeutralMode.Brake);
     spoolMotorRight.setNeutralMode(NeutralMode.Brake);
     //TODO: FIX

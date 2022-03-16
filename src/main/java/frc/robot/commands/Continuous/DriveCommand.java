@@ -83,7 +83,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         inputY = m_translationYSupplier.getAsDouble();
         adjustY();
         inputRot = m_rotationSupplier.getAsDouble();
-        adjustRot();
+        //adjustRot();
 
 
 
