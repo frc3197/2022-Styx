@@ -133,20 +133,20 @@ public class RobotContainer {
 
     
     // DRIVER 1
-  //  new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
   //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
-  //  new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
-  //  new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
-  //  new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
+    new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
+    new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
+    new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     //Test Alternative Way
-  //  new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
-  //  new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
-  //  new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
+    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem).withTimeout(3)));
+    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
+    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
 
 
-  //  new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
+    new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
