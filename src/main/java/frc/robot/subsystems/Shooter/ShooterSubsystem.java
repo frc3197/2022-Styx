@@ -8,12 +8,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.other.RangeLookup;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ShooterSubsystem. */
@@ -33,7 +31,6 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("RPM", shooterEncoder.getRate() / 2048 * 60);
-    SmartDashboard.putNumber("RPM Setpoint", RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))).getRPM());
     SmartDashboard.putNumber("Rate", getRawRate());
     SmartDashboard.putNumber("Scale Factor", shooterEncoder.getDecodingScaleFactor());
     // This method will be called once per scheduler run
