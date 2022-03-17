@@ -10,7 +10,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Actions.Align.IntakeAlign;
-import frc.robot.commands.Actions.General.Shoot;
+import frc.robot.commands.Actions.General.Lifter.Shoot;
 import frc.robot.commands.Actions.Movement.DriveStraight;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.Spool;
