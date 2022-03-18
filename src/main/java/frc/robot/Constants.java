@@ -186,9 +186,9 @@ public final class Constants implements Loggable {
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(3, 3);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(1, 0, 0.03);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(.01, 0, 0.03);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(1, 0, 0.03);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(.01, 0, 0.03);
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0.01,
                     ROT_PROFILE);

@@ -35,6 +35,7 @@ import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
+import frc.robot.commands.Groups.Auto.NewAuto.TestSegment;
 import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleBrakeMode;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
@@ -172,7 +173,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return (Command) m_autoChooser.getSelected();
-    return new RunBasicTrajectory(m_driveSubsystem, "2 ball #1"); 
+    return new RunBasicTrajectory(m_driveSubsystem, "Forward");
   }
 
   public void resetOdometry() {
