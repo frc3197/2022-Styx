@@ -36,6 +36,7 @@ import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Groups.Auto.NewAuto.TestSegment;
+import frc.robot.commands.Groups.Auto.WaypointCommands.*;
 import frc.robot.commands.Toggles.Defend;
 import frc.robot.commands.Toggles.ToggleBrakeMode;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
@@ -146,7 +147,6 @@ public class RobotContainer {
     new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
     new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
 
-
     new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2 
@@ -173,7 +173,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return (Command) m_autoChooser.getSelected();
-    return new RunBasicTrajectory(m_driveSubsystem, "Forward");
+    return new DriveHB(m_driveSubsystem);
   }
 
   public void resetOdometry() {
