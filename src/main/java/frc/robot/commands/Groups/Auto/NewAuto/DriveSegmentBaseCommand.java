@@ -73,7 +73,7 @@ public abstract class DriveSegmentBaseCommand extends SwerveControllerCommand{
                 Constants.subsystems.H_Auto.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
                 Constants.subsystems.H_Auto.MAX_ANGULAR_ACCELERATION * Math.PI / 180 * 5);
         //TODO: ADJUST, SHOULD BE SIMILAR AS 1732 USES L2
-        var thetaController = new ProfiledPIDController(1.5, 0, 0, profileConstraints);
+        var thetaController = new ProfiledPIDController(4, 0, 0.01, profileConstraints);
         thetaController.enableContinuousInput(Math.PI * -1, Math.PI);
         return thetaController;
     }
@@ -134,8 +134,12 @@ public abstract class DriveSegmentBaseCommand extends SwerveControllerCommand{
     protected static final Pose2d WAYPOINT_K = new Pose2d(0.651352 * scaler, 1.2713 * scaler, Rotation2d.fromDegrees(-21));
     protected static final Pose2d WAYPOINT_L = new Pose2d(0.634897 * scaler, 0, Rotation2d.fromDegrees(0));
 
+    protected static final Pose2d WAYPOINT_X = new Pose2d(0 * scaler, 0 * scaler, Rotation2d.fromDegrees(0));
+    protected static final Pose2d WAYPOINT_Z = new Pose2d(2 * scaler, 0 * scaler, Rotation2d.fromDegrees(180));
+
+
     protected static final Pose2d WAYPOINT_A1 = new Pose2d(1.7778 * scaler, 0 * scaler, Rotation2d.fromDegrees(180));
-    protected static final Pose2d WAYPOINT_B1 = new Pose2d(0.2910 * scaler, 0.0 * scaler, Rotation2d.fromDegrees(180));
+    protected static final Pose2d WAYPOINT_B1 = new Pose2d(0.6410 * scaler, 0.0 * scaler, Rotation2d.fromDegrees(180));
     //protected static final Pose2d WAYPOINT_B2 = new Pose2d(0.2910 * scaler, 0.0 * scaler, Rotation2d.fromDegrees(180-112));
     //protected static final Pose2d WAYPOINT_C1 = new Pose2d(1.653747 - 0.2 * scaler, 2.67440* scaler, Rotation2d.fromDegrees(180-112));
     protected static final Pose2d WAYPOINT_B2 = new Pose2d(0,     0* scaler, Rotation2d.fromDegrees(0));

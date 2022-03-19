@@ -27,8 +27,8 @@ public class Auto_3B extends AutoRoutine {
     addCommands(new ParallelRaceGroup(new Spool(super.getShooterSubsystem()),
         new SequentialCommandGroup(new ParallelCommandGroup(
              new ShooterAlignSequence(super.getDriveSubsystem(),
-             super.getHoodSubsystem()).withTimeout(1),
-            new Shoot(super.getLifterSubsystem(), 1)),
+             super.getHoodSubsystem()).withTimeout(2),
+            new Shoot(super.getLifterSubsystem()).withTimeout(1.5)),
             new ParallelRaceGroup(
                 new IntakeSequence(getIntakeSubsystem(), getLifterSubsystem(), getIntakeArmSubsystem()),
                 new SequentialCommandGroup(new DriveA1B1(super.getDriveSubsystem()),

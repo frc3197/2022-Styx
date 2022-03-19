@@ -36,7 +36,7 @@ public class DriveStraight extends CommandBase {
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
     if (timer.get() < time) {
-      driveSubsystem.drive(new ChassisSpeeds(1, curSpeeds.vyMetersPerSecond, curSpeeds.omegaRadiansPerSecond));
+      driveSubsystem.drive(new ChassisSpeeds(2, curSpeeds.vyMetersPerSecond, curSpeeds.omegaRadiansPerSecond));
     }
   }
 

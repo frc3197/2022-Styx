@@ -11,10 +11,10 @@ import frc.robot.subsystems.Drive.DriveSubsystem;
 public class TestSegment extends DriveSegmentBaseCommand {
   public TestSegment(DriveSubsystem drivetrain) {
     super(drivetrain, 
-        List.of(WAYPOINT_A.getTranslation(), WAYPOINT_B.getTranslation()),
-        WAYPOINT_A.getRotation(),
-        WAYPOINT_B.getRotation(),
+        List.of(WAYPOINT_X.getTranslation(), WAYPOINT_Z.getTranslation()),
+        WAYPOINT_X.getRotation(),
+        WAYPOINT_Z.getRotation(),
         false, // stopAtEnd
-        true); // resetPosition
+        false); // resetPosition
   }
 }
