@@ -28,7 +28,7 @@ public class DeployIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {m_intakeSubsystem.useArm(Constants.subsystems.intake.armSpeed);}
+  public void execute() {m_intakeSubsystem.useArm(.05);}
 
   // Called once the command ends or is interrupted.
   @Override
