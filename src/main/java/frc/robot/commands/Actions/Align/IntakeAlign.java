@@ -45,6 +45,7 @@ public class IntakeAlign extends CommandBase {
     timer.reset();
     timer.start();
     DriveSubsystem.setFieldRelative(false);
+    DriveSubsystem.setDriverMode(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

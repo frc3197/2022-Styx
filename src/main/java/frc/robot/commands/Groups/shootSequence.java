@@ -20,6 +20,6 @@ public class ShootSequence extends SequentialCommandGroup {
     
     this.m_lifterSubsystem = m_lifterSubsystem;
     addRequirements();
-    addCommands(new ShootUpper(m_lifterSubsystem),new FeedToUpper(m_lifterSubsystem),new Wait(.1),new ShootUpper(m_lifterSubsystem));
+    addCommands(new ShootUpper(m_lifterSubsystem),new FeedToUpper(m_lifterSubsystem),new ShootUpper(m_lifterSubsystem));
   }
 }

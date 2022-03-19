@@ -17,7 +17,6 @@ public class Lift extends CommandBase {
   public Lift(LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     timer.reset();
-    addRequirements(lifterSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

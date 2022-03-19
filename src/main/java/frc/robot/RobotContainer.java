@@ -111,6 +111,10 @@ public class RobotContainer {
     m_autoChooser.addOption("2Ball", new Auto_2B());
     m_autoChooser.addOption("1Ball", new Auto_1B());
     m_autoChooser.addOption("3Ball", new Auto_3B());
+    m_autoChooser.addOption("Test Drive",  new SequentialCommandGroup(new DriveA1B1(getDriveSubsystem()),
+    new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new ResetGyro(getDriveSubsystem()),
+    new DriveB2C1(getDriveSubsystem())));
+    m_autoChooser.addOption("Test Segment", new TestSegment(getDriveSubsystem()));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -145,7 +149,7 @@ public class RobotContainer {
     //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     //Test Alternative Way
     new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem).withTimeout(3)));
-    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
+    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeAlign(getDriveSubsystem()));
     new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
 
     new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
@@ -157,8 +161,7 @@ public class RobotContainer {
     new Button(m_controller2::getStartButtonPressed).whenHeld(new Shoot(m_lifterSubsystem));
     new Button(m_controller2::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
-    new Button(m_controller2::getXButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Backward"));
-    new Button(m_controller2::getBButton).whenHeld(new ManualRotateArm(m_climberArmSubsystem, "Forward"));
+    new Button(m_controller2::getRightStickButton).toggleWhenPressed(new ManualRotateArm(m_climberArmSubsystem));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));

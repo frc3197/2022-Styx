@@ -24,7 +24,9 @@ public class FeedToUpper extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {lifterSubsystem.setfeederMotor(-Constants.subsystems.lifter.feederSpeed);}
+  public void execute() {lifterSubsystem.setfeederMotor(-Constants.subsystems.lifter.feederSpeed);
+  lifterSubsystem.setlifterMotor(Constants.subsystems.lifter.lifterSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
