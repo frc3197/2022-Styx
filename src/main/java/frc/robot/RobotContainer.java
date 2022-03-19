@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Actions.Align.IntakeAlign;
 import frc.robot.commands.Actions.Align.ShooterXAlign;
@@ -27,14 +28,14 @@ import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
-import frc.robot.commands.Groups.Auto_1B;
-import frc.robot.commands.Groups.Auto_2B_1;
-import frc.robot.commands.Groups.Auto_2B_2;
-import frc.robot.commands.Groups.Auto_2B_3;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
+import frc.robot.commands.Groups.Auto.AutoTurn;
+import frc.robot.commands.Groups.Auto.Auto_1B;
+import frc.robot.commands.Groups.Auto.Auto_2B;
+import frc.robot.commands.Groups.Auto.Auto_3B;
 import frc.robot.commands.Groups.Auto.NewAuto.TestSegment;
 import frc.robot.commands.Groups.Auto.WaypointCommands.*;
 import frc.robot.commands.Toggles.Defend;
@@ -107,10 +108,9 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_autoChooser = new SendableChooser<>();
     m_autoChooser.setDefaultOption("Nothing", null);
-    m_autoChooser.addOption("2Ball1", new Auto_2B_1());
-    m_autoChooser.addOption("2Ball2", new Auto_2B_2());
-    m_autoChooser.addOption("2Ball3", new Auto_2B_3());
+    m_autoChooser.addOption("2Ball", new Auto_2B());
     m_autoChooser.addOption("1Ball", new Auto_1B());
+    m_autoChooser.addOption("3Ball", new Auto_3B());
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -135,7 +135,8 @@ public class RobotContainer {
 
     
     // DRIVER 1
-    new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    //new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    new Button(m_controller1::getAButton).whenPressed(new AutoTurn(m_driveSubsystem,-112));
   //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
@@ -172,9 +173,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return (Command) m_autoChooser.getSelected();
-    return new DriveHB(m_driveSubsystem);
-  }
+    return (Command) m_autoChooser.getSelected();
+    }
 
   public void resetOdometry() {
     m_driveSubsystem.resetOdometry();

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Groups;
+package frc.robot.commands.Groups.Auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -18,6 +18,6 @@ public class Auto_1B extends AutoRoutine {
   public Auto_1B() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelCommandGroup(new SequentialCommandGroup(new Shoot(super.getLifterSubsystem(),3)), new Spool(super.getShooterSubsystem())));
+    addCommands(new ParallelCommandGroup(new SequentialCommandGroup(new Shoot(super.getLifterSubsystem(),2)), new Spool(super.getShooterSubsystem())));
   }
 }
