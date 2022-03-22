@@ -28,6 +28,7 @@ import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
 import frc.robot.commands.Continuous.DriveCommand;
 import frc.robot.commands.Continuous.Spool;
+import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.LevelUp;
 import frc.robot.commands.Groups.ShootSequence;
@@ -36,15 +37,19 @@ import frc.robot.commands.Groups.Auto.AutoTurn;
 import frc.robot.commands.Groups.Auto.Auto_1B;
 import frc.robot.commands.Groups.Auto.Auto_2B;
 import frc.robot.commands.Groups.Auto.Auto_3B;
+import frc.robot.commands.Groups.Auto.Auto_5B;
 import frc.robot.commands.Groups.Auto.NewAuto.TestSegment;
 import frc.robot.commands.Groups.Auto.WaypointCommands.*;
 import frc.robot.commands.Toggles.Defend;
+import frc.robot.commands.Toggles.ResetHood;
 import frc.robot.commands.Toggles.ToggleBrakeMode;
+import frc.robot.commands.Toggles.ToggleDriverMode;
 import frc.robot.commands.Toggles.ToggleFieldRelative;
 import frc.robot.commands.Toggles.ToggleManualHood;
 import frc.robot.other.ClimbType;
 import frc.robot.other.FilteredController;
 import frc.robot.other.RangeLookup;
+import frc.robot.other.Wait;
 import frc.robot.subsystems.Climber.ClimberArm;
 import frc.robot.subsystems.Climber.ClimberSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -111,10 +116,11 @@ public class RobotContainer {
     m_autoChooser.addOption("2Ball", new Auto_2B());
     m_autoChooser.addOption("1Ball", new Auto_1B());
     m_autoChooser.addOption("3Ball", new Auto_3B());
-    m_autoChooser.addOption("Test Drive",  new SequentialCommandGroup(new DriveA1B1(getDriveSubsystem()),
-    new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new ResetGyro(getDriveSubsystem()),
-    new DriveB2C1(getDriveSubsystem())));
-    m_autoChooser.addOption("Test Segment", new TestSegment(getDriveSubsystem()));
+    m_autoChooser.addOption("5Ball", new Auto_5B());
+
+    m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new Wait(.5),
+    new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
+    m_autoChooser.addOption("Test Segment", new RunBasicTrajectory(getDriveSubsystem(), "two ball"));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -140,15 +146,17 @@ public class RobotContainer {
     
     // DRIVER 1
     //new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
-    new Button(m_controller1::getAButton).whenPressed(new AutoTurn(m_driveSubsystem,-112));
+    new Button(m_controller1::getAButton).whenPressed(new HuntBall(m_driveSubsystem,true));
   //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
-    new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
+    new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
+
     //Test Alternative Way
-    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem).withTimeout(3)));
+    //new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeAlign(getDriveSubsystem()));
     new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
 
@@ -157,8 +165,7 @@ public class RobotContainer {
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
     new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
-    
-    new Button(m_controller2::getStartButtonPressed).whenHeld(new Shoot(m_lifterSubsystem));
+    new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new ManualSpool(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new ManualSpool(m_climberSubsystem, "Down"));
     new Button(m_controller2::getRightStickButton).toggleWhenPressed(new ManualRotateArm(m_climberArmSubsystem));

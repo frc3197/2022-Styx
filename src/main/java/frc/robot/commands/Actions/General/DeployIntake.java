@@ -7,7 +7,6 @@ package frc.robot.commands.Actions.General;
 import com.revrobotics.SparkMaxLimitSwitch;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Intake.IntakeArm;
 public class DeployIntake extends CommandBase {
   IntakeArm m_intakeSubsystem;
@@ -28,7 +27,7 @@ public class DeployIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {m_intakeSubsystem.useArm(.05);}
+  public void execute() {m_intakeSubsystem.useArm(.2);}
 
   // Called once the command ends or is interrupted.
   @Override

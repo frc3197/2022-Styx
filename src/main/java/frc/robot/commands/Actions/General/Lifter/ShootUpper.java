@@ -7,7 +7,6 @@ package frc.robot.commands.Actions.General.Lifter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.lifter;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 public class ShootUpper extends CommandBase {

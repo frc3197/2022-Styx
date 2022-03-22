@@ -63,7 +63,6 @@ public class Spool extends CommandBase {
     }
     else if(rangePair instanceof VoltagePair){
       vPair = (VoltagePair) rangePair;
-      System.out.println("asdasdadsasdasdad");
        shooter.setVoltage(vPair.getVoltage());
     }
     else if(rangePair instanceof RPMPair){

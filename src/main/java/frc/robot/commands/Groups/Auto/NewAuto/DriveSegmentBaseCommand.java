@@ -73,7 +73,7 @@ public abstract class DriveSegmentBaseCommand extends SwerveControllerCommand{
                 Constants.subsystems.H_Auto.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
                 Constants.subsystems.H_Auto.MAX_ANGULAR_ACCELERATION * Math.PI / 180 * 5);
         //TODO: ADJUST, SHOULD BE SIMILAR AS 1732 USES L2
-        var thetaController = new ProfiledPIDController(4, 0, 0.01, profileConstraints);
+        var thetaController = new ProfiledPIDController(1, 0, 0.01, profileConstraints);
         thetaController.enableContinuousInput(Math.PI * -1, Math.PI);
         return thetaController;
     }

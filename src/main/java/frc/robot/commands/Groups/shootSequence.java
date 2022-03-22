@@ -5,6 +5,7 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Actions.General.Lifter.FeedToUpper;
 import frc.robot.commands.Actions.General.Lifter.ShootUpper;
 import frc.robot.other.Wait;
@@ -20,6 +21,6 @@ public class ShootSequence extends SequentialCommandGroup {
     
     this.m_lifterSubsystem = m_lifterSubsystem;
     addRequirements();
-    addCommands(new ShootUpper(m_lifterSubsystem),new FeedToUpper(m_lifterSubsystem),new ShootUpper(m_lifterSubsystem));
+    addCommands(new ShootUpper(m_lifterSubsystem),new FeedToUpper(m_lifterSubsystem),new WaitCommand(0),new ShootUpper(m_lifterSubsystem));
   }
 }

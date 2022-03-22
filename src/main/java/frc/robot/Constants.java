@@ -62,21 +62,21 @@ public final class Constants implements Loggable {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.748);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.221);
                 }
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(329.941);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(330.117);
                 }
 
                 public static final class flMod {
                     public static final int MODULE_DRIVE_MOTOR = 3;
                     public static final int MODULE_STEER_MOTOR = 2;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(120.234);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(122.871);
                 }
 
                 // MOD 1
@@ -158,7 +158,7 @@ public final class Constants implements Loggable {
 
             public static final double lifterSpeed = -.2;
             public static final double lifterShootSpeed = -.4;
-            public static final double feederSpeed = .6;
+            public static final double feederSpeed = 1;
 
         }
 
@@ -184,13 +184,13 @@ public final class Constants implements Loggable {
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
-            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(3, 3);
+            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.H_Auto.MAX_ANGULAR_VELOCITY, subsystems.H_Auto.MAX_ANGULAR_ACCELERATION);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(.01, 0, 0.03);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(0.1, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(.01, 0, 0.03);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(0.1, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0.01,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5
             public static final double LINEAR_VELOCITY_DEFAULT = 0;

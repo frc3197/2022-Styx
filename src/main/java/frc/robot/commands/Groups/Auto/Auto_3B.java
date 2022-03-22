@@ -7,14 +7,16 @@ package frc.robot.commands.Groups.Auto;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Actions.General.Lifter.Shoot;
 import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Continuous.Spool;
+import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
+import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.commands.Groups.Auto.WaypointCommands.*;
 import frc.robot.other.AutoRoutine;
-import frc.robot.other.Wait;
+import frc.robot.other.SetHoodDefault;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,18 +26,24 @@ public class Auto_3B extends AutoRoutine {
   public Auto_3B() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ParallelRaceGroup(new Spool(super.getShooterSubsystem()),
-        new SequentialCommandGroup(new ParallelCommandGroup(
-             new ShooterAlignSequence(super.getDriveSubsystem(),
-             super.getHoodSubsystem()).withTimeout(2),
-            new Shoot(super.getLifterSubsystem()).withTimeout(1.5)),
-            new ParallelRaceGroup(
-                new IntakeSequence(getIntakeSubsystem(), getLifterSubsystem(), getIntakeArmSubsystem()),
-                new SequentialCommandGroup(new DriveA1B1(super.getDriveSubsystem()),
-                    new AutoTurn(super.getDriveSubsystem(), -112).withTimeout(1), new ResetGyro(getDriveSubsystem()),
-                    new DriveB2C1(super.getDriveSubsystem()), new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5),
-                    new ShooterAlignSequence(getDriveSubsystem(), getHoodSubsystem()),new Shoot(getLifterSubsystem(), 1)
-
-                )))));
+    addCommands(new SetHoodDefault(getHoodSubsystem(), -340), new ResetGyro(getDriveSubsystem()),
+    new ParallelRaceGroup(new Spool(super.getShooterSubsystem()),
+            new SequentialCommandGroup(
+                    new ShooterAlignSequence(super.getDriveSubsystem(),
+                            super.getHoodSubsystem()).withTimeout(1.25),
+                    new Shoot(super.getLifterSubsystem()).withTimeout(.75),
+                    new ParallelRaceGroup(
+                            new IntakeSequence(getIntakeSubsystem(), getLifterSubsystem(),
+                                    getIntakeArmSubsystem()),
+                            new SequentialCommandGroup(new HuntBall(getDriveSubsystem(),true).withTimeout(3),
+                                    new TurnToGyro(super.getDriveSubsystem(), -112).withTimeout(1),
+                                    new HuntBall(getDriveSubsystem(), 1.25, 3).withTimeout(1.5), new WaitCommand(.5))),
+                    new SequentialCommandGroup(
+                            new TurnToGyro(getDriveSubsystem(), -35).withTimeout(.5),
+                            new ShooterAlignSequence(getDriveSubsystem(), getHoodSubsystem())
+                                    .withTimeout(1.5),
+                            new ParallelCommandGroup(
+                                    new SequentialCommandGroup(
+                                            new ShootSequence(getLifterSubsystem())))))));
   }
 }

@@ -14,13 +14,34 @@ public class DriveStraight extends CommandBase {
   double time;
   ChassisSpeeds curSpeeds;
   Timer timer;
+  double speed;
+  boolean stopAtEnd;
 
   /** Creates a new DriveStraight. */
-  public DriveStraight(DriveSubsystem driveSubsystem, double time) {
+  public DriveStraight(DriveSubsystem driveSubsystem, double speed, double time) {
     this.driveSubsystem = driveSubsystem;
     timer = new Timer();
     this.time = time;
+    this.speed = speed;
+    stopAtEnd = true;
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public DriveStraight(DriveSubsystem driveSubsystem, double speed, double time, boolean stopAtEnd) {
+    this.driveSubsystem = driveSubsystem;
+    timer = new Timer();
+    this.time = time;
+    this.speed = speed;
+    this.stopAtEnd = stopAtEnd;
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public DriveStraight(DriveSubsystem driveSubsystem) {
+    this.driveSubsystem = driveSubsystem;
+    timer = new Timer();
+    speed = 1;
+    time = 99999;
+    stopAtEnd = true;
   }
 
   // Called when the command is initially scheduled.
@@ -36,14 +57,16 @@ public class DriveStraight extends CommandBase {
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
     if (timer.get() < time) {
-      driveSubsystem.drive(new ChassisSpeeds(2, curSpeeds.vyMetersPerSecond, curSpeeds.omegaRadiansPerSecond));
+      driveSubsystem.drive(new ChassisSpeeds(speed, curSpeeds.vyMetersPerSecond, curSpeeds.omegaRadiansPerSecond));
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.drive(new ChassisSpeeds(0, 0, 0));
+    if (stopAtEnd) {
+      driveSubsystem.drive(new ChassisSpeeds(0, 0, 0));
+    }
     timer.stop();
   }
 

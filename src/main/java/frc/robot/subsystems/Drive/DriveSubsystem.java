@@ -82,7 +82,7 @@ public class DriveSubsystem extends SubsystemBase  {
         // cause the angle reading to increase until it wraps back over to zero.
         // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
-        private AHRS m_navx = new AHRS(Port.kUSB);
+        private static AHRS m_navx = new AHRS(Port.kUSB);
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
@@ -95,7 +95,7 @@ public class DriveSubsystem extends SubsystemBase  {
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
-                        new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
+                        new Rotation2d(getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
@@ -171,7 +171,7 @@ public class DriveSubsystem extends SubsystemBase  {
         /**
          * @return AHRS
          */
-        public AHRS getGyroscopeObj() {
+        public static AHRS getGyroscopeObj() {
                 return m_navx;
         }
 
@@ -190,19 +190,19 @@ public class DriveSubsystem extends SubsystemBase  {
                 if (DriverStation.isFMSAttached()) {
                         switch (DriverStation.getAlliance().toString()) {
                                 case "Blue":
-                                        cam.setPipelineIndex(0);
+                                        cam.setPipelineIndex(1);
                                         break;
                                 case "Red":
-                                        cam.setPipelineIndex(1);
+                                        cam.setPipelineIndex(0);
                                         break;
                         }
                 } else if (RobotContainer.getAllianceChooser().getSelected() != null) {
                         switch (RobotContainer.getAllianceChooser().getSelected().toString()) {
                                 case "Blue":
-                                        cam.setPipelineIndex(0);
+                                        cam.setPipelineIndex(1);
                                         break;
                                 case "Red":
-                                        cam.setPipelineIndex(1);
+                                        cam.setPipelineIndex(0);
                                         break;
                         }
                 } else {
@@ -232,6 +232,7 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param chassisSpeeds
          */
         public void drive(ChassisSpeeds chassisSpeeds) {
+                m_chassisSpeeds = chassisSpeeds;
                 m_desiredStates = m_kinematics.toSwerveModuleStates(chassisSpeeds);
         }
 
@@ -239,7 +240,6 @@ public class DriveSubsystem extends SubsystemBase  {
         public void periodic() {
                 SwerveModuleState[] states = m_desiredStates;
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
-                updateOdometry(states);
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
@@ -248,6 +248,8 @@ public class DriveSubsystem extends SubsystemBase  {
                 if (!isDefending) {
                         setAllStates(states);
                 }
+                updateOdometry(states);
+
 
         }
 
