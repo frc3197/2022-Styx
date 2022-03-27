@@ -6,10 +6,10 @@ package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import frc.robot.commands.Actions.Align.ShooterXAlign;
-import frc.robot.commands.Actions.Align.ShooterYAlign;
-import frc.robot.commands.Continuous.Spool;
-import frc.robot.other.CancelAfterTimer;
+import frc.robot.commands.Align.ShooterXAlign;
+import frc.robot.commands.Align.ShooterYAlign;
+import frc.robot.commands.Shooter.Spool;
+import frc.robot.other.extra_libraries.CancelAfterTimer;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;

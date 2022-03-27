@@ -9,13 +9,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Actions.Align.IntakeAlign;
-import frc.robot.commands.Actions.General.Lifter.Shoot;
-import frc.robot.commands.Actions.Movement.DriveStraight;
-import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
-import frc.robot.commands.Continuous.Spool;
-import frc.robot.other.AutoRoutine;
-import frc.robot.other.SetNewOdometry;
+import frc.robot.commands.Align.IntakeAlign;
+import frc.robot.commands.Drivetrain.DriveStraight;
+import frc.robot.commands.Drivetrain.RunBasicTrajectory;
+import frc.robot.commands.Lifter.Shoot;
+import frc.robot.commands.Shooter.Spool;
+import frc.robot.other.extra_libraries.AutoRoutine;
+import frc.robot.other.extra_libraries.SetNewOdometry;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

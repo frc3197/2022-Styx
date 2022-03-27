@@ -6,9 +6,9 @@ package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Actions.General.Lifter.Shoot;
-import frc.robot.commands.Continuous.Spool;
-import frc.robot.other.AutoRoutine;
+import frc.robot.commands.Lifter.Shoot;
+import frc.robot.commands.Shooter.Spool;
+import frc.robot.other.extra_libraries.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

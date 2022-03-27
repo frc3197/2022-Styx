@@ -8,10 +8,10 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.commands.Actions.General.DeployIntake;
-import frc.robot.commands.Actions.General.Intake;
-import frc.robot.commands.Actions.General.RetractIntake;
-import frc.robot.commands.Actions.General.Lifter.Lift;
+import frc.robot.commands.Intake.DeployIntake;
+import frc.robot.commands.Intake.Intake;
+import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Lifter.Lift;
 import frc.robot.subsystems.Intake.IntakeArm;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.LifterSubsystem;

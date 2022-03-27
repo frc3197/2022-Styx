@@ -16,8 +16,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.other.PIDConst;
-import frc.robot.other.RangeLookup;
+import frc.robot.commands.Shooter.RangeLookup;
+import frc.robot.other.extra_libraries.PIDConst;
 
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
