@@ -152,7 +152,7 @@ public class LifterSubsystem extends SubsystemBase {
   public void disableFeed(){
     feederWheel.set(0);
   }
-  public String getLifterStateString(){
+  public static String getLifterStateString(){
     if(getfeederBB() && getlifterBB()){
       return "2 Cargo in Lifter";
     }
