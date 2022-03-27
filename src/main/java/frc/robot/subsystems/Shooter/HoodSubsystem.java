@@ -11,16 +11,20 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 import com.revrobotics.SparkMaxLimitSwitch;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.other.PIDConst;
 import frc.robot.other.RangeLookup;
 
 public class HoodSubsystem extends SubsystemBase {
   /** Creates a new HoodSubsystem. */
   private CANSparkMax hoodMotor;
   private static CANCoder encoder;
+  PIDController yPID;
+  PIDConst yPID_Constants;
   private SparkMaxLimitSwitch backLimit;
 
   // Back is reverse!!!
@@ -29,12 +33,17 @@ public class HoodSubsystem extends SubsystemBase {
     hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
     hoodMotor.setIdleMode(IdleMode.kBrake);
     hoodMotor.setInverted(false);
+    
+  yPID_Constants = Constants.subsystems.swerve.yALIGN_PID;
+  yPID = new PIDController(yPID_Constants.p, yPID_Constants.i, yPID_Constants.d);
+  yPID.setTolerance(5);
     encoder = new CANCoder(Constants.subsystems.hood.hoodEncoderID);
     backLimit = hoodMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Hood Aligned", yPID.atSetpoint());
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
     SmartDashboard.putBoolean("Back Limit Pressed", getHoodBackLimit());
     SmartDashboard.putNumber("Raw Range", RangeLookup
@@ -65,7 +74,9 @@ public class HoodSubsystem extends SubsystemBase {
   public void setEncoderVal(int value) {
     encoder.setPosition(value);
   }
-
+  public PIDController getPIDController(){
+    return yPID;
+  }
   public double getHoodPosition() {
     return encoder.getPosition();
   }

@@ -6,26 +6,22 @@ package frc.robot.commands.Actions.Align;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.other.PIDConst;
 import frc.robot.other.RangeLookup;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class ShooterYAlign extends CommandBase {
   HoodSubsystem hoodSubsystem;
   PIDController yPID;
-  PIDConst yPID_Constants;
   ChassisSpeeds curSpeeds,newSpeeds;
   double visionSetpoint, visionMeasurement;
 
   /** Creates a new ShooterYAlign. */
   public ShooterYAlign(HoodSubsystem hoodSubsystem) {
     this.hoodSubsystem = hoodSubsystem;
-    yPID_Constants = Constants.subsystems.swerve.yALIGN_PID;
-    yPID = new PIDController(yPID_Constants.p, yPID_Constants.i, yPID_Constants.d);
-    yPID.setTolerance(5);
+    yPID = hoodSubsystem.getPIDController();
     addRequirements(hoodSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -40,6 +36,7 @@ public class ShooterYAlign extends CommandBase {
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
     visionSetpoint = (RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement))).getHoodAngle();
+    SmartDashboard.putNumber("HOOD PID OUTPUT", yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
     hoodSubsystem.setHood(yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
   }
 

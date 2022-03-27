@@ -43,7 +43,7 @@ public class ShooterXAlign extends CommandBase {
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond ,curSpeeds.vyMetersPerSecond ,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{
-      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond ,curSpeeds.vyMetersPerSecond ,defaultTurnSpeed);
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond ,curSpeeds.vyMetersPerSecond ,curSpeeds.omegaRadiansPerSecond);
     }
    
     driveSubsystem.drive(newSpeeds);

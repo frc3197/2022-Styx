@@ -4,35 +4,34 @@
 
 package frc.robot.subsystems.Climber;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
-import com.revrobotics.SparkMaxLimitSwitch;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  private CANSparkMax spoolMotorLeft, spoolMotorRight;
-  private SparkMaxLimitSwitch SUL_Limit, SUR_Limit;
+  private WPI_TalonFX spoolMotorLeft, spoolMotorRight;
+  private int SUL_Limit, SUR_Limit;
 
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    spoolMotorLeft = new CANSparkMax(Constants.subsystems.climber.spoolMotorLeftID, MotorType.kBrushless);
-    spoolMotorRight = new CANSparkMax(Constants.subsystems.climber.spoolMotorRightID, MotorType.kBrushless);
-    spoolMotorLeft.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
-    spoolMotorRight.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
+    spoolMotorLeft = new WPI_TalonFX(Constants.subsystems.climber.spoolMotorLeftID);
+    spoolMotorRight = new WPI_TalonFX(Constants.subsystems.climber.spoolMotorRightID);
     
     spoolMotorLeft.setInverted(true);
     spoolMotorRight.setInverted(false);
 
-    spoolMotorLeft.setIdleMode(IdleMode.kBrake);
-    spoolMotorRight.setIdleMode(IdleMode.kBrake);
+    spoolMotorLeft.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    spoolMotorRight.setStatusFramePeriod(StatusFrame.Status_1_General, 255);
+    
+    spoolMotorLeft.setNeutralMode(NeutralMode.Brake);
+    spoolMotorRight.setNeutralMode(NeutralMode.Brake);
     //TODO: FIX
 
-    SUL_Limit = spoolMotorLeft.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SUR_Limit = spoolMotorRight.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    SUL_Limit = spoolMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
+    SUR_Limit = spoolMotorRight.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   @Override
@@ -42,11 +41,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean getSUR_Limit() {
-    return SUR_Limit.isPressed();
+    return SUR_Limit == 1;
   }
 
   public boolean getSUL_Limit() {
-    return SUL_Limit.isPressed();
+    return SUL_Limit == 1;
   }
 
   public boolean getSU_Limits() {

@@ -22,8 +22,6 @@ public class IntakeArm extends SubsystemBase {
     armMotor = new CANSparkMax(Constants.subsystems.intake.armMotorID, MotorType.kBrushless);
     armMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0,255);
     armMotor.setIdleMode(IdleMode.kBrake);
-
-
   }
 
   @Override

@@ -3,18 +3,19 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.other;
-/** Add your docs here. */
-public class RangePair {
-    int hoodAng, rpm;
 
-    public RangePair(int hoodAng, int rpm) {
-        this.rpm = rpm;
+/** Add your docs here. */
+public abstract class RangePair {
+    int hoodAng;
+
+    public RangePair(int hoodAng) {
+     
         this.hoodAng = hoodAng;
     }
-    public int getHoodAngle(){
+
+
+    public int getHoodAngle() {
         return hoodAng;
     }
-    public int getRPM(){
-        return rpm;
-    }
 }
+

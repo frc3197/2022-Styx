@@ -27,7 +27,6 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     this.hoodSubsystem = hoodSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    //TODO: Test Shooter Align Sequence
     addCommands(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem));
   }
 
@@ -37,7 +36,6 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     this.shooterSubsystem = shooterSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    //TODO: Test Shooter Align Sequence
     addCommands(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem),
      new Spool(shooterSubsystem));
   }
@@ -48,7 +46,6 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     this.time = time;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    //TODO: Test Shooter Align Sequence
     addCommands(new ParallelRaceGroup(new CancelAfterTimer(time),new ParallelCommandGroup(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem))));
   }
 }

@@ -7,6 +7,7 @@ package frc.robot.commands.Actions.Movement;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -30,15 +31,17 @@ public class RunBasicTrajectory extends CommandBase {
   public RunBasicTrajectory(DriveSubsystem m_drivetrain, String path) {
     this.m_drivetrain = m_drivetrain;
     rot_pid = Constants.auto.follower.ROT_PID_CONTROLLER;
-    target = PathPlanner.loadPath(path, Constants.subsystems.swerve.MAX_VEL_METERS, Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
+    target = PathPlanner.loadPath(path, 3, 3);
   }
 
   @Override
   public void initialize() {
-    
+    m_drivetrain.setPose2d(new Pose2d(target.getInitialState().poseMeters.getX(),target.getInitialState().poseMeters.getY(), target.getInitialState().holonomicRotation));
     rot_pid.enableContinuousInput(-Math.PI, Math.PI);
     hController = new HolonomicDriveController(Constants.auto.follower.X_PID_CONTROLLER,
         Constants.auto.follower.Y_PID_CONTROLLER, rot_pid);
+    hController.setTolerance(new Pose2d(.1, .1, new Rotation2d(.1)));
+
     timer.reset();
     timer.start();
   }
@@ -58,8 +61,8 @@ public class RunBasicTrajectory extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(target.getTotalTimeSeconds());
-  }
+    return false;
+    }
 
   
   /** 

@@ -44,7 +44,6 @@ public class IntakeAlign extends CommandBase {
     //TODO:TEST
     timer.reset();
     timer.start();
-    DriveSubsystem.setDriverMode(false);
     DriveSubsystem.setFieldRelative(false);
   }
 

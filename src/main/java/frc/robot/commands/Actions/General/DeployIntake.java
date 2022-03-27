@@ -17,7 +17,7 @@ public class DeployIntake extends CommandBase {
   public DeployIntake(IntakeArm m_intakeSubsystem) {
     this.m_intakeSubsystem = m_intakeSubsystem;
     lowerLimit = m_intakeSubsystem.getArmMotor().getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    
+    addRequirements(m_intakeSubsystem);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }

@@ -5,7 +5,7 @@
 package frc.robot.subsystems.Drive;
 
 import com.kauailabs.navx.frc.AHRS;
-import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import org.photonvision.PhotonCamera;
@@ -42,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
         // pi
-        // By default this value is setup for a Mk3 standard module using Falcon500s to
+        // By default this value is setup for a Mk4 standard module using Falcon500s to
         // drive.
         // An example of this constant for a Mk4 L2 module with NEOs to drive is:
         // 5880.0 / 60.0 / SdsModuleConfigurations.MK4_L2.getDriveReduction() *
@@ -86,7 +86,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
         private final SwerveModule m_backRightModule;
-
+        private static boolean isDefending = false;
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
         static PhotonCamera cam = new PhotonCamera("intakeCam");
@@ -110,13 +110,13 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 follower.setTolerance(new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
                 zeroGyroscope();
 
-                m_frontLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+                m_frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(
                                 // This parameter is optional, but will allow you to see the current state of
                                 // the module on the dashboard.
                                 tab.getLayout("Front Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(0,
                                                 0),
                                 // This can either be STANDARD or FAST depending on your gear configuration
-                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Mk4SwerveModuleHelper.GearRatio.L2,
                                 // This is the ID of the drive motor
                                 Constants.subsystems.swerve.modInfo.flMod.MODULE_DRIVE_MOTOR,
                                 // This is the ID of the steer motor
@@ -128,34 +128,33 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.flMod.MODULE_STEER_OFFSET);
 
                 // We will do the same for the other modules
-                m_frontRightModule = Mk3SwerveModuleHelper.createFalcon500(
+                m_frontRightModule = Mk4SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(2,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Mk4SwerveModuleHelper.GearRatio.L2,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.frMod.MODULE_STEER_OFFSET);
 
-                m_backLeftModule = Mk3SwerveModuleHelper.createFalcon500(
+                m_backLeftModule = Mk4SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Left Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(4,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Mk4SwerveModuleHelper.GearRatio.L2,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.blMod.MODULE_STEER_OFFSET);
 
-                m_backRightModule = Mk3SwerveModuleHelper.createFalcon500(
+                m_backRightModule = Mk4SwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Right Module", BuiltInLayouts.kList).withSize(2, 4).withPosition(6,
                                                 0),
-                                Mk3SwerveModuleHelper.GearRatio.FAST,
+                                Mk4SwerveModuleHelper.GearRatio.L2,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_DRIVE_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
-                                
-                
+
                 cam.setPipelineIndex(0);
 
         }
@@ -192,8 +191,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                         cam.setPipelineIndex(1);
                                         break;
                         }
-                }
-                else if(RobotContainer.getAllianceChooser().getSelected() != null){
+                } else if (RobotContainer.getAllianceChooser().getSelected() != null) {
                         switch (RobotContainer.getAllianceChooser().getSelected().toString()) {
                                 case "Blue":
                                         cam.setPipelineIndex(0);
@@ -202,8 +200,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                         cam.setPipelineIndex(1);
                                         break;
                         }
-                }
-                else{
+                } else {
                         cam.setPipelineIndex(0);
                 }
 
@@ -217,11 +214,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 }
                 return output;
         }
-        public static void toggleDriverMode(){
+
+        public static void toggleDriverMode() {
                 cam.setDriverMode(cam.getDriverMode() ? false : true);
         }
-        
-        public static void setDriverMode(boolean x){
+
+        public static void setDriverMode(boolean x) {
                 cam.setDriverMode(x);
         }
 
@@ -240,8 +238,11 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
+                SmartDashboard.putNumber("Gyro Val", m_navx.getRotation2d().getDegrees());
                 SmartDashboard.putBoolean("Field Relative", getFieldRelative());
-                setAllStates(states);
+                if (!isDefending) {
+                        setAllStates(states);
+                }
 
         }
 
@@ -377,5 +378,11 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          */
         public static void setBrakeMode(boolean x) {
                 brakeMode = x;
+        }
+        public static void setDefending(boolean x){
+                isDefending = x;
+        }
+        public static boolean getDefending(){
+                return isDefending;
         }
 }

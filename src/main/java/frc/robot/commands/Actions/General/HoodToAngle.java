@@ -5,12 +5,10 @@
 package frc.robot.commands.Actions.General;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.PIDConst;
-import frc.robot.other.RangeLookup;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class HoodToAngle extends CommandBase {
