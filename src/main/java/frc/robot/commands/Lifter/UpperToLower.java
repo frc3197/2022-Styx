@@ -6,7 +6,6 @@ package frc.robot.commands.Lifter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.subsystems.lifter;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 public class UpperToLower extends CommandBase {
