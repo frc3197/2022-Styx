@@ -19,15 +19,15 @@ public class DriveCommand extends CommandBase implements Loggable {
     private final DoubleSupplier m_translationXSupplier;
     @Log
     private double inputX;
-    private final SlewRateLimiter xLimiter = new SlewRateLimiter(7);
+    private final SlewRateLimiter xLimiter = new SlewRateLimiter(9);
     private final DoubleSupplier m_translationYSupplier;
     @Log
     private double inputY;
-    private final SlewRateLimiter yLimiter = new SlewRateLimiter(7);
+    private final SlewRateLimiter yLimiter = new SlewRateLimiter(9);
 
     private final DoubleSupplier m_rotationSupplier;
     @Log
-    private final SlewRateLimiter rotLimiter = new SlewRateLimiter(7);
+    private final SlewRateLimiter rotLimiter = new SlewRateLimiter(9);
     private double inputRot;
 
     

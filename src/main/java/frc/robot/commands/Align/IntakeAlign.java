@@ -56,7 +56,7 @@ public class IntakeAlign extends CommandBase {
     //TODO:TEST
     timer.reset();
     timer.start();
-    DriveSubsystem.setFieldRelative(false);
+    //DriveSubsystem.setFieldRelative(false);
     DriveSubsystem.setDriverMode(false);
     DriveSubsystem.setAlliancePipeline();
   }
@@ -71,7 +71,7 @@ public class IntakeAlign extends CommandBase {
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{
-      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, 0);
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, Constants.subsystems.shooter.defaultTurnSpeed);
     }
      driveSubsystem.drive(newSpeeds);
   }

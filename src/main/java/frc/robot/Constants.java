@@ -129,7 +129,7 @@ public final class Constants implements Loggable {
             public static final double intakeSpeed = .8;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
-            public static double armSpeed = .3;
+            public static double armSpeed = .4;
         }
 
         public static final class climber {
@@ -175,8 +175,8 @@ public final class Constants implements Loggable {
     }
 
     public static final class outputs {
-        public static final double strafe = 1;
-        public static final double turnRate = .7;
+        public static final double strafe = .8;
+        public static final double turnRate = .8;
     }
 
     public static final class auto {

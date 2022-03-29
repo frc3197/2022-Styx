@@ -17,7 +17,7 @@ import frc.robot.subsystems.Shooter.LifterSubsystem;
 public class LifterManager extends SelectCommand {
   LifterSubsystem m_lifterSubsystem;
   
-  private enum LifterSelector {
+  public enum LifterSelector {
     CARGO_LOWER,
     CARGO_UPPER,
     CARGO_BOTH,
@@ -44,7 +44,7 @@ public class LifterManager extends SelectCommand {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-private static LifterSelector select() {
+public static LifterSelector select() {
   switch (LifterSubsystem.getLifterStateString()) {
     case "2 Cargo in Lifter":
       return LifterSelector.CARGO_BOTH;
@@ -58,4 +58,9 @@ private static LifterSelector select() {
       return LifterSelector.CARGO_NONE;
   }
 }
+@Override
+public boolean isFinished() {
+  return false;
+}
+
 }
