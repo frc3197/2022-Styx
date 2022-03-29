@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
@@ -146,6 +145,8 @@ public class RobotContainer {
 
     // DRIVER 1
     new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    // new Button(m_controller1::getLeftBumper).whenHeld(new
+    // IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
