@@ -13,6 +13,7 @@ import org.photonvision.PhotonCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -27,17 +28,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class DriveSubsystem extends SubsystemBase implements Loggable {
+public class DriveSubsystem extends SubsystemBase  {
         /**
          * The maximum voltage that will be delivered to the drive motors.
          * <p>
          * This can be reduced to cap the robot's maximum speed. Typically, this is
          * useful during initial testing of the robot.
          */
+        
         public static final double MAX_VOLTAGE = Constants.subsystems.swerve.MAX_VOLTAGE;
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
@@ -81,18 +82,20 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         // cause the angle reading to increase until it wraps back over to zero.
         // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
-        private AHRS m_navx = new AHRS(Port.kUSB);
+        private static AHRS m_navx = new AHRS(Port.kUSB);
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
         private final SwerveModule m_backRightModule;
         private static boolean isDefending = false;
+
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+        private SwerveModuleState[] m_desiredStates;
 
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
-                        new Rotation2d(-getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
+                        new Rotation2d(getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
@@ -154,8 +157,10 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
+        
+        m_desiredStates = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
 
-                cam.setPipelineIndex(0);
+        cam.setPipelineIndex(0);
 
         }
 
@@ -166,7 +171,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         /**
          * @return AHRS
          */
-        public AHRS getGyroscopeObj() {
+        public static AHRS getGyroscopeObj() {
                 return m_navx;
         }
 
@@ -185,19 +190,19 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 if (DriverStation.isFMSAttached()) {
                         switch (DriverStation.getAlliance().toString()) {
                                 case "Blue":
-                                        cam.setPipelineIndex(0);
+                                        cam.setPipelineIndex(1);
                                         break;
                                 case "Red":
-                                        cam.setPipelineIndex(1);
+                                        cam.setPipelineIndex(0);
                                         break;
                         }
                 } else if (RobotContainer.getAllianceChooser().getSelected() != null) {
                         switch (RobotContainer.getAllianceChooser().getSelected().toString()) {
                                 case "Blue":
-                                        cam.setPipelineIndex(0);
+                                        cam.setPipelineIndex(1);
                                         break;
                                 case "Red":
-                                        cam.setPipelineIndex(1);
+                                        cam.setPipelineIndex(0);
                                         break;
                         }
                 } else {
@@ -228,13 +233,13 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
          */
         public void drive(ChassisSpeeds chassisSpeeds) {
                 m_chassisSpeeds = chassisSpeeds;
+                m_desiredStates = m_kinematics.toSwerveModuleStates(chassisSpeeds);
         }
 
         @Override
         public void periodic() {
-                SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+                SwerveModuleState[] states = m_desiredStates;
                 SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
-                updateOdometry(states);
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
@@ -243,6 +248,8 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                 if (!isDefending) {
                         setAllStates(states);
                 }
+                updateOdometry(states);
+
 
         }
 
@@ -277,8 +284,11 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
                                 states[2].angle.getRadians());
                 m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[3].angle.getRadians());
-                updateOdometry(states);
 
+        }
+        public void updateStates(SwerveModuleState[] states){
+                
+                m_desiredStates = states;
         }
 
         public void resetOdometry() {
@@ -385,4 +395,5 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         public static boolean getDefending(){
                 return isDefending;
         }
+
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.extra_libraries.PIDConst;
 import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 public class IntakeAlign extends CommandBase {
   DriveSubsystem driveSubsystem;
@@ -19,10 +20,12 @@ public class IntakeAlign extends CommandBase {
   ChassisSpeeds curSpeeds, newSpeeds;
   Timer timer = new Timer();
   double visionSetpoint, visionMeasurement, delay;
+  boolean stopAfterCollection;
   /** Creates a new IntakeAlign. */
   public IntakeAlign(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
     delay = 0;
+    stopAfterCollection = false;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
     xPID.setTolerance(0);
@@ -32,12 +35,21 @@ public class IntakeAlign extends CommandBase {
   public IntakeAlign(DriveSubsystem driveSubsystem,double delay) {
     this.driveSubsystem = driveSubsystem;
     this.delay = delay;
+    stopAfterCollection = false;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
     xPID.setTolerance(0);
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
+  public IntakeAlign(DriveSubsystem driveSubsystem,boolean stopAfterCollection) {
+    this.driveSubsystem = driveSubsystem;
+    this.delay = 0;
+    this.stopAfterCollection = stopAfterCollection;
+    xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
+    xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
+    xPID.setTolerance(0);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -45,6 +57,8 @@ public class IntakeAlign extends CommandBase {
     timer.reset();
     timer.start();
     DriveSubsystem.setFieldRelative(false);
+    DriveSubsystem.setDriverMode(false);
+    DriveSubsystem.setAlliancePipeline();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -57,15 +71,14 @@ public class IntakeAlign extends CommandBase {
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond,xPID.calculate(visionMeasurement, visionSetpoint));
     }
     else{
-      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, Constants.subsystems.shooter.defaultTurnSpeed);
+      newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond,curSpeeds.vyMetersPerSecond, 0);
     }
      driveSubsystem.drive(newSpeeds);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    DriveSubsystem.setDriverMode(true);
+  public void end(boolean interrupted) {    
     DriveSubsystem.setFieldRelative(true);
     driveSubsystem.drive(new ChassisSpeeds(0,0,0));}
 
@@ -73,8 +86,9 @@ public class IntakeAlign extends CommandBase {
   @Override
   public boolean isFinished() {
     if(delay == 0){
-      if(DriveSubsystem.getCam().getLatestResult().hasTargets()){
-        return visionMeasurement == 0;
+      if(stopAfterCollection && (LifterSubsystem.getfeederBB()))
+      {
+        return true;
       }
       else{
         return false;

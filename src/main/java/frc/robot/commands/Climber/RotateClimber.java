@@ -5,15 +5,14 @@
 package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climber.ClimberArm;
 
 public class RotateClimber extends CommandBase {
   ClimberArm climberSubsystem;
-  String direction;
   /** Creates a new ManualRotateArm. */
-  public RotateClimber(ClimberArm climberSubsystem, String direction) {
+  public RotateClimber(ClimberArm climberSubsystem) {
     this.climberSubsystem = climberSubsystem;
-    this.direction = direction;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,12 +23,7 @@ public class RotateClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(direction.equals("Forward")){
-      climberSubsystem.setArmSpeed(0.175);
-    }
-    else if(direction.equals("Backward")){
-      climberSubsystem.setArmSpeed(-.175);
-    }
+    climberSubsystem.setArmSpeed(RobotContainer.getDriver2().getXRight(.1) * .2);
   }
 
   // Called once the command ends or is interrupted.

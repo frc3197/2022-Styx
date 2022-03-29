@@ -44,6 +44,7 @@ public class Spool extends CommandBase {
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+  
 
   // Called when the command is initially scheduled.
   @Override
@@ -62,7 +63,6 @@ public class Spool extends CommandBase {
     }
     else if(rangePair instanceof VoltagePair){
       vPair = (VoltagePair) rangePair;
-      System.out.println("asdasdadsasdasdad");
        shooter.setVoltage(vPair.getVoltage());
     }
     else if(rangePair instanceof RPMPair){

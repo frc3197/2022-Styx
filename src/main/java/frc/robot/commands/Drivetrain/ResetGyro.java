@@ -23,6 +23,6 @@ public class ResetGyro extends InstantCommand {
   @Override
   public void initialize() {
     driveSubsystem.zeroGyroscope();
-    driveSubsystem.setPose2d(new Pose2d(1,3,new Rotation2d()));
+    driveSubsystem.setPose2d(new Pose2d(0,0,new Rotation2d()));
   }
 }

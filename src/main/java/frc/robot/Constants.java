@@ -25,13 +25,13 @@ import io.github.oblarg.oblog.annotations.Log;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
-public final class Constants implements Loggable{
+public final class Constants implements Loggable {
 
     public static final class dimensions {
-        
+
         public static final double TRACKWIDTH = Units.inchesToMeters(23.75);
         public static final double WHEELBASE = Units.inchesToMeters(19);
-        //NOTE : REAL VALUES ARE 24.25 and 19.25
+        // NOTE : REAL VALUES ARE 24.25 and 19.25
     }
 
     public static final class subsystems {
@@ -45,40 +45,41 @@ public final class Constants implements Loggable{
             @Log
             public static final double MAX_ANG_VEL_RAD = MAX_VEL_METERS
                     / Math.hypot(Constants.dimensions.TRACKWIDTH / 2.0, Constants.dimensions.WHEELBASE / 2.0);
-                    
+
             @Log
             public static final double MAX_VOLTAGE = 12.0;
             @Log
             public static final double MAX_ANG_ACCEL = 8 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
-            public static final PIDConst xALIGN_PID = new PIDConst(.145,0,0);
+            public static final PIDConst xALIGN_PID = new PIDConst(.145, 0, 0);
             // OLD Y VALUES, .012
             public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
-            
+
             public static final class modInfo {
-                
+
                 public static final class blMod {
                     public static final int MODULE_DRIVE_MOTOR = 4;
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.748);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.221);
                 }
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(329.941);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(330.117);
                 }
 
                 public static final class flMod {
                     public static final int MODULE_DRIVE_MOTOR = 3;
                     public static final int MODULE_STEER_MOTOR = 2;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(120.234);
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(122.871);
                 }
-                    // MOD 1 
+
+                // MOD 1
                 public static final class frMod {
                     public static final int MODULE_DRIVE_MOTOR = 0;
                     public static final int MODULE_STEER_MOTOR = 1;
@@ -87,6 +88,22 @@ public final class Constants implements Loggable{
                 }
             }
 
+        }
+
+        public static final class H_Auto {
+
+            public static final double TRACKWIDTH = Units.inchesToMeters(23.75);
+            public static final double WHEELBASE = Units.inchesToMeters(19);
+            public static final double MAX_VELOCITY_METERS_PER_SECOND = 4.96824;
+            public static final double MIN_VELOCITY_METERS_PER_SECOND = 0.125;
+
+            public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 1;
+
+            public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
+                    Math.hypot(TRACKWIDTH / 2.0, WHEELBASE / 2.0);
+            public static final double MAX_ANGULAR_VELOCITY = Math.PI * 3; // radians per second
+            public static final double MIN_ANGULAR_VELOCITY = Math.PI * 0.15; // radians per second
+            public static final double MAX_ANGULAR_ACCELERATION = Math.PI * 10.0 * 2; // radians per second squared
         }
 
         public static final class shooter {
@@ -105,6 +122,7 @@ public final class Constants implements Loggable{
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
+
         public static final class intake {
 
             public static final int intakeMotorID = 9;
@@ -113,6 +131,7 @@ public final class Constants implements Loggable{
             public static int armMotorID = 14;
             public static double armSpeed = .3;
         }
+
         public static final class climber {
             public static final int spoolMotorLeftID = 19;
             public static final int spoolMotorRightID = 17;
@@ -122,12 +141,13 @@ public final class Constants implements Loggable{
             public static final int armEncoderLeftA = 2;
             public static final int armEncoderLeftB = 3;
             public static final double armSpeed = .8;
-        
+
             public static final double armMaxVoltage = 6;
             public static final double armRotationTolerance = 2;
             public static final PIDConst climberArmCost = new PIDConst(.015, .01, 0);
         }
-        public static final class lifter{
+
+        public static final class lifter {
 
             public static final int lifterBBChannel = 6;
             public static final int feederBBChannel = 8;
@@ -138,11 +158,11 @@ public final class Constants implements Loggable{
 
             public static final double lifterSpeed = -.2;
             public static final double lifterShootSpeed = -.4;
-            public static final double feederSpeed = .6;
-        
-        
+            public static final double feederSpeed = 1;
+
         }
-        public static final class hood{
+
+        public static final class hood {
             public static final int hoodMotorID = 15;
             public static final int hoodEncoderID = 4;
             // inches
@@ -161,27 +181,25 @@ public final class Constants implements Loggable{
 
     public static final class auto {
 
-       
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
-            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(3,3);
+            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.H_Auto.MAX_ANGULAR_VELOCITY, subsystems.H_Auto.MAX_ANGULAR_ACCELERATION);
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(1, 0, 0.03);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(0.1, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(1, 0, 0.03);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(0.1, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0.01,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
                     ROT_PROFILE);
-            // DRIVING DEFAULT IS 5     
+            // DRIVING DEFAULT IS 5
             public static final double LINEAR_VELOCITY_DEFAULT = 0;
-            
+
         }
 
         public static final class startingPos {
             public static final Pose2d DEFAULT_POS = new Pose2d();
-        
 
+        }
     }
-}
 }

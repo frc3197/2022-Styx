@@ -3,41 +3,38 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
-import frc.robot.commands.Align.ShooterXAlign;
-import frc.robot.commands.Climber.RotateArm;
 import frc.robot.commands.Climber.RotateClimber;
 import frc.robot.commands.Climber.SpoolClimber;
 import frc.robot.commands.Drivetrain.Defend;
 import frc.robot.commands.Drivetrain.DriveCommand;
-import frc.robot.commands.Drivetrain.DriveStraight;
 import frc.robot.commands.Drivetrain.ResetGyro;
 import frc.robot.commands.Drivetrain.RunBasicTrajectory;
-import frc.robot.commands.Groups.Auto_1B;
-import frc.robot.commands.Groups.Auto_2B_1;
-import frc.robot.commands.Groups.Auto_2B_2;
-import frc.robot.commands.Groups.Auto_2B_3;
+import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.commands.Hood.CalibrateHood;
-import frc.robot.commands.Intake.Intake;
+import frc.robot.commands.Groups.Auto.AutoTurn;
+import frc.robot.commands.Groups.Auto.Auto_1B;
+import frc.robot.commands.Groups.Auto.Auto_2B;
+import frc.robot.commands.Groups.Auto.Auto_3B;
+import frc.robot.commands.Groups.Auto.Auto_5B;
 import frc.robot.commands.Intake.RetractIntake;
-import frc.robot.commands.Lifter.Lift;
-import frc.robot.commands.Lifter.Shoot;
 import frc.robot.commands.Shooter.RangeLookup;
-import frc.robot.commands.Shooter.Spool;
+import frc.robot.other.Toggles.ResetHood;
 import frc.robot.other.Toggles.ToggleBrakeMode;
-import frc.robot.other.Toggles.ToggleFieldRelative;
+import frc.robot.other.Toggles.ToggleDriverMode;
 import frc.robot.other.Toggles.ToggleManualHood;
-import frc.robot.other.extra_libraries.ClimbType;
 import frc.robot.other.extra_libraries.FilteredController;
 import frc.robot.subsystems.Climber.ClimberArm;
 import frc.robot.subsystems.Climber.ClimberSubsystem;
@@ -95,6 +92,7 @@ public class RobotContainer {
    */
   @SuppressWarnings("unchecked")
   public RobotContainer() {
+    CameraServer.startAutomaticCapture();
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
@@ -102,10 +100,14 @@ public class RobotContainer {
     // Right stick X axis -> rotation
     m_autoChooser = new SendableChooser<>();
     m_autoChooser.setDefaultOption("Nothing", null);
-    m_autoChooser.addOption("2Ball1", new Auto_2B_1());
-    m_autoChooser.addOption("2Ball2", new Auto_2B_2());
-    m_autoChooser.addOption("2Ball3", new Auto_2B_3());
+    m_autoChooser.addOption("2Ball", new Auto_2B());
     m_autoChooser.addOption("1Ball", new Auto_1B());
+    m_autoChooser.addOption("3Ball", new Auto_3B());
+    m_autoChooser.addOption("5Ball", new Auto_5B());
+
+    m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new WaitCommand(.5),
+    new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
+    m_autoChooser.addOption("Test Segment", new RunBasicTrajectory(getDriveSubsystem(), "two ball"));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -131,29 +133,29 @@ public class RobotContainer {
     
     // DRIVER 1
     new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    //new Button(m_controller1::getAButton).whenPressed(new HuntBall(m_driveSubsystem,true));
   //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
-    new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
+    new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    //new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
-    //Test Alternative Way
-    new Button(filteredController1::getRightTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem).withTimeout(3)));
-    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Forward"));
-    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
+    new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
 
+    //Test Alternative Way
+    //new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getLeftTriggerActive).whileHeld(new IntakeAlign(getDriveSubsystem()));
+    new Button(m_controller1::getLeftBumper).whileHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem, "Backward"));
 
     new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2 
     new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
     new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
-    
-    new Button(m_controller2::getStartButtonPressed).whenHeld(new Shoot(m_lifterSubsystem));
+    new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Down"));
-    new Button(m_controller2::getXButton).whenHeld(new RotateClimber(m_climberArmSubsystem, "Backward"));
-    new Button(m_controller2::getBButton).whenHeld(new RotateClimber(m_climberArmSubsystem, "Forward"));
+    new Button(m_controller2::getRightStickButton).toggleWhenPressed(new RotateClimber(m_climberArmSubsystem));
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
@@ -168,9 +170,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return (Command) m_autoChooser.getSelected();
-    return new RunBasicTrajectory(m_driveSubsystem, "2 ball #1"); 
-  }
+    return (Command) m_autoChooser.getSelected();
+    }
 
   public void resetOdometry() {
     m_driveSubsystem.resetOdometry();

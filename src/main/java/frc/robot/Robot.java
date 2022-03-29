@@ -35,11 +35,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    System.out.print(Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
     m_robotContainer.recalibrateGyroscope();
     m_calibrateCommand.schedule();
-    CameraServer.startAutomaticCapture();
-    DriveSubsystem.setDriverMode(true);
+  
 
     
   }
@@ -105,11 +103,8 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     m_robotContainer.resetOdometry();
-    HoodSubsystem.resetHoodEncoder();
     //TODO: Test Driver Mode
-    DriveSubsystem.setDriverMode(true);
     ClimberArm.resetEncoderValue();
-    System.out.println(Constants.subsystems.swerve.MAX_VEL_METERS);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
