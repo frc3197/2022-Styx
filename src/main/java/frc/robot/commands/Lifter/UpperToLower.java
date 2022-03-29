@@ -10,6 +10,7 @@ import frc.robot.subsystems.Shooter.LifterSubsystem;
 
 public class UpperToLower extends CommandBase {
   LifterSubsystem lifterSubsystem;
+
   public UpperToLower(LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     addRequirements(lifterSubsystem);
@@ -18,15 +19,21 @@ public class UpperToLower extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {lifterSubsystem.setlifterMotor(-Constants.subsystems.lifter.lifterSpeed);}
+  public void execute() {
+    lifterSubsystem.setlifterMotor(-Constants.subsystems.lifter.lifterSpeed);
+    lifterSubsystem.setfeederMotor(-Constants.subsystems.lifter.feederSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {lifterSubsystem.setfeederMotor(0);}
+  public void end(boolean interrupted) {
+    lifterSubsystem.setfeederMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
