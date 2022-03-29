@@ -3,15 +3,21 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import edu.wpi.first.cameraserver.CameraServer;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
 import frc.robot.commands.Climber.RotateClimber;
@@ -58,9 +64,11 @@ import io.github.oblarg.oblog.Logger;
 
 @SuppressWarnings("unused")
 public class RobotContainer {
+
+
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  
+
   private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final static ClimberArm m_climberArmSubsystem = new ClimberArm();
   private final static HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
@@ -76,7 +84,7 @@ public class RobotContainer {
   @SuppressWarnings("rawtypes")
   private static SendableChooser m_autoChooser;
   @SuppressWarnings("rawtypes")
-  private static SendableChooser m_allianceChooser; 
+  private static SendableChooser m_allianceChooser;
 
   public static final DriveCommand m_driveCommand = new DriveCommand(
       m_driveSubsystem,
@@ -86,7 +94,7 @@ public class RobotContainer {
           * Constants.outputs.strafe,
       () -> -modifyAxis(filteredController1.getXRight(.2)) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
           * Constants.outputs.turnRate);
-  
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -112,13 +120,17 @@ public class RobotContainer {
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
     m_allianceChooser.addOption("Blue", "Blue");
-    
+
     SmartDashboard.putData(m_allianceChooser);
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
+    //TODO: TEST NEW LIFTER MANAGEMENT
+    m_lifterSubsystem.setDefaultCommand(new LifterManager(m_lifterSubsystem));
+      
     // Configure the button bindings
     configureButtonBindings();
   }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -130,14 +142,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    
     // DRIVER 1
     new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
-    //new Button(m_controller1::getAButton).whenPressed(new HuntBall(m_driveSubsystem,true));
-  //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
+
     //new Button(m_controller1::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
@@ -149,9 +159,11 @@ public class RobotContainer {
 
     new Button(m_controller1::getRightBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
-    // DRIVER 2 
-    new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem,m_shooterSubsystem));
+    // DRIVER 2
+    new Button(filteredController2::getRightTriggerActive)
+        .whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem, m_shooterSubsystem));
     new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
+
     new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Down"));
@@ -159,8 +171,9 @@ public class RobotContainer {
     //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
     //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
     //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
+
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
-   
+
   }
 
   /**
@@ -170,6 +183,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+
     return (Command) m_autoChooser.getSelected();
     }
 
@@ -180,8 +194,9 @@ public class RobotContainer {
   public void recalibrateGyroscope() {
     m_driveSubsystem.zeroGyroscope();
   }
+
   @SuppressWarnings("rawtypes")
-  public static SendableChooser getAllianceChooser(){
+  public static SendableChooser getAllianceChooser() {
     return m_allianceChooser;
   }
 
@@ -223,9 +238,11 @@ public class RobotContainer {
   public static ClimberSubsystem getClimberSubsystem() {
     return m_climberSubsystem;
   }
-  public static ClimberArm getClimberArmSubsystem(){
+
+  public static ClimberArm getClimberArmSubsystem() {
     return m_climberArmSubsystem;
   }
+
   public static HoodSubsystem getHoodSubsystem() {
     return m_hoodSubsystem;
   }
@@ -233,7 +250,8 @@ public class RobotContainer {
   public static IntakeSubsystem getIntakeSubsystem() {
     return m_intakeSubsystem;
   }
-  public static IntakeArm getIntakeArmSubsystem(){
+
+  public static IntakeArm getIntakeArmSubsystem() {
     return m_intakeArmSubsystem;
   }
 
@@ -244,21 +262,28 @@ public class RobotContainer {
   public static ShooterSubsystem getShooterSubsystem() {
     return m_shooterSubsystem;
   }
-  public static int getTeamColor(){
-    if(m_allianceChooser.getSelected().equals("Blue")){
+
+  public static int getTeamColor() {
+    if (m_allianceChooser.getSelected().equals("Blue")) {
       return 0;
-    }
-    else{
+    } else {
       return 1;
     }
   }
 
   public void publishPosition() {
-    SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))  < 180);
-    
+    SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(
+        NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)) < 180);
+
     Logger.updateEntries();
   }
-  public static FilteredController getDriver1(){return filteredController1;}
-  public static FilteredController getDriver2(){return filteredController2;}
+
+  public static FilteredController getDriver1() {
+    return filteredController1;
+  }
+
+  public static FilteredController getDriver2() {
+    return filteredController2;
+  }
 
 }
