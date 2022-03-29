@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -38,6 +39,7 @@ import frc.robot.commands.Groups.Auto.Auto_1B;
 import frc.robot.commands.Groups.Auto.Auto_2B;
 import frc.robot.commands.Groups.Auto.Auto_3B;
 import frc.robot.commands.Groups.Auto.Auto_5B;
+import frc.robot.commands.Groups.Auto.panic2ball;
 import frc.robot.commands.Groups.Auto.NewAuto.TestSegment;
 import frc.robot.commands.Groups.Auto.WaypointCommands.*;
 import frc.robot.commands.Toggles.Defend;
@@ -106,6 +108,7 @@ public class RobotContainer {
    */
   @SuppressWarnings("unchecked")
   public RobotContainer() {
+    CameraServer.startAutomaticCapture();
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> forward and backwards movement
@@ -116,6 +119,7 @@ public class RobotContainer {
     m_autoChooser.addOption("2Ball", new Auto_2B());
     m_autoChooser.addOption("1Ball", new Auto_1B());
     m_autoChooser.addOption("3Ball", new Auto_3B());
+    m_autoChooser.addOption("Panic", new panic2ball());
     m_autoChooser.addOption("5Ball", new Auto_5B());
 
     m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new Wait(.5),
@@ -145,8 +149,8 @@ public class RobotContainer {
 
     
     // DRIVER 1
-    //new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
-    new Button(m_controller1::getAButton).whenPressed(new HuntBall(m_driveSubsystem,true));
+    new Button(m_controller1::getAButton).whileHeld(new Defend(m_driveSubsystem));
+    //new Button(m_controller1::getAButton).whenPressed(new HuntBall(m_driveSubsystem,true));
   //  new Button(m_controller1::getLeftBumper).whenHeld(new IntakeAlign(m_driveSubsystem));
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());

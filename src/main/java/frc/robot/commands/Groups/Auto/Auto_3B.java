@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Actions.General.Lifter.Shoot;
+import frc.robot.commands.Actions.Movement.DriveStraight;
+import frc.robot.commands.Actions.Movement.KeepGyro;
 import frc.robot.commands.Actions.Movement.ResetGyro;
 import frc.robot.commands.Continuous.Spool;
 import frc.robot.commands.Groups.HuntBall;
@@ -36,12 +38,15 @@ public class Auto_3B extends AutoRoutine {
                             new IntakeSequence(getIntakeSubsystem(), getLifterSubsystem(),
                                     getIntakeArmSubsystem()),
                             new SequentialCommandGroup(new HuntBall(getDriveSubsystem(),true).withTimeout(3),
-                                    new TurnToGyro(super.getDriveSubsystem(), -112).withTimeout(1),
-                                    new HuntBall(getDriveSubsystem(), 1.25, 3).withTimeout(1.5), new WaitCommand(.5))),
+                                    new TurnToGyro(super.getDriveSubsystem(), -112).withTimeout(3),
+                                    new ParallelRaceGroup(new DriveStraight(getDriveSubsystem(), 3, .25, false)
+                                                                        .withTimeout(.5),
+                                                                new KeepGyro(getDriveSubsystem())),
+                                    new HuntBall(getDriveSubsystem(), 1, 3).withTimeout(1.5), new WaitCommand(.5))),
                     new SequentialCommandGroup(
-                            new TurnToGyro(getDriveSubsystem(), -35).withTimeout(.5),
+                            new TurnToGyro(getDriveSubsystem(), -35).withTimeout(1),
                             new ShooterAlignSequence(getDriveSubsystem(), getHoodSubsystem())
-                                    .withTimeout(1.5),
+                                    .withTimeout(2),
                             new ParallelCommandGroup(
                                     new SequentialCommandGroup(
                                             new ShootSequence(getLifterSubsystem())))))));

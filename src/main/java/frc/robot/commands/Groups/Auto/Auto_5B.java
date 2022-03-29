@@ -39,13 +39,17 @@ public class Auto_5B extends AutoRoutine {
                                 new ParallelRaceGroup(
                                         new IntakeSequence(getIntakeSubsystem(), getLifterSubsystem(),
                                                 getIntakeArmSubsystem()),
-                                        new SequentialCommandGroup(new HuntBall(getDriveSubsystem(),true).withTimeout(3),
+                                        new SequentialCommandGroup(new HuntBall(getDriveSubsystem(),true).withTimeout(2),
                                                 new TurnToGyro(super.getDriveSubsystem(), -112).withTimeout(1),
-                                                new HuntBall(getDriveSubsystem(), 1.25, 3).withTimeout(1.5))),
+                                                new ParallelRaceGroup(
+                                                                new DriveStraight(getDriveSubsystem(), 3, .25, false)
+                                                                        .withTimeout(.5),
+                                                                new KeepGyro(getDriveSubsystem())),
+                                                new HuntBall(getDriveSubsystem(), 1, 3).withTimeout(1.25))),
                                 new SequentialCommandGroup(
                                         new TurnToGyro(getDriveSubsystem(), -35).withTimeout(.25),
                                         new ShooterAlignSequence(getDriveSubsystem(), getHoodSubsystem())
-                                                .withTimeout(1.25),
+                                                .withTimeout(1),
                                         new ParallelCommandGroup(
                                                 new SequentialCommandGroup(
                                                         new ShootSequence(getLifterSubsystem()).withTimeout(1.25),
@@ -54,11 +58,11 @@ public class Auto_5B extends AutoRoutine {
                                                                 new DriveStraight(getDriveSubsystem(), 3, 1.25, false)
                                                                         .withTimeout(1),
                                                                 new KeepGyro(getDriveSubsystem())),
-                                                        new HuntBall(getDriveSubsystem(), .4, 3), new WaitCommand(1),
+                                                        new HuntBall(getDriveSubsystem(), .4, 3), new WaitCommand(.5),
                                                         new TurnToGyro(getDriveSubsystem(), -75).withTimeout(.5),
                                                         new ParallelRaceGroup(new SequentialCommandGroup(
                                                                 new DriveStraight(getDriveSubsystem(), -4, 1.25)
-                                                                        .withTimeout(1.25),
+                                                                        .withTimeout(1),
                                                                 new ShooterAlignSequence(getDriveSubsystem(),
                                                                         getHoodSubsystem()).withTimeout(1.5)),
                                                                 new Lift(getLifterSubsystem())),

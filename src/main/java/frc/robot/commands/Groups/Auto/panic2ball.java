@@ -7,9 +7,11 @@ package frc.robot.commands.Groups.Auto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Actions.Align.IntakeAlign;
+import frc.robot.commands.Actions.General.HoodToAngle;
 import frc.robot.commands.Actions.General.Lifter.Shoot;
 import frc.robot.commands.Actions.Movement.DriveStraight;
 import frc.robot.commands.Actions.Movement.RunBasicTrajectory;
@@ -24,10 +26,10 @@ import frc.robot.other.SetNewOdometry;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 @SuppressWarnings("unused")
-public class Auto_2B extends AutoRoutine {
+public class panic2ball extends AutoRoutine {
   /** Creates a new simple2ball. */
 
-  public Auto_2B() {
+  public panic2ball() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -36,12 +38,11 @@ public class Auto_2B extends AutoRoutine {
                 new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))),
                 new SetHoodDefault(getHoodSubsystem(), -340),
             new ParallelRaceGroup(
-                new Spool(super.getShooterSubsystem()),
                 new SequentialCommandGroup(
                     new ParallelRaceGroup(new IntakeSequence(super.getIntakeSubsystem(), super.getLifterSubsystem(),super.getIntakeArmSubsystem()),
                         new SequentialCommandGroup(new IntakeAlign(super.getDriveSubsystem(),3),
                             new DriveStraight(super.getDriveSubsystem(),1, 1.75),
-                        new ShooterAlignSequence(super.getDriveSubsystem(), super.getHoodSubsystem(),3))),
+                        new ParallelRaceGroup(new HoodToAngle(getHoodSubsystem(), -550),new Spool(getShooterSubsystem(), 7.6)))),
                         new Shoot(super.getLifterSubsystem(),3)))));
   }
 }

@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_robotContainer.recalibrateGyroscope();
     m_calibrateCommand.schedule();
-    CameraServer.startAutomaticCapture();
+  
 
     
   }
