@@ -30,7 +30,6 @@ import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Hood.CalibrateHood;
 import frc.robot.commands.Intake.Intake;
 import frc.robot.commands.Intake.RetractIntake;
-import frc.robot.commands.Intake.Intake.DeployIntake;
 import frc.robot.commands.Lifter.Lift;
 import frc.robot.commands.Lifter.Shoot;
 import frc.robot.commands.Shooter.RangeLookup;
