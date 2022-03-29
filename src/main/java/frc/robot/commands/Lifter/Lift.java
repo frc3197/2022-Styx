@@ -17,7 +17,6 @@ public class Lift extends CommandBase {
   public Lift(LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     timer.reset();
-    addRequirements(lifterSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,10 +33,12 @@ public class Lift extends CommandBase {
       lifterSubsystem.setBothMotors(0);
     }
     else if(lifterBBState && !feederBBState){
-      lifterSubsystem.setfeederMotor(Constants.subsystems.lifter.feederSpeed);
+      lifterSubsystem.setfeederMotor(-Constants.subsystems.lifter.feederSpeed);
       lifterSubsystem.setlifterMotor(0);
     }
-    else{lifterSubsystem.setBothMotors(Constants.subsystems.lifter.lifterSpeed);}
+    else{lifterSubsystem.setlifterMotor(Constants.subsystems.lifter.lifterSpeed);
+    lifterSubsystem.setfeederMotor(-Constants.subsystems.lifter.feederSpeed);
+    } 
 
   }
 

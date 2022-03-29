@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.extra_libraries.PathPlanner;
@@ -32,6 +33,7 @@ public class RunBasicTrajectory extends CommandBase {
     this.m_drivetrain = m_drivetrain;
     rot_pid = Constants.auto.follower.ROT_PID_CONTROLLER;
     target = PathPlanner.loadPath(path, 3, 3);
+    addRequirements(m_drivetrain);
   }
 
   @Override
@@ -40,19 +42,33 @@ public class RunBasicTrajectory extends CommandBase {
     rot_pid.enableContinuousInput(-Math.PI, Math.PI);
     hController = new HolonomicDriveController(Constants.auto.follower.X_PID_CONTROLLER,
         Constants.auto.follower.Y_PID_CONTROLLER, rot_pid);
-    hController.setTolerance(new Pose2d(.1, .1, new Rotation2d(.1)));
-
+    
+    
     timer.reset();
     timer.start();
   }
 
   @Override
   public void execute() {
+
     var curTime = timer.get();
+
     state = (PathPlannerState) target.sample(curTime);
+
     currentPosition = m_drivetrain.getPose2d();
+
+    SmartDashboard.putNumber("Desired X", state.poseMeters.getX());
+    SmartDashboard.putNumber("Actual X", currentPosition.getX());
+
+
+    SmartDashboard.putNumber("Desired Y", state.poseMeters.getY());
+    SmartDashboard.putNumber("Actual Y", currentPosition.getY());
+    
+    SmartDashboard.putNumber("Desired Rot", state.poseMeters.getRotation().getDegrees());
+    SmartDashboard.putNumber("Actual Rot", currentPosition.getRotation().getDegrees());
+
     speeds = hController.calculate(currentPosition, state, state.holonomicRotation);
-    m_drivetrain.setAllStates(m_drivetrain.getKinematics().toSwerveModuleStates(speeds));
+    m_drivetrain.updateStates(m_drivetrain.getKinematics().toSwerveModuleStates(speeds));
   }
 
   
@@ -61,7 +77,7 @@ public class RunBasicTrajectory extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return false;
+  return timer.hasElapsed(target.getTotalTimeSeconds());
     }
 
   

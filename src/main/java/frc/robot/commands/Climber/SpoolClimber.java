@@ -25,11 +25,11 @@ public class SpoolClimber extends CommandBase {
   @Override
   public void execute() {
     if(direction.equals("Up")){
-      climberSubsystem.setSpoolSpeed(.3);
+      climberSubsystem.setSpoolSpeed(.7);
       
     }
     else if(direction.equals("Down")){
-      climberSubsystem.setSpoolSpeed(-.5);
+      climberSubsystem.setSpoolSpeed(-.7);
     }
   }
 
