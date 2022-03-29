@@ -107,10 +107,10 @@ public class DriveSubsystem extends SubsystemBase  {
 
         public DriveSubsystem() {
                 ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
-                Constants.auto.follower.X_PID_CONTROLLER.setTolerance(.02);
-                Constants.auto.follower.Y_PID_CONTROLLER.setTolerance(.02);
-                Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(.02);
-                follower.setTolerance(new Pose2d(.1, .1, new Rotation2d(Math.toRadians(5))));
+                Constants.auto.follower.X_PID_CONTROLLER.setTolerance(0);
+                Constants.auto.follower.Y_PID_CONTROLLER.setTolerance(0);
+                Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(0);
+                follower.setTolerance(new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
                 zeroGyroscope();
 
                 m_frontLeftModule = Mk4SwerveModuleHelper.createFalcon500(

@@ -8,7 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.other.PIDConst;
+import frc.robot.other.extra_libraries.PIDConst;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
 public class TurnToGyro extends CommandBase {

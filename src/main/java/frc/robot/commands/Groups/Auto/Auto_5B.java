@@ -8,19 +8,19 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.Actions.General.Intake;
-import frc.robot.commands.Actions.General.Lifter.Lift;
-import frc.robot.commands.Actions.General.Lifter.Shoot;
-import frc.robot.commands.Actions.Movement.DriveStraight;
-import frc.robot.commands.Actions.Movement.KeepGyro;
-import frc.robot.commands.Actions.Movement.ResetGyro;
-import frc.robot.commands.Continuous.Spool;
+import frc.robot.commands.Drivetrain.DriveStraight;
+import frc.robot.commands.Drivetrain.KeepGyro;
+import frc.robot.commands.Drivetrain.ResetGyro;
 import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.other.AutoRoutine;
+import frc.robot.commands.Intake.Intake;
+import frc.robot.commands.Lifter.Lift;
+import frc.robot.commands.Lifter.Shoot;
+import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.SetHoodDefault;
+import frc.robot.other.extra_libraries.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
