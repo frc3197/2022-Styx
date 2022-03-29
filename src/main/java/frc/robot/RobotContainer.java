@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -36,6 +37,7 @@ import frc.robot.commands.Groups.Auto.Auto_2B;
 import frc.robot.commands.Groups.Auto.Auto_3B;
 import frc.robot.commands.Groups.Auto.Auto_5B;
 import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Lifter.LifterManager;
 import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.other.Toggles.ResetHood;
 import frc.robot.other.Toggles.ToggleBrakeMode;
