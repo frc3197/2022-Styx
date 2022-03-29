@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PerpetualCommand;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -36,13 +38,13 @@ import frc.robot.commands.Groups.Auto.Auto_2B;
 import frc.robot.commands.Groups.Auto.Auto_3B;
 import frc.robot.commands.Groups.Auto.Auto_5B;
 import frc.robot.commands.Intake.RetractIntake;
-import frc.robot.commands.Lifter.LifterManager;
 import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.other.Toggles.ResetHood;
 import frc.robot.other.Toggles.ToggleBrakeMode;
 import frc.robot.other.Toggles.ToggleDriverMode;
 import frc.robot.other.Toggles.ToggleManualHood;
 import frc.robot.other.extra_libraries.FilteredController;
+import frc.robot.other.extra_libraries.RoutineSchedule;
 import frc.robot.subsystems.Climber.ClimberArm;
 import frc.robot.subsystems.Climber.ClimberSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -77,7 +79,6 @@ public class RobotContainer {
   private final static IntakeArm m_intakeArmSubsystem = new IntakeArm();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private LifterManager lifterManager = new LifterManager(m_lifterSubsystem);
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
   private final static XboxController m_controller2 = new XboxController(1);
@@ -126,8 +127,6 @@ public class RobotContainer {
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     //TODO: TEST NEW LIFTER MANAGEMENT
-    m_lifterSubsystem.setDefaultCommand(new LifterManager(m_lifterSubsystem));
-      
     // Configure the button bindings
     configureButtonBindings();
   }
