@@ -77,7 +77,7 @@ public class RobotContainer {
   private final static IntakeArm m_intakeArmSubsystem = new IntakeArm();
   private final static LifterSubsystem m_lifterSubsystem = new LifterSubsystem();
   private final static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-
+  private LifterManager lifterManager = new LifterManager(m_lifterSubsystem);
   private final static XboxController m_controller1 = new XboxController(0);
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
   private final static XboxController m_controller2 = new XboxController(1);

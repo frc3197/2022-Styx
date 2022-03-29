@@ -32,8 +32,7 @@ public class LifterManager extends SelectCommand {
       Map.entry(LifterSelector.CARGO_BOTH, new InstantCommand()),
       // DOES NOTHING IF HOLDING 2 CARGO
       Map.entry(LifterSelector.CARGO_UPPER,
-          new SequentialCommandGroup(new UpperToLower(m_lifterSubsystem),
-              new FeedToUpper(m_lifterSubsystem))),
+          new InstantCommand()),
       // RESTAGES IN UPPER TO PREVENT ACCIDENTAL SPITOUT
       Map.entry(LifterSelector.CARGO_LOWER, new FeedToUpper(m_lifterSubsystem)),
       // FEED TO UPPER

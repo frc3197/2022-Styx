@@ -13,9 +13,6 @@ import java.util.function.DoubleSupplier;
 public class DriveCommand extends CommandBase implements Loggable {
     private final DriveSubsystem m_drivetrainSubsystem;
     
-    //TODO: VERIFY SLEW RATE POST CHANGE
-    //OLD VALUE: 8
-    //NEW VALUE TO TEST: 3? 
     private final DoubleSupplier m_translationXSupplier;
     @Log
     private double inputX;
@@ -52,20 +49,17 @@ public class DriveCommand extends CommandBase implements Loggable {
 
     public void adjustX(){
         inputX = xLimiter.calculate(inputX);
-        //TODO: Test with added defaultSpeeds and theoretical Speeds
         //inputX = xLimiter.calculate(inputX) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
         //inputX = xLimiter.calculate(inputX) * 4.96824;
 
     }
     public void adjustY(){
         inputY = yLimiter.calculate(inputY);
-        //TODO: Test with added defaultSpeeds and theoretical Speeds        
         //inputY = yLimiter.calculate(inputY) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
         //inputY = yLimiter.calculate(inputY) * 4.96824;
     }
     public void adjustRot(){
         inputRot = rotLimiter.calculate(inputRot);
-        //TODO: Test with added defaultSpeeds and theoretical Speeds
         //inputRot = rotLimiter.calculate(inputRot) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
         //inputRot = rotLimiter.calculate(inputRot) * (3 * Math.PI);
 
