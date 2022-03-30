@@ -129,7 +129,6 @@ public class RobotContainer {
     SmartDashboard.putData(m_allianceChooser);
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
-    m_lifterSubsystem.setDefaultCommand(new LifterManager(m_lifterSubsystem)); 
    
     // Configure the button bindings
     configureButtonBindings();

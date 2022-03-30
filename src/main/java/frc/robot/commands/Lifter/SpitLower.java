@@ -36,12 +36,16 @@ public class SpitLower extends CommandBase {
   @Override
   public void execute() {
     intakeSubsystem.useIntake(-getIntakeReleaseSpeed(cargoReleaseSpeed));
-    lifterSubsystem.setlifterMotor(-getLifterReleaseSpeed(cargoReleaseSpeed));
+    lifterSubsystem.setfeederMotor(-getFeederReleaseSpeed(cargoReleaseSpeed));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+    intakeSubsystem.useIntake(0);
+    lifterSubsystem.setfeederMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
@@ -51,25 +55,25 @@ public class SpitLower extends CommandBase {
   //TODO: ASSIGN RELEASE SPEEDS
   private double getIntakeReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
     if(cargoReleaseSpeed.equals(CargoReleaseSpeed.FAST)){
-      return 0;
+      return .9;
     }
     else if(cargoReleaseSpeed.equals(CargoReleaseSpeed.NORMAL)){
-      return 0;
+      return .7;
     }
     else{
-      return 0;
+      return .4;
     }
   }
     //TODO: ASSIGN RELEASE SPEEDS
-    private double getLifterReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
+    private double getFeederReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
       if(cargoReleaseSpeed.equals(CargoReleaseSpeed.FAST)){
-        return 0;
+        return -.9;
       }
       else if(cargoReleaseSpeed.equals(CargoReleaseSpeed.NORMAL)){
-        return 0;
+        return -.6;
       }
       else{
-        return 0;
+        return -.4;
       }
     }
 }
