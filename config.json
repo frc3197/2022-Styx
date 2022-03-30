@@ -1,5 +1,5 @@
 {
-  "counts per rotation": 1.0,
+  "counts per rotation": 8192.0,
   "encoder type": "roboRIO quadrature",
   "encoding": true,
   "gearing denominator": 1.0,
@@ -10,8 +10,13 @@
   "motor controllers": [
     "TalonFX"
   ],
+<<<<<<< Updated upstream
   "number of samples per average": 10,
   "primary encoder inverted": true,
+=======
+  "number of samples per average": 7,
+  "primary encoder inverted": false,
+>>>>>>> Stashed changes
   "primary encoder ports": [
     1,
     0
