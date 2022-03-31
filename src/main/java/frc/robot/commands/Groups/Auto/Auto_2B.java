@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Align.IntakeAlign;
 import frc.robot.commands.Drivetrain.DriveStraight;
-import frc.robot.commands.Drivetrain.RunBasicTrajectory;
+import frc.robot.commands.Drivetrain.FollowTrajectory;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Lifter.Shoot;
