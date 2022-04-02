@@ -30,6 +30,7 @@ import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.PathFollowSequence;
 import frc.robot.commands.Groups.ReplaceCargo;
+import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Groups.Auto.AutoTurn;
@@ -164,17 +165,14 @@ public class RobotContainer {
     new Button(m_controller1::getLeftBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2
-    new Button(filteredController2::getRightTriggerActive)
-        .whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem, m_shooterSubsystem));
-    new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
-    // new Button(m_controller2::getRightBumper).whenHeld(new Shoot(m_lifterSubsystem));
+    new Button(filteredController2::getRightTriggerActive).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem, m_shooterSubsystem));
+    //new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(getShooterSubsystem()));
+        new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
     new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Down"));
+    new Button(m_controller2::getBButton).whenHeld(new ReverseBallPath().beforeStarting(new WaitCommand(1)));
     new Button(m_controller2::getRightStickButton).toggleWhenPressed(new RotateClimber(m_climberArmSubsystem));
-    //new Button(m_controller2::getStartButton).whenPressed(new ForceReleaseLower(m_lifterSubsystem, m_intakeSubsystem));
-    //new Button(m_controller2::getBackButtonPressed).whenPressed(new ForceReleaseUpper(m_lifterSubsystem, m_shooterSubsystem,m_hoodSubsystem));
-    //new Button(m_controller2::getLeftBumper).whenHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
 
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));
 

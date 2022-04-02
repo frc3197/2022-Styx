@@ -240,7 +240,6 @@ public class DriveSubsystem extends SubsystemBase {
         @Override
         public void periodic() {
                 SwerveModuleState[] states = m_desiredStates;
-                SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());

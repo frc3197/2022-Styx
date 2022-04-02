@@ -5,22 +5,27 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.Align.IntakeAlign;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Intake.DeployIntake;
-import frc.robot.commands.Lifter.SpitLower;
-import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
+import frc.robot.commands.Intake.Intake;
+import frc.robot.commands.Lifter.LifterReverse;
 import frc.robot.other.extra_libraries.AutoRoutine;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ReplaceCargo extends AutoRoutine {
-  /** Creates a new ReplaceCargo. */
-  public ReplaceCargo(CargoReleaseSpeed cSpeed) {
+public class ReverseBallPath extends AutoRoutine {
+  /** Creates a new ReverseBallPath. */
+  public ReverseBallPath() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ParallelCommandGroup(new IntakeAlign(getDriveSubsystem()).withTimeout(1.5), new DeployIntake(getIntakeArmSubsystem())),
-        new SpitLower(getIntakeSubsystem(), getLifterSubsystem(), cSpeed));
+      new DeployIntake(getIntakeArmSubsystem()),
+      new ParallelCommandGroup(
+        new Intake(getIntakeSubsystem(), "Backward"),
+        new LifterReverse(getLifterSubsystem())
+      )
+
+    );
   }
 }

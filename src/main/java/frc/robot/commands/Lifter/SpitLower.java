@@ -36,7 +36,7 @@ public class SpitLower extends CommandBase {
   @Override
   public void execute() {
     intakeSubsystem.useIntake(-getIntakeReleaseSpeed(cargoReleaseSpeed));
-    lifterSubsystem.setlifterMotor(-getLifterReleaseSpeed(cargoReleaseSpeed));
+    lifterSubsystem.setfeederMotor(-getLifterReleaseSpeed(cargoReleaseSpeed));
   }
 
   // Called once the command ends or is interrupted.
