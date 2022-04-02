@@ -35,8 +35,8 @@ public class PathFollowSequence extends AutoRoutine {
       getTrajectory(),
       getDriveSubsystem()::getPose2d, 
       getDriveSubsystem().getKinematics(),
-      new PIDController(5, 0, 0),
-      new PIDController(5, 0, 0), 
+      new PIDController(.1, 0, 0),
+      new PIDController(.1, 0, 0), 
       getThetaController(),
       getDriveSubsystem()::setAllStates,
       getDriveSubsystem()), new LogOdometry()),
@@ -45,7 +45,7 @@ public class PathFollowSequence extends AutoRoutine {
   }
 
   private ProfiledPIDController getThetaController(){
-    ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(3, 3));
+    ProfiledPIDController thetaController = new ProfiledPIDController(.5, 0, 0, new TrapezoidProfile.Constraints(3, 3));
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
     return thetaController;
   }
