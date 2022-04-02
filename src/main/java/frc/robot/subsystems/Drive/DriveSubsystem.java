@@ -95,7 +95,7 @@ public class DriveSubsystem extends SubsystemBase  {
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
-                        new Rotation2d(getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
+                        getGyroscopeRotation());
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
