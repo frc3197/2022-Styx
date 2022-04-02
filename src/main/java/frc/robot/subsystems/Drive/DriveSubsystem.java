@@ -95,7 +95,7 @@ public class DriveSubsystem extends SubsystemBase  {
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
-                        getGyroscopeRotation());
+                        new Rotation2d(-getGyroscopeRotation().getDegrees()));
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
@@ -258,7 +258,7 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param states
          */
         public void updateOdometry(SwerveModuleState[] states) {
-                m_odometry.update(Rotation2d.fromDegrees(-getGyroscopeRotation().getDegrees()), states[0], states[1],
+                m_odometry.update(Rotation2d.fromDegrees(getGyroscopeRotation().getDegrees()), states[0], states[1],
                                 states[2], states[3]);
         }
 
@@ -285,6 +285,7 @@ public class DriveSubsystem extends SubsystemBase  {
                                 states[2].angle.getRadians());
                 m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[3].angle.getRadians());
+                        updateOdometry(states);
 
         }
         public void updateStates(SwerveModuleState[] states){

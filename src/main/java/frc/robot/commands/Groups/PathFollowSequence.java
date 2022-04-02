@@ -11,10 +11,12 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drivetrain.ResetPath;
 import frc.robot.commands.Drivetrain.ResetPath.TrajectoryTime;
 import frc.robot.other.extra_libraries.AutoRoutine;
+import frc.robot.subsystems.Drive.LogOdometry;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -28,24 +30,26 @@ public class PathFollowSequence extends AutoRoutine {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     new ResetPath(getDriveSubsystem(), getTrajectory(), TrajectoryTime.START),
+    new ParallelCommandGroup(
     new PPSwerveControllerCommand(
       getTrajectory(),
       getDriveSubsystem()::getPose2d, 
       getDriveSubsystem().getKinematics(),
-      new PIDController(0, 0, 0),
-      new PIDController(0, 0, 0), 
+      new PIDController(5, 0, 0),
+      new PIDController(5, 0, 0), 
       getThetaController(),
       getDriveSubsystem()::setAllStates,
-      getDriveSubsystem()),
-    new ResetPath(getDriveSubsystem(),getTrajectory(),TrajectoryTime.END));
+      getDriveSubsystem()), new LogOdometry()),
+      new ResetPath(getDriveSubsystem(),getTrajectory(),TrajectoryTime.END)
+    );
   }
 
   private ProfiledPIDController getThetaController(){
-    ProfiledPIDController thetaController = new ProfiledPIDController(0, 0, 0, new TrapezoidProfile.Constraints(3, 3));
+    ProfiledPIDController thetaController = new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(3, 3));
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
     return thetaController;
   }
   private PathPlannerTrajectory getTrajectory(){
-    return PathPlanner.loadPath(path, 3, 3);
+    return PathPlanner.loadPath(path, 3,3);
   }
 }
