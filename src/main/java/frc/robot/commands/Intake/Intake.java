@@ -7,6 +7,7 @@ package frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
 
 public class Intake extends CommandBase {
@@ -43,7 +44,8 @@ public class Intake extends CommandBase {
     if(delayOn == true){
       timer.start();
       if(timer.get() > delay){
-        if(direction.equals("Forward")){intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed);}
+        //TODO: TEST
+        if(direction.equals("Forward")){intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed + (0.2 * (RobotContainer.getDriver1().getYLeft(0) + RobotContainer.getDriver1().getXLeft(0) / 2)));}
     
   
         else if(direction.equals("Backward")){
