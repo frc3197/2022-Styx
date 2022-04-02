@@ -31,14 +31,14 @@ import frc.robot.RobotContainer;
 import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class DriveSubsystem extends SubsystemBase  {
+public class DriveSubsystem extends SubsystemBase {
         /**
          * The maximum voltage that will be delivered to the drive motors.
          * <p>
          * This can be reduced to cap the robot's maximum speed. Typically, this is
          * useful during initial testing of the robot.
          */
-        
+
         public static final double MAX_VOLTAGE = Constants.subsystems.swerve.MAX_VOLTAGE;
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
@@ -110,7 +110,7 @@ public class DriveSubsystem extends SubsystemBase  {
                 Constants.auto.follower.X_PID_CONTROLLER.setTolerance(0);
                 Constants.auto.follower.Y_PID_CONTROLLER.setTolerance(0);
                 Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(0);
-                
+
                 follower.setTolerance(new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
                 zeroGyroscope();
 
@@ -158,10 +158,10 @@ public class DriveSubsystem extends SubsystemBase  {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
-        
-        m_desiredStates = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
 
-        cam.setPipelineIndex(0);
+                m_desiredStates = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+
+                cam.setPipelineIndex(0);
 
         }
 
@@ -251,7 +251,6 @@ public class DriveSubsystem extends SubsystemBase  {
                 }
                 updateOdometry(states);
 
-
         }
 
         /**
@@ -277,6 +276,9 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param states
          */
         public void setAllStates(SwerveModuleState[] states) {
+
+                SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+
                 m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[0].angle.getRadians());
                 m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
@@ -285,11 +287,13 @@ public class DriveSubsystem extends SubsystemBase  {
                                 states[2].angle.getRadians());
                 m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[3].angle.getRadians());
-                        updateOdometry(states);
+
+                updateOdometry(states);
 
         }
-        public void updateStates(SwerveModuleState[] states){
-                
+
+        public void updateStates(SwerveModuleState[] states) {
+
                 m_desiredStates = states;
         }
 
@@ -391,10 +395,12 @@ public class DriveSubsystem extends SubsystemBase  {
         public static void setBrakeMode(boolean x) {
                 brakeMode = x;
         }
-        public static void setDefending(boolean x){
+
+        public static void setDefending(boolean x) {
                 isDefending = x;
         }
-        public static boolean getDefending(){
+
+        public static boolean getDefending() {
                 return isDefending;
         }
 
