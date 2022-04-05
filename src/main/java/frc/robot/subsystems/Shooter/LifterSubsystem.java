@@ -67,12 +67,8 @@ public class LifterSubsystem extends SubsystemBase {
 
     if (!m_pressedLast && pressed) {
       result = true;
-      SmartDashboard.putString("alskdjalisjdlkj", "it ran!!!");
-    } else if (m_pressedLast && !pressed) {
-      result = false;
     }
     else{
-      m_pressedLast = false;
       result = false;
     }
     m_pressedLast = pressed;

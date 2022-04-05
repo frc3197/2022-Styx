@@ -30,7 +30,7 @@ public class IntakeSequence extends ParallelCommandGroup {
   IntakeSubsystem intakeSubsystem;
   IntakeArm intakeArmSubsystem;
   BooleanSupplier booleanSupplier;
-  String intakeDirection;
+  String intakeDirection.
 
   // MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
@@ -43,7 +43,7 @@ public class IntakeSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(new DeployIntake(intakeArmSubsystem), new Lift(lifterSubsystem), new Intake(intakeSubsystem, .2),
-        new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(), LifterSubsystem::newCargo));
+        new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(),LifterSubsystem::newCargo).perpetually());
     // , new RumbleOnTrigger(RobotContainer.getDriver1(), new
     // Trigger(LifterSubsystem::getfeederBB))
 
