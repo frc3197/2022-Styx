@@ -6,6 +6,8 @@ package frc.robot.commands.Groups;
 
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -29,19 +31,24 @@ public class IntakeSequence extends ParallelCommandGroup {
   IntakeArm intakeArmSubsystem;
   BooleanSupplier booleanSupplier;
   String intakeDirection;
-  //MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
+
+  // MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */
-  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem) {
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,
+      IntakeArm intakeArmSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     this.intakeArmSubsystem = intakeArmSubsystem;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem,.2));
-// , new RumbleOnTrigger(RobotContainer.getDriver1(), new Trigger(LifterSubsystem::getfeederBB))
+    addCommands(new DeployIntake(intakeArmSubsystem), new Lift(lifterSubsystem), new Intake(intakeSubsystem, .2),
+        new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(), LifterSubsystem::newCargo));
+    // , new RumbleOnTrigger(RobotContainer.getDriver1(), new
+    // Trigger(LifterSubsystem::getfeederBB))
 
   }
+
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
@@ -50,8 +57,8 @@ public class IntakeSequence extends ParallelCommandGroup {
 
     addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem));
 
-
   }
+
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem, String direction) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
@@ -61,9 +68,10 @@ public class IntakeSequence extends ParallelCommandGroup {
 
     addCommands(new Lift(lifterSubsystem), new Intake(intakeSubsystem, intakeDirection));
 
-
   }
-  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem,IntakeArm intakeArmSubsystem, BooleanSupplier booleanSupplier) {
+
+  public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem, IntakeArm intakeArmSubsystem,
+      BooleanSupplier booleanSupplier) {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     this.intakeArmSubsystem = intakeArmSubsystem;
@@ -71,10 +79,9 @@ public class IntakeSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    addCommands(new ParallelDeadlineGroup(new WaitForInput(booleanSupplier, "Closed"), new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem)), new RetractIntake(intakeArmSubsystem));
+    addCommands(new ParallelDeadlineGroup(new WaitForInput(booleanSupplier, "Closed"),
+        new DeployIntake(intakeArmSubsystem), new Lift(lifterSubsystem), new Intake(intakeSubsystem)),
+        new RetractIntake(intakeArmSubsystem));
 
-
-  }}
-
-
-
+  }
+}

@@ -25,13 +25,15 @@ public class LifterSubsystem extends SubsystemBase {
   private CANSparkMax feederWheel;
   private boolean feederMotorState, lifterMotorState;
   private double feederSpeed, lifterSpeed;
+  static boolean m_pressedLast = false;
+
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
     lifterWheel = new WPI_TalonFX(Constants.subsystems.lifter.lifterMotorID);
     lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
     lifterBB = new DigitalInput(Constants.subsystems.lifter.lifterBBChannel);
     feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
-    feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus0,100);
+    feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
     feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
     feederSpeed = Constants.subsystems.lifter.feederSpeed;
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;
@@ -48,6 +50,7 @@ public class LifterSubsystem extends SubsystemBase {
     lifterMotorState = (lifterWheel.get() != 0);
     feederMotorState = (feederWheel.get() != 0);
     SmartDashboard.putString("Lifter State", getLifterStateString());
+    SmartDashboard.putBoolean("New Cargo", newCargo());
     // This method will be called once per scheduler run
   }
 
@@ -58,6 +61,25 @@ public class LifterSubsystem extends SubsystemBase {
     return !feederBB.get();
   }
 
+  public static boolean newCargo(){
+    boolean result;
+    boolean pressed = getfeederBB();
+
+    if (!m_pressedLast && pressed) {
+      result = true;
+      SmartDashboard.putString("alskdjalisjdlkj", "it ran!!!");
+    } else if (m_pressedLast && !pressed) {
+      result = false;
+    }
+    else{
+      m_pressedLast = false;
+      result = false;
+    }
+    m_pressedLast = pressed;
+    return result;
+
+  }
+
   /**
    * @return boolean
    */
@@ -65,16 +87,14 @@ public class LifterSubsystem extends SubsystemBase {
     return !lifterBB.get();
   }
 
-  
-  /** 
+  /**
    * @return double
    */
   public double getfeederSpeed() {
     return feederSpeed;
   }
 
-  
-  /** 
+  /**
    * @return double
    */
   public double getlifterSpeed() {
@@ -88,7 +108,7 @@ public class LifterSubsystem extends SubsystemBase {
     feederWheel.set(liftSpeed);
   }
 
-    /**
+  /**
    * @param liftSpeed
    */
   public void setfeederMotor(double liftSpeed, double delay) {
@@ -102,7 +122,7 @@ public class LifterSubsystem extends SubsystemBase {
   public void setlifterMotor(double liftSpeed) {
     lifterWheel.set(liftSpeed);
   }
-  
+
   /**
    * @param liftSpeed
    */
@@ -118,6 +138,7 @@ public class LifterSubsystem extends SubsystemBase {
     setfeederMotor(liftSpeed);
     setlifterMotor(liftSpeed);
   }
+
   public void setBothMotors(double liftSpeed, double wait) {
     Timer.delay(wait);
     setfeederMotor(liftSpeed);
@@ -146,23 +167,23 @@ public class LifterSubsystem extends SubsystemBase {
     Timer.delay(.25);
     toggleLowerMotor();
   }
-  public void feed(){
+
+  public void feed() {
     feederWheel.set(feederSpeed);
   }
-  public void disableFeed(){
+
+  public void disableFeed() {
     feederWheel.set(0);
   }
-  public static String getLifterStateString(){
-    if(getfeederBB() && getlifterBB()){
+
+  public static String getLifterStateString() {
+    if (getfeederBB() && getlifterBB()) {
       return "2 Cargo in Lifter";
-    }
-    else if(getlifterBB() && !getfeederBB()){
-      return  "1 Cargo in Lifter - Upper";
-    }
-    else if (getfeederBB() && !getlifterBB()){
+    } else if (getlifterBB() && !getfeederBB()) {
+      return "1 Cargo in Lifter - Upper";
+    } else if (getfeederBB() && !getlifterBB()) {
       return "1 Cargo in Lifter - Lower";
-    }
-    else{
+    } else {
       return "No Cargo in Lifter";
     }
   }
