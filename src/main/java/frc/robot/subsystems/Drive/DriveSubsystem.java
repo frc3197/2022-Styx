@@ -4,16 +4,13 @@
 
 package frc.robot.subsystems.Drive;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import org.photonvision.PhotonCamera;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -21,6 +18,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -82,7 +80,8 @@ public class DriveSubsystem extends SubsystemBase {
         // cause the angle reading to increase until it wraps back over to zero.
         // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
-        private static AHRS m_navx = new AHRS(Port.kUSB);
+
+        private static WPI_Pigeon2 m_pigeon = new WPI_Pigeon2(14);
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
@@ -166,21 +165,21 @@ public class DriveSubsystem extends SubsystemBase {
         }
 
         public void zeroGyroscope() {
-                m_navx.zeroYaw();
-        }
+                m_pigeon.reset();
+                }
 
         /**
          * @return AHRS
          */
-        public static AHRS getGyroscopeObj() {
-                return m_navx;
+        public static WPI_Pigeon2 getGyroscopeObj() {
+                return m_pigeon;
         }
 
         /**
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return m_navx.getRotation2d();
+                return Rotation2d.fromDegrees(Math.IEEEremainder(-m_pigeon.getAngle(), 360));
         }
 
         public static PhotonCamera getCam() {
@@ -243,7 +242,8 @@ public class DriveSubsystem extends SubsystemBase {
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
-                SmartDashboard.putNumber("Gyro Val", m_navx.getRotation2d().getDegrees());
+                SmartDashboard.putNumber("Gyro Value", getGyroscopeRotation().getDegrees());
+
                 SmartDashboard.putBoolean("Field Relative", getFieldRelative());
                 if (!isDefending) {
                         setAllStates(states);

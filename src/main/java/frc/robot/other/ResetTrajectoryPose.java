@@ -38,12 +38,12 @@ public class ResetTrajectoryPose extends InstantCommand {
   public void initialize() {
     trajectory = PathPlanner.loadPath(path, 3, 3);
     if(poseAtTime.equals(PoseAtTime.START)){
-    DriveSubsystem.getGyroscopeObj().setAngleAdjustment(-trajectory.getInitialState().holonomicRotation.getDegrees());
+    DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getInitialState().holonomicRotation.getDegrees());
     // DriveSubsystem.getGyroscopeObj().setAngleAdjustment(trajectory.getInitialState().holonomicRotation.getDegrees());
     driveSubsystem.resetOdometry(new Pose2d(trajectory.getInitialState().poseMeters.getTranslation(),trajectory.getInitialState().holonomicRotation));
   }
   else{
-    DriveSubsystem.getGyroscopeObj().setAngleAdjustment(-trajectory.getEndState().holonomicRotation.getDegrees());
+    DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getEndState().holonomicRotation.getDegrees());
     // DriveSubsystem.getGyroscopeObj().setAngleAdjustment(trajectory.getEndState().holonomicRotation.getDegrees());
     driveSubsystem.resetOdometry(new Pose2d(trajectory.getEndState().poseMeters.getTranslation(),trajectory.getEndState().holonomicRotation));
 
