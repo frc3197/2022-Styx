@@ -40,8 +40,9 @@ public class IntakeSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
-    addCommands(new DeployIntake(intakeArmSubsystem), new Lift(lifterSubsystem), new Intake(intakeSubsystem, .2),
-        new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(),LifterSubsystem::newCargo).perpetually());
+    addCommands(new DeployIntake(intakeArmSubsystem), new Lift(lifterSubsystem), new Intake(intakeSubsystem, .2)
+        ,new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(),LifterSubsystem::newCargo).perpetually()
+        );
     // , new RumbleOnTrigger(RobotContainer.getDriver1(), new
     // Trigger(LifterSubsystem::getfeederBB))
 

@@ -51,4 +51,8 @@ public class ShooterYAlign extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+  
+  public boolean getAtSetpoint(){
+    return yPID.atSetpoint();
+  }
 }
