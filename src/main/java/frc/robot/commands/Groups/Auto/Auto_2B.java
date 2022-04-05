@@ -34,7 +34,7 @@ public class Auto_2B extends AutoRoutine {
         new SequentialCommandGroup(
             new SetNewOdometry(super.getDriveSubsystem(),
                 new Pose2d(264.18, 234.06, new Rotation2d(Units.degreesToRadians(43.5)))),
-                new SetHoodDefault(getHoodSubsystem(), -340),
+                new SetHoodDefault(getHoodSubsystem(), 0),
             new ParallelRaceGroup(
                 new Spool(super.getShooterSubsystem()),
                 new SequentialCommandGroup(

@@ -171,7 +171,7 @@ public class RobotContainer {
     new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Down"));
-    new Button(m_controller2::getBButton).whenHeld(new ReverseBallPath().beforeStarting(new WaitCommand(1)));
+    new Button(m_controller2::getBButton).whenHeld(new ReverseBallPath().beforeStarting(new WaitCommand(.5)));
     new Button(m_controller2::getRightStickButton).toggleWhenPressed(new RotateClimber(m_climberArmSubsystem));
 
     new Button(m_controller2::getLeftStickButton).toggleWhenPressed(new ToggleManualHood(m_hoodSubsystem));

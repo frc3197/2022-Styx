@@ -185,14 +185,14 @@ public final class Constants implements Loggable {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
             //public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.H_Auto.MAX_ANGULAR_VELOCITY, subsystems.H_Auto.MAX_ANGULAR_ACCELERATION);
-            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(Math.PI, Math.pow(Math.PI,2));
+            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(5, 5);
 
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(0, 0, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(0.2, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(0, 0, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(0.2, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(0, 0, 0,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(.5, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5
             public static final double LINEAR_VELOCITY_DEFAULT = 0;

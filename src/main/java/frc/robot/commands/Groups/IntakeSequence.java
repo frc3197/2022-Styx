@@ -8,10 +8,14 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Intake.DeployIntake;
 import frc.robot.commands.Intake.Intake;
 import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.Lift;
+import frc.robot.commands.Lifter.RumbleOnTrigger;
+import frc.robot.other.RumbleForTime;
 import frc.robot.subsystems.Intake.IntakeArm;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
@@ -35,7 +39,7 @@ public class IntakeSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(new DeployIntake(intakeArmSubsystem),new Lift(lifterSubsystem), new Intake(intakeSubsystem,.2));
-
+// , new RumbleOnTrigger(RobotContainer.getDriver1(), new Trigger(LifterSubsystem::getfeederBB))
 
   }
   public IntakeSequence(IntakeSubsystem intakeSubsystem, LifterSubsystem lifterSubsystem) {
