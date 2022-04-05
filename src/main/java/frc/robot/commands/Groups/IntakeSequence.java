@@ -10,13 +10,11 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Intake.DeployIntake;
 import frc.robot.commands.Intake.Intake;
 import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.Lift;
-import frc.robot.commands.Lifter.RumbleOnTrigger;
 import frc.robot.other.RumbleForTime;
 import frc.robot.subsystems.Intake.IntakeArm;
 import frc.robot.subsystems.Intake.IntakeSubsystem;
@@ -30,7 +28,7 @@ public class IntakeSequence extends ParallelCommandGroup {
   IntakeSubsystem intakeSubsystem;
   IntakeArm intakeArmSubsystem;
   BooleanSupplier booleanSupplier;
-  String intakeDirection.
+  String intakeDirection;
 
   // MUST TOGGLE THIS COMMAND!!!!!!!!!!!!!!!!!
   /** Creates a new IntakeAndLift. */

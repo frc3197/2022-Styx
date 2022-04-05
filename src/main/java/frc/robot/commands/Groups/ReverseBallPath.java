@@ -5,7 +5,6 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Intake.DeployIntake;
 import frc.robot.commands.Intake.Intake;
 import frc.robot.commands.Lifter.LifterReverse;
