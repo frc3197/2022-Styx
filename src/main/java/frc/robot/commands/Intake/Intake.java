@@ -5,7 +5,6 @@
 package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -45,9 +44,7 @@ public class Intake extends CommandBase {
     if(delayOn == true){
       timer.start();
       if(timer.get() > delay){
-        //TODO: TEST
         if(direction.equals("Forward")){intakeSubsystem.useIntake(Constants.subsystems.intake.intakeSpeed + ((1 - Constants.subsystems.intake.intakeSpeed) * Math.max(Math.abs(RobotContainer.getDriver1().getYLeft(.05)), Math.abs(RobotContainer.getDriver1().getXLeft(.05)) / 2)));
-        SmartDashboard.putNumber("Intake Effort", (Constants.subsystems.intake.intakeSpeed + ((1 - Constants.subsystems.intake.intakeSpeed) * Math.max(Math.abs(RobotContainer.getDriver1().getYLeft(.05)), Math.abs(RobotContainer.getDriver1().getXLeft(.05)) / 2))));
         }
     
   

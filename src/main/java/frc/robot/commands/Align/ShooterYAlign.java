@@ -6,7 +6,6 @@ package frc.robot.commands.Align;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.Shooter.RangeLookup;
@@ -36,7 +35,6 @@ public class ShooterYAlign extends CommandBase {
   public void execute() {
     visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
     visionSetpoint = (RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement))).getHoodAngle();
-    SmartDashboard.putNumber("HOOD PID OUTPUT", yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
     hoodSubsystem.setHood(yPID.calculate(hoodSubsystem.getHoodPosition(), visionSetpoint));
   }
 

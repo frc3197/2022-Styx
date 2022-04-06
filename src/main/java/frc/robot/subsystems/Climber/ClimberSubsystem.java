@@ -28,7 +28,6 @@ public class ClimberSubsystem extends SubsystemBase {
     
     spoolMotorLeft.setNeutralMode(NeutralMode.Brake);
     spoolMotorRight.setNeutralMode(NeutralMode.Brake);
-    //TODO: FIX
 
     SUL_Limit = spoolMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     SUR_Limit = spoolMotorRight.getSensorCollection().isFwdLimitSwitchClosed();

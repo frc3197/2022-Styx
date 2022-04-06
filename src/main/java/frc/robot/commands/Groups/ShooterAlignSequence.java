@@ -7,17 +7,14 @@ package frc.robot.commands.Groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.subsystems.shooter;
 import frc.robot.commands.Align.ShooterXAlign;
 import frc.robot.commands.Align.ShooterYAlign;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.extra_libraries.CancelAfterTimer;
+import frc.robot.other.extra_libraries.SimpleRumble;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import frc.robot.other.RumbleForTime;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -33,10 +30,16 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
   public ShooterAlignSequence(DriveSubsystem driveSubsystem, HoodSubsystem hoodSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.hoodSubsystem = hoodSubsystem;
+    
+    shooterXAlign = new ShooterXAlign(driveSubsystem);
+    shooterYAlign = new ShooterYAlign(hoodSubsystem);
+
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ShooterXAlign(driveSubsystem), new ShooterYAlign(hoodSubsystem));
-  }
+    addCommands(shooterXAlign, shooterYAlign,
+        new SimpleRumble(RobotContainer.getDriver2(),
+            () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint()).perpetually());
+          }
 
   public ShooterAlignSequence(DriveSubsystem driveSubsystem, HoodSubsystem hoodSubsystem,
       ShooterSubsystem shooterSubsystem) {
@@ -49,7 +52,7 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(shooterXAlign, shooterYAlign,
-        new ConditionalCommand(new RumbleForTime(RobotContainer.getDriver1(), 1), new InstantCommand(),
+        new SimpleRumble(RobotContainer.getDriver2(),
             () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint()).perpetually(),
         new Spool(shooterSubsystem));
   }

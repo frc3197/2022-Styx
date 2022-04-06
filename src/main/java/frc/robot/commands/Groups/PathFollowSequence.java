@@ -44,7 +44,7 @@ public class PathFollowSequence extends AutoRoutine {
   }
 
   private ProfiledPIDController getThetaController(){
-    ProfiledPIDController thetaController = new ProfiledPIDController(.5, 0, 0, new TrapezoidProfile.Constraints(3, 3));
+    ProfiledPIDController thetaController = new ProfiledPIDController(1,0, 0, new TrapezoidProfile.Constraints(3,3));
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
     return thetaController;
   }

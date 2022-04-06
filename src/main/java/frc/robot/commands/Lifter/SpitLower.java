@@ -44,7 +44,6 @@ public class SpitLower extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-  //TODO: ASSIGN RELEASE SPEEDS
   private double getIntakeReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
     if(cargoReleaseSpeed.equals(CargoReleaseSpeed.FAST)){
       return 1;
@@ -56,7 +55,6 @@ public class SpitLower extends CommandBase {
       return .4;
     }
   }
-    //TODO: ASSIGN RELEASE SPEEDS
     private double getLifterReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
       if(cargoReleaseSpeed.equals(CargoReleaseSpeed.FAST)){
         return -.8;

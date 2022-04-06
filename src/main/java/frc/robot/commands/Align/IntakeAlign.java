@@ -53,7 +53,6 @@ public class IntakeAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //TODO:TEST
     timer.reset();
     timer.start();
     DriveSubsystem.setFieldRelative(false);

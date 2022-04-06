@@ -11,7 +11,6 @@ public class RPMPair extends RangePair{
     public RPMPair(int hoodAng,int rpm) {
         super(hoodAng);
         this.rpm = rpm;
-        //TODO Auto-generated constructor stub
     }
     public int getRPM(){
         return rpm;

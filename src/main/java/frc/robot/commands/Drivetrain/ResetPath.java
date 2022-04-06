@@ -6,7 +6,6 @@ package frc.robot.commands.Drivetrain;
 
 import com.pathplanner.lib.PathPlannerTrajectory;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
@@ -31,11 +30,11 @@ public class ResetPath extends InstantCommand {
   @Override
   public void initialize() {
     if(trajTime.equals(TrajectoryTime.START)){
-      SmartDashboard.putString("TrajectoryTime", "Start");
+      DriveSubsystem.getGyroscopeObj().setYaw(trajectory.getInitialState().holonomicRotation.getDegrees());
       driveSubsystem.setPose2d(trajectory.getInitialState().poseMeters);
     }
     else{
-      SmartDashboard.putString("TrajectoryTime", "End");
+      DriveSubsystem.getGyroscopeObj().setYaw(trajectory.getEndState().holonomicRotation.getDegrees());
       driveSubsystem.setPose2d(trajectory.getEndState().poseMeters);
     }
   }

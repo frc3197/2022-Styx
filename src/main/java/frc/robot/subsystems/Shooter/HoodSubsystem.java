@@ -43,9 +43,9 @@ public class HoodSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    
     SmartDashboard.putBoolean("Hood Aligned", yPID.atSetpoint());
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
-    SmartDashboard.putBoolean("Back Limit Pressed", getHoodBackLimit());
     SmartDashboard.putNumber("Raw Range", RangeLookup
         .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)));
     SmartDashboard.putNumber("Normalized Range", RangeLookup.normalizeRange(RangeLookup

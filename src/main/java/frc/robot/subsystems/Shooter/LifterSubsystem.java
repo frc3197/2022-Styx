@@ -26,6 +26,8 @@ public class LifterSubsystem extends SubsystemBase {
   private boolean feederMotorState, lifterMotorState;
   private double feederSpeed, lifterSpeed;
   static boolean m_pressedLast = false;
+  static boolean result;
+  static boolean pressed;
 
   /** Creates a new LifterSubsystem. */
   public LifterSubsystem() {
@@ -51,6 +53,9 @@ public class LifterSubsystem extends SubsystemBase {
     feederMotorState = (feederWheel.get() != 0);
     SmartDashboard.putString("Lifter State", getLifterStateString());
     SmartDashboard.putBoolean("New Cargo", newCargo());
+    SmartDashboard.putBoolean("New Cargo: result", result);
+    SmartDashboard.putBoolean("New Cargo: pressed", pressed);
+    SmartDashboard.putBoolean("New Cargo: lastPressed", m_pressedLast);
     // This method will be called once per scheduler run
   }
 
@@ -62,8 +67,7 @@ public class LifterSubsystem extends SubsystemBase {
   }
 
   public static boolean newCargo(){
-    boolean result;
-    boolean pressed = getfeederBB();
+    pressed = getfeederBB();
 
     if (!m_pressedLast && pressed) {
       result = true;
@@ -126,7 +130,9 @@ public class LifterSubsystem extends SubsystemBase {
     Timer.delay(delay);
     lifterWheel.set(liftSpeed);
   }
-
+  public static  void setPressedLast(boolean x){
+    m_pressedLast = x;
+  }
   /**
    * @param liftSpeed
    */

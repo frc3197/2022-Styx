@@ -9,7 +9,6 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.other.extra_libraries.PathPlanner;
@@ -54,16 +53,6 @@ public class FollowTrajectory extends CommandBase {
     state = (PathPlannerState) target.sample(curTime);
 
     currentPosition = m_drivetrain.getPose2d();
-
-    SmartDashboard.putNumber("Desired X", state.poseMeters.getX());
-    SmartDashboard.putNumber("Actual X", currentPosition.getX());
-
-
-    SmartDashboard.putNumber("Desired Y", state.poseMeters.getY());
-    SmartDashboard.putNumber("Actual Y", currentPosition.getY());
-    
-    SmartDashboard.putNumber("Desired Rot", state.poseMeters.getRotation().getDegrees());
-    SmartDashboard.putNumber("Actual Rot", currentPosition.getRotation().getDegrees());
 
     speeds = hController.calculate(currentPosition, state, state.holonomicRotation);
     m_drivetrain.updateStates(m_drivetrain.getKinematics().toSwerveModuleStates(speeds));
