@@ -52,7 +52,7 @@ public final class Constants implements Loggable {
             public static final double MAX_ANG_ACCEL = 8 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
-            public static final PIDConst xALIGN_PID = new PIDConst(.145, 0, 0);
+            public static final PIDConst xALIGN_PID = new PIDConst(.16, 0, 0);
             // OLD Y VALUES, .012
             public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
 

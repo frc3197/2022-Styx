@@ -21,6 +21,7 @@ public class ShooterYAlign extends CommandBase {
   public ShooterYAlign(HoodSubsystem hoodSubsystem) {
     this.hoodSubsystem = hoodSubsystem;
     yPID = hoodSubsystem.getPIDController();
+    yPID.setTolerance(2);
     addRequirements(hoodSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }

@@ -12,6 +12,7 @@ import frc.robot.commands.Align.ShooterYAlign;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.extra_libraries.CancelAfterTimer;
 import frc.robot.other.extra_libraries.SimpleRumble;
+import frc.robot.other.extra_libraries.SimpleRumble.SIMPLERUMBLE_OPTIONS;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
@@ -38,7 +39,7 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(shooterXAlign, shooterYAlign,
         new SimpleRumble(RobotContainer.getDriver2(),
-            () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint()).perpetually());
+            () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint(), SIMPLERUMBLE_OPTIONS.NORMAL).perpetually());
           }
 
   public ShooterAlignSequence(DriveSubsystem driveSubsystem, HoodSubsystem hoodSubsystem,
@@ -53,7 +54,7 @@ public class ShooterAlignSequence extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(shooterXAlign, shooterYAlign,
         new SimpleRumble(RobotContainer.getDriver2(),
-            () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint()).perpetually(),
+            () -> shooterYAlign.getAtSetpoint() && shooterXAlign.getAtSetpoint(), SIMPLERUMBLE_OPTIONS.NORMAL).perpetually(),
         new Spool(shooterSubsystem));
   }
 
