@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.Map;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -25,6 +26,7 @@ import frc.robot.commands.Drivetrain.Defend;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.ResetGyro;
 import frc.robot.commands.Drivetrain.RunTrajectorySequence;
+import frc.robot.commands.Drivetrain.DriveCommand.DriveType;
 import frc.robot.commands.Drivetrain.FollowTrajectory;
 import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
@@ -47,7 +49,9 @@ import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.Toggles.ResetHood;
 import frc.robot.other.Toggles.ToggleBrakeMode;
+import frc.robot.other.Toggles.ToggleDriveSpeeds;
 import frc.robot.other.Toggles.ToggleDriverMode;
+import frc.robot.other.Toggles.ToggleFieldRelative;
 import frc.robot.other.Toggles.ToggleManualHood;
 import frc.robot.other.extra_libraries.FilteredController;
 import frc.robot.subsystems.Climber.ClimberArm;
@@ -89,6 +93,9 @@ public class RobotContainer {
   public static final FilteredController filteredController1 = new FilteredController(m_controller1);
   private final static XboxController m_controller2 = new XboxController(1);
   public static final FilteredController filteredController2 = new FilteredController(m_controller2);
+
+  private static SlewRateLimiter[] slimiters = DriveCommand.getLimiterArray(DriveType.NORMAL);
+
   @SuppressWarnings("rawtypes")
   private static SendableChooser m_autoChooser;
   @SuppressWarnings("rawtypes")
@@ -123,7 +130,7 @@ public class RobotContainer {
 
     m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new WaitCommand(.5),
     new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
-    m_autoChooser.addOption("Test Segment", new PathFollowSequence("New Path"));
+    m_autoChooser.addOption("Test Segment", new RunTrajectorySequence(getDriveSubsystem(),"New New New Path",5));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -154,8 +161,10 @@ public class RobotContainer {
     new Button(m_controller1::getBButton).whenPressed(new RetractIntake(getIntakeArmSubsystem()));
 
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
-    new Button(m_controller1::getBackButton).whenPressed(new ToggleDriverMode());
+    new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
+    new Button(m_controller1::getRightStickButton).whenPressed(new ToggleDriveSpeeds());
+
 
     new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
     new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
@@ -287,5 +296,13 @@ public class RobotContainer {
   public static FilteredController getDriver2() {
     return filteredController2;
   }
+
+
+public static SlewRateLimiter[] getLimiters() {
+	return slimiters;
+}
+public static void setLimiters(DriveType driveType){
+  slimiters = DriveCommand.getLimiterArray(driveType);
+}
 
 }

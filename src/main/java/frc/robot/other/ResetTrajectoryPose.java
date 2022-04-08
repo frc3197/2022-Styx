@@ -40,7 +40,7 @@ public class ResetTrajectoryPose extends InstantCommand {
     if(poseAtTime.equals(PoseAtTime.START)){
     DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getInitialState().holonomicRotation.getDegrees());
     // DriveSubsystem.getGyroscopeObj().setAngleAdjustment(trajectory.getInitialState().holonomicRotation.getDegrees());
-    driveSubsystem.resetOdometry(new Pose2d(trajectory.getInitialState().poseMeters.getTranslation(),trajectory.getInitialState().holonomicRotation));
+    driveSubsystem.resetOdometry(new Pose2d(trajectory.getInitialState().poseMeters.getTranslation(),trajectory.getInitialState().poseMeters.getRotation()));
   }
   else{
     DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getEndState().holonomicRotation.getDegrees());

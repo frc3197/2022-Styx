@@ -16,12 +16,12 @@ public class RunTrajectorySequence extends SequentialCommandGroup {
   DriveSubsystem driveSubsystem;
   String path;
   /** Creates a new RunTrajectorySequence. */
-  public RunTrajectorySequence(DriveSubsystem driveSubsystem, String path) {
+  public RunTrajectorySequence(DriveSubsystem driveSubsystem, String path, double speed) {
     this.path = path;
     this.driveSubsystem = driveSubsystem;
     addRequirements(driveSubsystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ResetTrajectoryPose(driveSubsystem, path, PoseAtTime.START), new FollowTrajectory(driveSubsystem, path), new ResetTrajectoryPose(driveSubsystem, path, PoseAtTime.END));
+    addCommands(new ResetTrajectoryPose(driveSubsystem, path, PoseAtTime.START), new FollowTrajectory(driveSubsystem, path,speed), new ResetTrajectoryPose(driveSubsystem, path, PoseAtTime.END));
   }
 }

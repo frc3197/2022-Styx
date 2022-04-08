@@ -27,10 +27,10 @@ public class FollowTrajectory extends CommandBase {
   
   private final Timer timer = new Timer();
 
-  public FollowTrajectory(DriveSubsystem m_drivetrain, String path) {
+  public FollowTrajectory(DriveSubsystem m_drivetrain, String path, double speed) {
     this.m_drivetrain = m_drivetrain;
     rot_pid = Constants.auto.follower.ROT_PID_CONTROLLER;
-    target = PathPlanner.loadPath(path, 3, 3);
+    target =  PathPlanner.loadPath(path,speed,speed);
     addRequirements(m_drivetrain);
   }
 

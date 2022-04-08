@@ -4,15 +4,17 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
 import java.util.function.DoubleSupplier;
+
 @SuppressWarnings("unused")
 public class DriveCommand extends CommandBase implements Loggable {
     private final DriveSubsystem m_drivetrainSubsystem;
-    
+
     private final DoubleSupplier m_translationXSupplier;
     @Log
     private double inputX;
@@ -27,7 +29,6 @@ public class DriveCommand extends CommandBase implements Loggable {
     private final SlewRateLimiter rotLimiter = new SlewRateLimiter(7);
     private double inputRot;
 
-    
     @Log(tabName = "Robot States")
     private String RobotDriveTrainState = "";
 
@@ -47,39 +48,18 @@ public class DriveCommand extends CommandBase implements Loggable {
         addRequirements(drivetrainSubsystem);
     }
 
-    public void adjustX(){
-        inputX = xLimiter.calculate(inputX);
-        //inputX = xLimiter.calculate(inputX) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
-        //inputX = xLimiter.calculate(inputX) * 4.96824;
-
-    }
-    public void adjustY(){
-        inputY = yLimiter.calculate(inputY);
-        //inputY = yLimiter.calculate(inputY) * DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
-        //inputY = yLimiter.calculate(inputY) * 4.96824;
-    }
-    public void adjustRot(){
-        inputRot = rotLimiter.calculate(inputRot);
-        //inputRot = rotLimiter.calculate(inputRot) * DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
-        //inputRot = rotLimiter.calculate(inputRot) * (3 * Math.PI);
-
-    }
-    
-    
-
     @Override
     public void execute() {
+        SlewRateLimiter[] curLimiters = RobotContainer.getLimiters();
         brakeMode = DriveSubsystem.getBrakeMode();
         fieldRelative = true;
         // Stored in a new object for Oblog functionality
         inputX = m_translationXSupplier.getAsDouble();
-        adjustX();
+        adjustX(curLimiters);
         inputY = m_translationYSupplier.getAsDouble();
-        adjustY();
+        adjustY(curLimiters);
         inputRot = m_rotationSupplier.getAsDouble();
-        //adjustRot();
-
-
+        // adjustRot();
 
         if (!brakeMode) {
             DriveSubsystem.setDefending(false);
@@ -111,4 +91,52 @@ public class DriveCommand extends CommandBase implements Loggable {
     public void end(boolean interrupted) {
         m_drivetrainSubsystem.drive(new ChassisSpeeds(0.0, 0.0, 0.0));
     }
+
+    
+    public void adjustX(SlewRateLimiter[] sLimiters) {
+        inputX = sLimiters[1].calculate(inputX);
+        // inputX = xLimiter.calculate(inputX) *
+        // DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        // inputX = xLimiter.calculate(inputX) * 4.96824;
+
+    }
+
+    public void adjustY(SlewRateLimiter[] sLimiters) {
+        inputY = sLimiters[2].calculate(inputY);
+        // inputY = yLimiter.calculate(inputY) *
+        // DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
+        // inputY = yLimiter.calculate(inputY) * 4.96824;
+    }
+
+    public void adjustRot(SlewRateLimiter[] sLimiters) {
+        inputRot = sLimiters[3].calculate(inputRot);
+        // inputRot = rotLimiter.calculate(inputRot) *
+        // DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
+        // inputRot = rotLimiter.calculate(inputRot) * (3 * Math.PI);
+
+    }
+    
+    public static SlewRateLimiter[] getLimiterArray(DriveType driveType) {
+        SlewRateLimiter[] ret;
+        switch (driveType) {
+            default:
+            case NORMAL:
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(7), new SlewRateLimiter(7), new SlewRateLimiter(7) };
+                break;
+            case FAST:
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(3), new SlewRateLimiter(3), new SlewRateLimiter(3) };
+                break;
+            case NOLIMITS:
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(0), new SlewRateLimiter(0), new SlewRateLimiter(0) };
+                break;
+        }
+        return ret;
+    }
+
+    public enum DriveType {
+        NORMAL,
+        FAST,
+        NOLIMITS
+    }
+
 }
