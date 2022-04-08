@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Groups.Auto;
+package frc.robot.commands.Auto.Old;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -11,29 +11,34 @@ import frc.robot.Constants;
 import frc.robot.other.extra_libraries.PIDConst;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
-public class TurnToGyro extends CommandBase {
+public class AutoTurn extends CommandBase {
   DriveSubsystem driveSubsystem;
-  double curAng,tarAng;
+  double target,initialAngle,endAngle,currentAngle;
+  PIDConst pidConst = Constants.subsystems.swerve.xALIGN_PID; 
   PIDController pid;
-  PIDConst pidConst;
-  /** Creates a new TurnToGyro. */
-  public TurnToGyro(DriveSubsystem driveSubsystem, double tarAng) {
+  /** Creates a new AutoTurn. */
+  public AutoTurn(DriveSubsystem driveSubsystem,double target) {
     this.driveSubsystem = driveSubsystem;
-    this.tarAng = tarAng;
-    pidConst = Constants.subsystems.swerve.xALIGN_PID;
-    pid = new PIDController(pidConst.p, pidConst.i, pidConst.d);
+    this.target = target;
+    pid = new PIDController(pidConst.p-.02, pidConst.i, pidConst.d);
+    pid.setTolerance(0);
+    pid.enableContinuousInput(-180, 180);
+    addRequirements(driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    initialAngle = driveSubsystem.getGyroscopeRotation().getDegrees();
+    endAngle = initialAngle + target;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    curAng = driveSubsystem.getGyroscopeRotation().getDegrees();
-    driveSubsystem.drive(new ChassisSpeeds(0,0, pid.calculate(curAng, tarAng)));
+    currentAngle = driveSubsystem.getGyroscopeRotation().getDegrees();
+    driveSubsystem.drive(new ChassisSpeeds(0, 0, pid.calculate(currentAngle, endAngle)));
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +50,6 @@ public class TurnToGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pid.atSetpoint();
   }
 }

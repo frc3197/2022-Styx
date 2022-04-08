@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.Map;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -14,43 +12,35 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
+import frc.robot.commands.Auto.RunTrajectorySequence;
+import frc.robot.commands.Auto.Old.AutoTurn;
+import frc.robot.commands.Auto.Old.Auto_1B;
+import frc.robot.commands.Auto.Old.Auto_2B;
+import frc.robot.commands.Auto.Old.Auto_3B;
+import frc.robot.commands.Auto.Old.Auto_5B;
 import frc.robot.commands.Climber.RotateClimber;
 import frc.robot.commands.Climber.SpoolClimber;
 import frc.robot.commands.Drivetrain.Defend;
 import frc.robot.commands.Drivetrain.DriveCommand;
-import frc.robot.commands.Drivetrain.ResetGyro;
-import frc.robot.commands.Drivetrain.RunTrajectorySequence;
 import frc.robot.commands.Drivetrain.DriveCommand.DriveType;
-import frc.robot.commands.Drivetrain.FollowTrajectory;
+import frc.robot.commands.Drivetrain.ResetGyro;
 import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
-import frc.robot.commands.Groups.PathFollowSequence;
 import frc.robot.commands.Groups.ReplaceCargo;
 import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.commands.Groups.Auto.AutoTurn;
-import frc.robot.commands.Groups.Auto.Auto_1B;
-import frc.robot.commands.Groups.Auto.Auto_2B;
-import frc.robot.commands.Groups.Auto.Auto_3B;
-import frc.robot.commands.Groups.Auto.Auto_5B;
 import frc.robot.commands.Intake.RetractIntake;
-import frc.robot.commands.Lifter.FeedToUpper;
-import frc.robot.commands.Lifter.Shoot;
-import frc.robot.commands.Lifter.UpperToLower;
 import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.Toggles.ResetHood;
 import frc.robot.other.Toggles.ToggleBrakeMode;
 import frc.robot.other.Toggles.ToggleDriveSpeeds;
-import frc.robot.other.Toggles.ToggleDriverMode;
 import frc.robot.other.Toggles.ToggleFieldRelative;
 import frc.robot.other.Toggles.ToggleManualHood;
 import frc.robot.other.extra_libraries.FilteredController;
@@ -74,7 +64,6 @@ import io.github.oblarg.oblog.Logger;
  * subsystems, commands, and button mappings) should be declared here.
  */
 
-@SuppressWarnings("unused")
 public class RobotContainer {
 
 
