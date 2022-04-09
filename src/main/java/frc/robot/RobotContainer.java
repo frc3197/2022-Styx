@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
+import frc.robot.commands.Auto.RunTrajectorySequence;
 import frc.robot.commands.Auto.Lookups.AutoLookup;
+import frc.robot.commands.Auto.Lookups.PathLookup;
 import frc.robot.commands.Auto.Old.AutoTurn;
 import frc.robot.commands.Auto.Old.Auto_1B;
 import frc.robot.commands.Auto.Old.Auto_2B;
@@ -67,7 +69,6 @@ import io.github.oblarg.oblog.Logger;
  */
 
 public class RobotContainer {
-
 
   // The robot's subsystems and commands are defined here...
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
@@ -119,9 +120,13 @@ public class RobotContainer {
     m_autoChooser.addOption("3Ball", new Auto_3B());
     m_autoChooser.addOption("5Ball", new Auto_5B());
 
-    m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new WaitCommand(.5),
-    new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
-    m_autoChooser.addOption("4 Ball ",AutoLookup.getAuto("4BL3"));
+    m_autoChooser.addOption("Test Drive",
+        new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75), new WaitCommand(.5),
+            new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5),
+            new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
+    m_autoChooser.addOption("4 Ball ", AutoLookup.getAuto("4BL3"));
+    m_autoChooser.addOption("TestSegment",
+        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("4BL3_3")));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -134,7 +139,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
   }
-
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -149,7 +153,7 @@ public class RobotContainer {
     // DRIVER 1
     new Button(m_controller1::getAButton).whileHeld(new ReplaceCargo(CargoReleaseSpeed.FAST));
     new Button(m_controller1::getAButton).whenReleased(new RetractIntake(getIntakeArmSubsystem()));
-    new Button(m_controller1::getXButton).whileHeld(new Spool(getShooterSubsystem(),1500));
+    new Button(m_controller1::getXButton).whileHeld(new Spool(getShooterSubsystem(), 1500));
     new Button(m_controller1::getBButton).whenPressed(new RetractIntake(getIntakeArmSubsystem()));
 
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
@@ -157,18 +161,19 @@ public class RobotContainer {
     new Button(m_controller1::getLeftStickButton).whenPressed(new ToggleBrakeMode());
     new Button(m_controller1::getRightStickButton).whenPressed(new ToggleDriveSpeeds());
 
-
-    new Button(filteredController1::getRightTriggerActive).whenHeld(new IntakeSequence(m_intakeSubsystem,m_lifterSubsystem,m_intakeArmSubsystem).andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getRightTriggerActive)
+        .whenHeld(new IntakeSequence(m_intakeSubsystem, m_lifterSubsystem, m_intakeArmSubsystem)
+            .andThen(new RetractIntake(m_intakeArmSubsystem)));
     new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
     new Button(filteredController1::getLeftTriggerActive).whileHeld(new Defend(getDriveSubsystem()));
-    
+
     new Button(m_controller1::getRightBumper).whileHeld(new IntakeAlign(getDriveSubsystem()));
     new Button(m_controller1::getLeftBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2
     new Button(m_controller2::getLeftBumper).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
     new Button(filteredController2::getRightTriggerActive).whileHeld(new Spool(getShooterSubsystem()));
-        new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
+    new Button(m_controller2::getRightBumper).whenHeld(new ShootSequence(m_lifterSubsystem));
     new Button(m_controller2::getStartButtonPressed).whenHeld(new ResetHood());
     new Button(m_controller2::getYButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Up"));
     new Button(m_controller2::getAButton).whenHeld(new SpoolClimber(m_climberSubsystem, "Down"));
@@ -188,7 +193,7 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
 
     return (Command) m_autoChooser.getSelected();
-    }
+  }
 
   public void resetOdometry() {
     m_driveSubsystem.resetOdometry();
@@ -289,12 +294,12 @@ public class RobotContainer {
     return filteredController2;
   }
 
+  public static SlewRateLimiter[] getLimiters() {
+    return slimiters;
+  }
 
-public static SlewRateLimiter[] getLimiters() {
-	return slimiters;
-}
-public static void setLimiters(DriveType driveType){
-  slimiters = DriveCommand.getLimiterArray(driveType);
-}
+  public static void setLimiters(DriveType driveType) {
+    slimiters = DriveCommand.getLimiterArray(driveType);
+  }
 
 }

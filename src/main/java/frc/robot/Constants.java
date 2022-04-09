@@ -188,9 +188,9 @@ public final class Constants implements Loggable {
             public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.swerve.MAX_ANG_VEL_RAD, subsystems.swerve.MAX_ANG_ACCEL);
 
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(.1, 0, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(.25, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(.1, 0, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(.25, 0, 0);
             @Log
             public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(2.8, 0, 0,
                     ROT_PROFILE);
