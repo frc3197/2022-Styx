@@ -16,7 +16,7 @@ import frc.robot.subsystems.Drive.DriveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ResetTrajectoryPose extends InstantCommand {
   DriveSubsystem driveSubsystem;
-  String path;
+  PathContainer pathContainer;
   PathPlannerTrajectory trajectory;
   PoseAtTime poseAtTime;
 
@@ -26,9 +26,9 @@ public class ResetTrajectoryPose extends InstantCommand {
 
 
 
-  public ResetTrajectoryPose(DriveSubsystem driveSubsystem, String path, PoseAtTime poseAtTime) {
+  public ResetTrajectoryPose(DriveSubsystem driveSubsystem, PathContainer pathContainer, PoseAtTime poseAtTime) {
     this.driveSubsystem = driveSubsystem;
-    this.path = path;
+    this.pathContainer = pathContainer;
     this.poseAtTime = poseAtTime;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -36,14 +36,15 @@ public class ResetTrajectoryPose extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    trajectory = PathPlanner.loadPath(path, 3, 3);
+    trajectory = PathPlanner.loadPath(pathContainer.getPathString(), pathContainer.getMaxSpeed(), pathContainer.getMaxAcceleration());
     if(poseAtTime.equals(PoseAtTime.START)){
-    DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getInitialState().holonomicRotation.getDegrees());
+      if(pathContainer.getFirst()){
+        DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getInitialState().holonomicRotation.getDegrees());
+      }
     // DriveSubsystem.getGyroscopeObj().setAngleAdjustment(trajectory.getInitialState().holonomicRotation.getDegrees());
     driveSubsystem.resetOdometry(new Pose2d(trajectory.getInitialState().poseMeters.getTranslation(),trajectory.getInitialState().poseMeters.getRotation()));
   }
   else{
-    DriveSubsystem.getGyroscopeObj().setYaw(-trajectory.getEndState().holonomicRotation.getDegrees());
     // DriveSubsystem.getGyroscopeObj().setAngleAdjustment(trajectory.getEndState().holonomicRotation.getDegrees());
     driveSubsystem.resetOdometry(new Pose2d(trajectory.getEndState().poseMeters.getTranslation(),trajectory.getEndState().holonomicRotation));
 

@@ -11,11 +11,13 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 public class PathContainer {
     String pathString;
     PathPlannerTrajectory trajectory;
-    double maxSpeed,maxAcceleration,timeout;
+    double maxSpeed, maxAcceleration, timeout;
+    boolean first;
 
-    public PathContainer(String pathString, double[] speeds, double timeout){
+    public PathContainer(String pathString, double[] speeds, double timeout, boolean first) {
         this.pathString = pathString;
         this.timeout = timeout;
+        this.first = first;
         trajectory = PathPlanner.loadPath(pathString, speeds[1], speeds[2]);
     }
 
@@ -23,39 +25,23 @@ public class PathContainer {
         return pathString;
     }
 
-    public void setPathString(String pathString) {
-        this.pathString = pathString;
-    }
-
     public PathPlannerTrajectory getTrajectory() {
         return trajectory;
-    }
-
-    public void setTrajectory(PathPlannerTrajectory trajectory) {
-        this.trajectory = trajectory;
     }
 
     public double getMaxSpeed() {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(double maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
     public double getMaxAcceleration() {
         return maxAcceleration;
-    }
-
-    public void setMaxAcceleration(double maxAcceleration) {
-        this.maxAcceleration = maxAcceleration;
     }
 
     public double getTimeout() {
         return timeout;
     }
 
-    public void setTimeout(double timeout) {
-        this.timeout = timeout;
+    public boolean getFirst() {
+        return first;
     }
 }

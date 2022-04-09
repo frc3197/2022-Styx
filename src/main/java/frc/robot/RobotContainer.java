@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
+import frc.robot.commands.Auto.PathLookup;
 import frc.robot.commands.Auto.RunTrajectorySequence;
 import frc.robot.commands.Auto.Old.AutoTurn;
 import frc.robot.commands.Auto.Old.Auto_1B;
@@ -119,7 +120,7 @@ public class RobotContainer {
 
     m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new WaitCommand(.5),
     new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
-    m_autoChooser.addOption("Test Segment", new RunTrajectorySequence(getDriveSubsystem(),"New New New Path",5));
+    m_autoChooser.addOption("Test Segment", new RunTrajectorySequence(getDriveSubsystem(), PathLookup.getContainer("NONE")));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
