@@ -124,7 +124,9 @@ public class RobotContainer {
         new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75), new WaitCommand(.5),
             new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5),
             new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
-    m_autoChooser.addOption("4 Ball ", AutoLookup.getAuto("4BL3"));
+    m_autoChooser.addOption("4BL3", AutoLookup.getAuto("4BL3"));
+    m_autoChooser.addOption("4BL3F", AutoLookup.getAuto("4BL3F"));
+
     m_autoChooser.addOption("TestSegment",
         new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("4BL3_3")));
     m_allianceChooser = new SendableChooser<>();
