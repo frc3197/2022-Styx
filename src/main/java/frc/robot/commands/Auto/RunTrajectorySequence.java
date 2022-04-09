@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Auto;
 
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Auto.ResetTrajectoryPose.PoseAtTime;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -21,6 +23,6 @@ public class RunTrajectorySequence extends SequentialCommandGroup {
     addRequirements(driveSubsystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START), new FollowTrajectory(driveSubsystem, pathContainer).withTimeout(pathContainer.getTimeout()), new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END));
+    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START), new FollowTrajectory(driveSubsystem, pathContainer).withTimeout(pathContainer.getTimeout()), new ConditionalCommand( new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END), new InstantCommand(), pathContainer.getResetOnEnd()));
   }
 }

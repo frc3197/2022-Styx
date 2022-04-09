@@ -18,83 +18,83 @@ public class PathLookup {
         // DOUBLE TIMEOUT, BOOLEAN FIRST_PATH_IN AUTO)
         switch (pathName) {
             case "2BL1_1":
-                ret = new PathContainer("2.1.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.1.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL1_F1":
-                ret = new PathContainer("2.1.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.1.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL1_F2":
-                ret = new PathContainer("2.1.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.1.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
 
             case "2BL2_1":
-                ret = new PathContainer("2.2.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.2.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL2_F1":
-                ret = new PathContainer("2.2.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.2.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL2_F2":
-                ret = new PathContainer("2.2.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.2.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
 
             case "2BL3_1":
-                ret = new PathContainer("2.3.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.3.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL3_F1":
-                ret = new PathContainer("2.3.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.3.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL3_F2":
-                ret = new PathContainer("2.3.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.3.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
 
             case "2BL4_1":
-                ret = new PathContainer("2.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL4_F1":
-                ret = new PathContainer("2.4.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.4.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BL4_F2":
-                ret = new PathContainer("2.4.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("2.4.F2", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
 
             case "3BL4_1":
-                ret = new PathContainer("3.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("3.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "3BL4_2":
-                ret = new PathContainer("3.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("3.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "4BL3_1":
-                ret = new PathContainer("4.3.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("4.3.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "4BL3_2":
-                ret = new PathContainer("4.3.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("4.3.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "4BL3_3":
-                ret = new PathContainer("4.3.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("4.3.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "4BL3_4":
-                ret = new PathContainer("4.3.4", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("4.3.4", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "4BL3_F":
-                ret = new PathContainer("4.3.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("4.3.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "5BL4_1":
-                ret = new PathContainer("5.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true);
+                ret = new PathContainer("5.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "5BL4_2":
-                ret = new PathContainer("5.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("5.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "5BL4_3":
-                ret = new PathContainer("5.4.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("5.4.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "5BL4_4":
-                ret = new PathContainer("5.4.4", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("5.4.4", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "5BL4_5":
-                ret = new PathContainer("5.4.5", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("5.4.5", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "5BL4_F":
-                ret = new PathContainer("5.4.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false);
+                ret = new PathContainer("5.4.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
 
         }
