@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
-import frc.robot.commands.Auto.RunTrajectorySequence;
-import frc.robot.commands.Auto.Lookups.PathLookup;
+import frc.robot.commands.Auto.Lookups.AutoLookup;
 import frc.robot.commands.Auto.Old.AutoTurn;
 import frc.robot.commands.Auto.Old.Auto_1B;
 import frc.robot.commands.Auto.Old.Auto_2B;
@@ -36,6 +36,7 @@ import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Lifter.IntakeRumble;
 import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.commands.Shooter.Spool;
@@ -120,7 +121,7 @@ public class RobotContainer {
 
     m_autoChooser.addOption("Test Drive", new SequentialCommandGroup(new HuntBall(getDriveSubsystem(), .75),new WaitCommand(.5),
     new AutoTurn(getDriveSubsystem(), -112).withTimeout(1.5), new HuntBall(getDriveSubsystem(), 3).andThen(new AutoTurn(getDriveSubsystem(), 30).withTimeout(.5))));
-    m_autoChooser.addOption("Test Segment", new RunTrajectorySequence(getDriveSubsystem(), PathLookup.getContainer("NONE")));
+    m_autoChooser.addOption("4 Ball ",AutoLookup.getAuto("4BL3"));
     m_allianceChooser = new SendableChooser<>();
     m_allianceChooser.setDefaultOption("Nothing", null);
     m_allianceChooser.addOption("Red", "Red");
@@ -129,6 +130,7 @@ public class RobotContainer {
     SmartDashboard.putData(m_allianceChooser);
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
+    CommandScheduler.getInstance().schedule(new IntakeRumble().perpetually());
     // Configure the button bindings
     configureButtonBindings();
   }

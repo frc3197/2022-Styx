@@ -4,8 +4,6 @@
 
 package frc.robot.commands.Auto;
 
-import java.util.function.BooleanSupplier;
-
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
@@ -21,7 +19,9 @@ public class PathContainer {
         this.timeout = timeout;
         this.first = first;
         this.resetOnEnd = resetOnEnd;
-        trajectory = PathPlanner.loadPath(pathString, speeds[1], speeds[2]);
+        maxSpeed = speeds[0];
+        maxAcceleration = speeds[1];
+        trajectory = PathPlanner.loadPath(pathString, speeds[0], speeds[1]);
     }
 
     public String getPathString() {
@@ -48,7 +48,7 @@ public class PathContainer {
         return first;
     }
 
-    public BooleanSupplier getResetOnEnd() {
-        return null;
+    public boolean getResetOnEnd() {
+        return resetOnEnd;
     }
 }

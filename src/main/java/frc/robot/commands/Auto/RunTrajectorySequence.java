@@ -16,6 +16,7 @@ import frc.robot.subsystems.Drive.DriveSubsystem;
 public class RunTrajectorySequence extends SequentialCommandGroup {
   DriveSubsystem driveSubsystem;
   PathContainer pathContainer;
+
   /** Creates a new RunTrajectorySequence. */
   public RunTrajectorySequence(DriveSubsystem driveSubsystem, PathContainer pathContainer) {
     this.pathContainer = pathContainer;
@@ -23,6 +24,9 @@ public class RunTrajectorySequence extends SequentialCommandGroup {
     addRequirements(driveSubsystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START), new FollowTrajectory(driveSubsystem, pathContainer).withTimeout(pathContainer.getTimeout()), new ConditionalCommand( new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END), new InstantCommand(), pathContainer.getResetOnEnd()));
+    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START),
+        new FollowTrajectory(driveSubsystem, pathContainer).withTimeout(pathContainer.getTimeout()),
+        new ConditionalCommand(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END),
+            new InstantCommand(), pathContainer::getResetOnEnd));
   }
 }

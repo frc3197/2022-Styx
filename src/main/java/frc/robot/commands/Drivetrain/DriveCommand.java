@@ -94,7 +94,7 @@ public class DriveCommand extends CommandBase implements Loggable {
 
     
     public void adjustX(SlewRateLimiter[] sLimiters) {
-        inputX = sLimiters[1].calculate(inputX);
+        inputX = sLimiters[0].calculate(inputX);
         // inputX = xLimiter.calculate(inputX) *
         // DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
         // inputX = xLimiter.calculate(inputX) * 4.96824;
@@ -102,14 +102,14 @@ public class DriveCommand extends CommandBase implements Loggable {
     }
 
     public void adjustY(SlewRateLimiter[] sLimiters) {
-        inputY = sLimiters[2].calculate(inputY);
+        inputY = sLimiters[1].calculate(inputY);
         // inputY = yLimiter.calculate(inputY) *
         // DriveSubsystem.MAX_VELOCITY_METERS_PER_SECOND;
         // inputY = yLimiter.calculate(inputY) * 4.96824;
     }
 
     public void adjustRot(SlewRateLimiter[] sLimiters) {
-        inputRot = sLimiters[3].calculate(inputRot);
+        inputRot = sLimiters[2].calculate(inputRot);
         // inputRot = rotLimiter.calculate(inputRot) *
         // DriveSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
         // inputRot = rotLimiter.calculate(inputRot) * (3 * Math.PI);
@@ -121,10 +121,10 @@ public class DriveCommand extends CommandBase implements Loggable {
         switch (driveType) {
             default:
             case NORMAL:
-                ret = new SlewRateLimiter[] { new SlewRateLimiter(7), new SlewRateLimiter(7), new SlewRateLimiter(7) };
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(3), new SlewRateLimiter(3), new SlewRateLimiter(3) };
                 break;
             case FAST:
-                ret = new SlewRateLimiter[] { new SlewRateLimiter(3), new SlewRateLimiter(3), new SlewRateLimiter(3) };
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(2), new SlewRateLimiter(2), new SlewRateLimiter(2) };
                 break;
             case NOLIMITS:
                 ret = new SlewRateLimiter[] { new SlewRateLimiter(0), new SlewRateLimiter(0), new SlewRateLimiter(0) };
