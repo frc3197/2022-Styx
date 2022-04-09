@@ -64,7 +64,7 @@ public class PathLookup {
                 ret = new PathContainer("3.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "4BL3_1":
-                ret = new PathContainer("4.3.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
+                ret = new PathContainer("4.3.1", getSpeeds(SPEEDS.FIVE), 1, true, true);
                 break;
             case "4BL3_2":
                 ret = new PathContainer("4.3.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
