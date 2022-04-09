@@ -21,6 +21,6 @@ public class RunTrajectorySequence extends SequentialCommandGroup {
     addRequirements(driveSubsystem);
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START), new FollowTrajectory(driveSubsystem, pathContainer), new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END));
+    addCommands(new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.START), new FollowTrajectory(driveSubsystem, pathContainer).withTimeout(pathContainer.getTimeout()), new ResetTrajectoryPose(driveSubsystem, pathContainer, PoseAtTime.END));
   }
 }
