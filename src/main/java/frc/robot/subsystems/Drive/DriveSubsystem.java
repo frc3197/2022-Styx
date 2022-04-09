@@ -90,7 +90,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
         private SwerveModuleState[] m_desiredStates;
-
+        private double offset = 0;
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
@@ -166,7 +166,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         public void zeroGyroscope() {
                 m_pigeon.reset();
-                }
+        }
 
         /**
          * @return AHRS
@@ -175,11 +175,23 @@ public class DriveSubsystem extends SubsystemBase {
                 return m_pigeon;
         }
 
+        public double getOffset() {
+                return offset;
+        }
+
+        public void setOffset(double offset) {
+                this.offset = offset;
+        }
+
         /**
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return Rotation2d.fromDegrees(Math.IEEEremainder(-m_pigeon.getAngle(), 360));
+                return Rotation2d.fromDegrees(Math.IEEEremainder(-m_pigeon.getAngle() - offset, 360));
+        }
+
+        public void setYaw(double angleDeg) {
+                m_pigeon.setYaw(angleDeg);
         }
 
         public static PhotonCamera getCam() {
@@ -305,6 +317,7 @@ public class DriveSubsystem extends SubsystemBase {
          * @param resetPos
          */
         public void resetOdometry(Pose2d resetPos) {
+
                 m_odometry.resetPosition(resetPos, getGyroscopeRotation());
         }
 
