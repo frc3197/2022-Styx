@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Auto.RunTrajectorySequence;
 import frc.robot.commands.Groups.IntakeSequence;
@@ -196,6 +194,15 @@ public class AutoLookup {
 
             case "3BL4":
                 ret = new AutoRoutine(
+                        new ParallelRaceGroup(new Spool(RobotContainer.getShooterSubsystem()), new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1)),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("3BL4_1")),
+                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                        RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("3BL4_2")),
+                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                        RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()), 
 
                 );
                 break;

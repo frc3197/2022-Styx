@@ -9,37 +9,27 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.Align.IntakeAlign;
-import frc.robot.commands.Auto.RunTrajectorySequence;
 import frc.robot.commands.Auto.Lookups.AutoLookup;
-import frc.robot.commands.Auto.Lookups.PathLookup;
-import frc.robot.commands.Auto.Old.AutoTurn;
-import frc.robot.commands.Auto.Old.Auto_1B;
-import frc.robot.commands.Auto.Old.Auto_2B;
-import frc.robot.commands.Auto.Old.Auto_3B;
-import frc.robot.commands.Auto.Old.Auto_5B;
 import frc.robot.commands.Climber.RotateClimber;
 import frc.robot.commands.Climber.SpoolClimber;
 import frc.robot.commands.Drivetrain.Defend;
 import frc.robot.commands.Drivetrain.DriveCommand;
 import frc.robot.commands.Drivetrain.DriveCommand.DriveType;
 import frc.robot.commands.Drivetrain.ResetGyro;
-import frc.robot.commands.Groups.HuntBall;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ReplaceCargo;
 import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
-import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.IntakeRumble;
 import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.RangeLookup;
@@ -121,19 +111,19 @@ public class RobotContainer {
 
     m_autoChooser.addOption("2BL1", AutoLookup.getAuto("2BL1"));
     m_autoChooser.addOption("2BL1F1", AutoLookup.getAuto("2BL1F1"));
-    m_autoChooser.addOption("4BL1F2", AutoLookup.getAuto("2BL1F2"));
+    m_autoChooser.addOption("2BL1F2", AutoLookup.getAuto("2BL1F2"));
     
     m_autoChooser.addOption("2BL2", AutoLookup.getAuto("2BL2"));
     m_autoChooser.addOption("2BL2F1", AutoLookup.getAuto("2BL2F1"));
-    m_autoChooser.addOption("4BL2F2", AutoLookup.getAuto("2BL2F2"));
+    m_autoChooser.addOption("2BL2F2", AutoLookup.getAuto("2BL2F2"));
     
     m_autoChooser.addOption("2BL3", AutoLookup.getAuto("2BL3"));
     m_autoChooser.addOption("2BL3F1", AutoLookup.getAuto("2BL3F1"));
-    m_autoChooser.addOption("4BL3F2", AutoLookup.getAuto("2BL3F2"));
+    m_autoChooser.addOption("2BL3F2", AutoLookup.getAuto("2BL3F2"));
     
     m_autoChooser.addOption("2BL4", AutoLookup.getAuto("2BL4"));
     m_autoChooser.addOption("2BL4F1", AutoLookup.getAuto("2BL4F1"));
-    m_autoChooser.addOption("4BL4F2", AutoLookup.getAuto("2BL4F2"));
+    m_autoChooser.addOption("2BL4F2", AutoLookup.getAuto("2BL4F2"));
     
     m_autoChooser.addOption("4BL3", AutoLookup.getAuto("4BL3"));
     m_autoChooser.addOption("4BL3F", AutoLookup.getAuto("4BL3F"));
