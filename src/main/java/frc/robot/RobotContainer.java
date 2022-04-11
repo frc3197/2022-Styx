@@ -124,7 +124,10 @@ public class RobotContainer {
     m_autoChooser.addOption("2BL4", AutoLookup.getAuto("2BL4"));
     m_autoChooser.addOption("2BL4F1", AutoLookup.getAuto("2BL4F1"));
     m_autoChooser.addOption("2BL4F2", AutoLookup.getAuto("2BL4F2"));
-    
+
+    m_autoChooser.addOption("3BL4", AutoLookup.getAuto("3BL4"));
+    m_autoChooser.addOption("3BL4F", AutoLookup.getAuto("3BL4F"));
+
     m_autoChooser.addOption("4BL3", AutoLookup.getAuto("4BL3"));
     m_autoChooser.addOption("4BL3F", AutoLookup.getAuto("4BL3F"));
 

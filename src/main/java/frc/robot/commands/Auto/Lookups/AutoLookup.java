@@ -195,6 +195,7 @@ public class AutoLookup {
             case "3BL4":
                 ret = new AutoRoutine(
                         new ParallelRaceGroup(new Spool(RobotContainer.getShooterSubsystem()), new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1)),
+                        new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1),
                         new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
                         PathLookup.getContainer("3BL4_1")),
                 new IntakeSequence(RobotContainer.getIntakeSubsystem(),
@@ -203,7 +204,26 @@ public class AutoLookup {
                         PathLookup.getContainer("3BL4_2")),
                 new IntakeSequence(RobotContainer.getIntakeSubsystem(),
                         RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()), 
-
+                        new ParallelRaceGroup(new Spool(RobotContainer.getShooterSubsystem()), new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1)),
+                        new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1)
+                );
+                break;
+                case "3BL4F":
+                ret = new AutoRoutine(
+                        new ParallelRaceGroup(new Spool(RobotContainer.getShooterSubsystem()), new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1)),
+                        new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("3BL4_1")),
+                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                        RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("3BL4_2")),
+                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                        RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()), 
+                        new ParallelRaceGroup(new Spool(RobotContainer.getShooterSubsystem()), new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1)),
+                        new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("3BL4_F"))
                 );
                 break;
             case "4BL3":
