@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class IntakeArm extends SubsystemBase {
   private CANSparkMax armMotor;
@@ -24,7 +26,7 @@ public class IntakeArm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    RobotContainer.getPDP().getCurrent(Constants.subsystems.intake.armMotorID);
   }
   public CANSparkMax getArmMotor(){return armMotor;}
   public void useArm(double val){armMotor.set(val);}

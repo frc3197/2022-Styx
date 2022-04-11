@@ -121,7 +121,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         switch (driveType) {
             default:
             case NORMAL:
-                ret = new SlewRateLimiter[] { new SlewRateLimiter(3), new SlewRateLimiter(3), new SlewRateLimiter(3) };
+                ret = new SlewRateLimiter[] { new SlewRateLimiter(9), new SlewRateLimiter(9), new SlewRateLimiter(10) };
                 break;
             case FAST:
                 ret = new SlewRateLimiter[] { new SlewRateLimiter(2), new SlewRateLimiter(2), new SlewRateLimiter(2) };
