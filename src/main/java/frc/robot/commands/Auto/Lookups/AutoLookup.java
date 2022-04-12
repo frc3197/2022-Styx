@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Auto.RunTrajectorySequence;
 import frc.robot.commands.Groups.IntakeSequence;
-import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Lifter.SpitBoth;
+import frc.robot.commands.Lifter.SpitBoth.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.extra_libraries.AutoRoutine;
 import frc.robot.subsystems.Drive.LogOdometry;
@@ -493,7 +494,7 @@ public class AutoLookup {
                                                 PathLookup.getContainer("2BFEN_2")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_3")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_4"))),
                                         new IntakeSequence(RobotContainer.getIntakeSubsystem(),
                                                 RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
-                                        new ReverseBallPath().withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
+                                                new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
                 );        
                 break;
                 case "2BFEN_ALT":
@@ -513,15 +514,61 @@ public class AutoLookup {
                                                 PathLookup.getContainer("2BFEN_2")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_3A")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_4A")) ),
                                         new IntakeSequence(RobotContainer.getIntakeSubsystem(),
                                                 RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
-                                        new ReverseBallPath().withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
+                                        new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
                 );                
                 break;
-                /*
+                
                 case "2B_HAN1":
+                ret = new AutoRoutine(
+                        new ParallelRaceGroup(
+                        new Spool(RobotContainer.getShooterSubsystem()), new SequentialCommandGroup(
+                                new ParallelRaceGroup(
+                                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                        PathLookup.getContainer("2BHAN_1")),
+                                                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                                                        RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
+                                                new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1),
+                                                new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1))),new ParallelRaceGroup(
+                                                new SequentialCommandGroup(
+                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                PathLookup.getContainer("2BHAN_2")),
+                                                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                        PathLookup.getContainer("2BHAN1_3"))),
+                                                        new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                                                                RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
+                                                        new SpitBoth(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), CargoReleaseSpeed.SLOW),
+                                                        new ParallelCommandGroup(new RetractIntake(RobotContainer.getIntakeArmSubsystem()),
+                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                PathLookup.getContainer("2BHAN1_F")))
+                                                );
                 break;
                 case "2B_HAN2":
+                ret = new AutoRoutine(
+                        new ParallelRaceGroup(
+                        new Spool(RobotContainer.getShooterSubsystem()), new SequentialCommandGroup(
+                                new ParallelRaceGroup(
+                                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                        PathLookup.getContainer("2BHAN_1")),
+                                                new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                                                        RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
+                                                new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1),
+                                                new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1))),new ParallelRaceGroup(
+                                                new SequentialCommandGroup(
+                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                PathLookup.getContainer("2BHAN_2")),
+                                                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                        PathLookup.getContainer("2BHAN2_3")),
+                                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                        PathLookup.getContainer("2BHAN2_4"))),
+                                                        new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                                                                RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
+                                                        new SpitBoth(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), CargoReleaseSpeed.SLOW),
+                                                        new ParallelCommandGroup(new RetractIntake(RobotContainer.getIntakeArmSubsystem()),
+                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                PathLookup.getContainer("2BHAN2_F")))
+                                                );
                 break;
-                */
+                
         }
         return ret;
     }

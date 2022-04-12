@@ -137,7 +137,7 @@ public class PathLookup {
             case "2BHAN1_3":
                 ret = new PathContainer("2E_HAN1.1.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
-            case "2BHAN1_3F":
+            case "2BHAN1_F":
                 ret = new PathContainer("2E_HAN1.1.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
             case "2BHAN2_3":
