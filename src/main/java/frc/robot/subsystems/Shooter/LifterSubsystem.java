@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.Shooter;
 
+import com.ctre.phoenix.motorcontrol.ControlFrame;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -33,9 +34,15 @@ public class LifterSubsystem extends SubsystemBase {
   public LifterSubsystem() {
     lifterWheel = new WPI_TalonFX(Constants.subsystems.lifter.lifterMotorID);
     lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
+    lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 255);
+    lifterWheel.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 255);
+
+
     lifterBB = new DigitalInput(Constants.subsystems.lifter.lifterBBChannel);
     feederWheel = new CANSparkMax(Constants.subsystems.lifter.feederMotorID, MotorType.kBrushless);
     feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    feederWheel.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
     feederBB = new DigitalInput(Constants.subsystems.lifter.feederBBChannel);
     feederSpeed = Constants.subsystems.lifter.feederSpeed;
     lifterSpeed = Constants.subsystems.lifter.lifterSpeed;

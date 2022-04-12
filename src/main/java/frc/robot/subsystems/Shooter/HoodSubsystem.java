@@ -31,6 +31,9 @@ public class HoodSubsystem extends SubsystemBase {
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
+    
     hoodMotor.setIdleMode(IdleMode.kBrake);
     hoodMotor.setInverted(false);
     
