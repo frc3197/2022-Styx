@@ -108,28 +108,28 @@ public class PathLookup {
                 ret = new PathContainer("5.4.F", getSpeeds(SPEEDS.FIVE), 2.5, false, true);
                 break;
             case "2BFEN_1":
-                ret = new PathContainer("2E_FEN.1.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.1", getSpeeds(SPEEDS.FIVE), 1, true, true);
                 break;
             case "2BFEN_2":
-                ret = new PathContainer("2E_FEN.1.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.2", getSpeeds(SPEEDS.FIVE), 2, false, true);
                 break;
             case "2BFEN_3":
-                ret = new PathContainer("2E_FEN.1.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.3", getSpeeds(SPEEDS.FIVE), 2, false, true);
                 break;
             case "2BFEN_3A":
-                ret = new PathContainer("2E_FEN.1.3 Alt", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.3 Alt", getSpeeds(SPEEDS.FIVE), 4, false, true);
                 break;
             case "2BFEN_4":
-                ret = new PathContainer("2E_FEN.4.", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.4", getSpeeds(SPEEDS.FIVE), 1, false, true);
                 break;
             case "2BFEN_4A":
-                ret = new PathContainer("2E_FEN.1.4 Alt", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_FEN.1.4 Alt", getSpeeds(SPEEDS.FIVE), 1, false, true);
                 break;
             case "2BFEN_F":
                 ret = new PathContainer("2E_FEN.1.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
-                break;
+                break; 
             case "2BHAN_1":
-                ret = new PathContainer("2E_HAN.1.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                ret = new PathContainer("2E_HAN.1.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
                 break;
             case "2BHAN_2":
                 ret = new PathContainer("2E_HAN.1.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
