@@ -52,7 +52,7 @@ public class DriveCommand extends CommandBase implements Loggable {
     public void execute() {
         SlewRateLimiter[] curLimiters = RobotContainer.getLimiters();
         brakeMode = DriveSubsystem.getBrakeMode();
-        fieldRelative = true;
+        fieldRelative = DriveSubsystem.getFieldRelative();
         // Stored in a new object for Oblog functionality
         inputX = m_translationXSupplier.getAsDouble();
         adjustX(curLimiters);

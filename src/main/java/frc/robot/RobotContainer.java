@@ -8,8 +8,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,6 +28,7 @@ import frc.robot.commands.Groups.ReplaceCargo;
 import frc.robot.commands.Groups.ReverseBallPath;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
+import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.IntakeRumble;
 import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.RangeLookup;
@@ -63,7 +62,6 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
-  static PowerDistribution powerDistribution = new PowerDistribution(1, ModuleType.kRev);
   private final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
   private final static ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
@@ -118,18 +116,21 @@ public class RobotContainer {
     m_autoChooser.addOption("2BL2F2", AutoLookup.getAuto("2BL2F2"));
     
     m_autoChooser.addOption("2BL3", AutoLookup.getAuto("2BL3"));
-    m_autoChooser.addOption("2BL3F1", AutoLookup.getAuto("2BL3F1"));
-    m_autoChooser.addOption("2BL3F2", AutoLookup.getAuto("2BL3F2"));
+    m_autoChooser.addOption("2BL3F3", AutoLookup.getAuto("2BL3F3"));
+    m_autoChooser.addOption("2BL3F4", AutoLookup.getAuto("2BL3F4"));
     
     m_autoChooser.addOption("2BL4", AutoLookup.getAuto("2BL4"));
-    m_autoChooser.addOption("2BL4F1", AutoLookup.getAuto("2BL4F1"));
-    m_autoChooser.addOption("2BL4F2", AutoLookup.getAuto("2BL4F2"));
+    m_autoChooser.addOption("2BL4F3", AutoLookup.getAuto("2BL4F3"));
+    m_autoChooser.addOption("2BL4F4", AutoLookup.getAuto("2BL4F4"));
 
     m_autoChooser.addOption("3BL4", AutoLookup.getAuto("3BL4"));
     m_autoChooser.addOption("3BL4F", AutoLookup.getAuto("3BL4F"));
 
     m_autoChooser.addOption("4BL3", AutoLookup.getAuto("4BL3"));
     m_autoChooser.addOption("4BL3F", AutoLookup.getAuto("4BL3F"));
+
+    m_autoChooser.addOption("4BL4", AutoLookup.getAuto("4BL4"));
+    m_autoChooser.addOption("4BL4F", AutoLookup.getAuto("4BL4F"));
 
     m_autoChooser.addOption("5BL4", AutoLookup.getAuto("5BL4"));
     m_autoChooser.addOption("5BL4F", AutoLookup.getAuto("5BL4F"));
@@ -153,9 +154,9 @@ public class RobotContainer {
 
     // DRIVER 1
     new Button(m_controller1::getAButton).whileHeld(new ReplaceCargo(CargoReleaseSpeed.FAST));
-    //new Button(m_controller1::getAButton).whenReleased(new RetractIntake(getIntakeArmSubsystem()));
+    new Button(m_controller1::getAButton).whenReleased(new RetractIntake(getIntakeArmSubsystem()));
     new Button(m_controller1::getXButton).whileHeld(new Spool(getShooterSubsystem(), 1500));
-    //new Button(m_controller1::getBButton).whenPressed(new RetractIntake(getIntakeArmSubsystem()));
+    new Button(m_controller1::getBButton).whenPressed(new RetractIntake(getIntakeArmSubsystem()));
 
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());
@@ -163,13 +164,13 @@ public class RobotContainer {
     new Button(m_controller1::getRightStickButton).whenPressed(new ToggleDriveSpeeds());
 
     new Button(filteredController1::getRightTriggerActive)
-        .whenHeld(new IntakeSequence(m_intakeSubsystem, m_lifterSubsystem));
-            //.andThen(new RetractIntake(m_intakeArmSubsystem)));
-    //new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
+        .whenHeld(new IntakeSequence(m_intakeSubsystem, m_lifterSubsystem, m_intakeArmSubsystem)
+            .andThen(new RetractIntake(m_intakeArmSubsystem)));
+    new Button(filteredController1::getRightTriggerActive).whenReleased(new RetractIntake(m_intakeArmSubsystem));
     new Button(filteredController1::getLeftTriggerActive).whileHeld(new Defend(getDriveSubsystem()));
 
     new Button(m_controller1::getRightBumper).whileHeld(new IntakeAlign(getDriveSubsystem()));
-    //new Button(m_controller1::getLeftBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
+    new Button(m_controller1::getLeftBumper).whenPressed(new RetractIntake(m_intakeArmSubsystem));
 
     // DRIVER 2
     new Button(m_controller2::getLeftBumper).whileHeld(new ShooterAlignSequence(m_driveSubsystem, m_hoodSubsystem));
@@ -297,9 +298,6 @@ public class RobotContainer {
 
   public static SlewRateLimiter[] getLimiters() {
     return slimiters;
-  }
-  public static PowerDistribution getPDP(){
-    return powerDistribution;
   }
   public static void setLimiters(DriveType driveType) {
     slimiters = DriveCommand.getLimiterArray(driveType);
