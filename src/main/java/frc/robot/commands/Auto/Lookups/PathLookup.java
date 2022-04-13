@@ -27,7 +27,7 @@ public class PathLookup {
                 ret = new PathContainer("2.1.F2", getSpeeds(SPEEDS.TWO), defaultTimeout, false, true);
                 break;
             case "2BL2_1":
-                ret = new PathContainer("2.2.1", getSpeeds(SPEEDS.FIVE), 2.5, true, true);
+                ret = new PathContainer("2.2.1", getSpeeds(SPEEDS.FIVE), 3, true, true);
                 break;
             case "2BL2_F1":
                 ret = new PathContainer("2.2.F1", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
@@ -47,7 +47,7 @@ public class PathLookup {
                 break;
 
             case "2BL4_1":
-                ret = new PathContainer("2.4.1", getSpeeds(SPEEDS.FIVE), 1, true, true);
+                ret = new PathContainer("2.4.1", getSpeeds(SPEEDS.FIVE), 1.25, true, true);
                 break;
             case "2BL4_F3":
                 ret = new PathContainer("2.4.F3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
@@ -120,7 +120,7 @@ public class PathLookup {
                 ret = new PathContainer("2E_FEN.1.3 Alt", getSpeeds(SPEEDS.FIVE), 4, false, true);
                 break;
             case "2BFEN_4":
-                ret = new PathContainer("2E_FEN.1.4", getSpeeds(SPEEDS.FIVE), 1, false, true);
+                ret = new PathContainer("2E_FEN.1.4", getSpeeds(SPEEDS.FIVE), 1.5, false, true);
                 break;
             case "2BFEN_4A":
                 ret = new PathContainer("2E_FEN.1.4 Alt", getSpeeds(SPEEDS.FIVE), 1, false, true);

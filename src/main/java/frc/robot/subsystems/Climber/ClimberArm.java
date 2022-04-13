@@ -25,8 +25,8 @@ public class ClimberArm extends SubsystemBase {
     encoder = new Encoder(Constants.subsystems.climber.armEncoderLeftA, Constants.subsystems.climber.armEncoderLeftB);
     armMotorRight.follow(armMotorLeft);
 
-    armMotorLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
-    armMotorRight.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
+    armMotorLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
+    armMotorRight.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 20);
 
     AFL_Limit = armMotorLeft.getSensorCollection().isFwdLimitSwitchClosed();
     AFR_Limit = armMotorRight.getSensorCollection().isFwdLimitSwitchClosed();

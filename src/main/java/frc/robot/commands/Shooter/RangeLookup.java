@@ -17,10 +17,10 @@ public class RangeLookup {
         RangePair rangePair;
         switch (normalizeRange(range)) {
             case 70:
-                rangePair = new VoltagePair(230, 6.5);
+                rangePair = new VoltagePair(280, 6.4);
                 break;
             case 75:
-                rangePair = new VoltagePair(220, 6.55);
+                rangePair = new VoltagePair(220, 6.5);
                 break;
             case 80:
                 rangePair = new VoltagePair(190, 6.6);
@@ -37,23 +37,23 @@ public class RangeLookup {
                 break;
             // Stopped Here
             case 100:
-            rangePair = new VoltagePair(100, 6.65);
+            rangePair = new VoltagePair(125, 6.65);
             break;
             case 105:
-            rangePair = new VoltagePair(90, 6.7);
+            rangePair = new VoltagePair(125, 6.7);
             break;
             case 110:
-            rangePair = new VoltagePair(90, 6.75);
+            rangePair = new VoltagePair(110, 6.75);
             break;
 
             case 115:
-            rangePair = new VoltagePair(80, 6.675);
+            rangePair = new VoltagePair(100, 6.8);
             break;
             case 120:
-            rangePair = new VoltagePair(75, 6.7);
+            rangePair = new VoltagePair(90, 6.8);
             break;
             case 125:
-            rangePair = new VoltagePair(70, 6.9);
+            rangePair = new VoltagePair(80, 7);
             break;
             case 130:
             rangePair = new VoltagePair(50, 7.1);
