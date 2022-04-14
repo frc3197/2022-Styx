@@ -15,6 +15,7 @@ import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.SpitBoth;
+import frc.robot.commands.Lifter.SpitLower;
 import frc.robot.commands.Lifter.SpitBoth.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.extra_libraries.AutoRoutine;
@@ -568,7 +569,45 @@ public class AutoLookup {
                                                                 PathLookup.getContainer("2BHAN2_F")))
                                                 );
                 break;
-                
+                case "2E_STE.4":
+                ret = new AutoRoutine(
+                        new ParallelRaceGroup(
+                                new SequentialCommandGroup(
+                                        new ShooterAlignSequence(RobotContainer.getDriveSubsystem(),
+                                                RobotContainer.getHoodSubsystem()).withTimeout(.75),
+                                        new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(.5)),
+                                new Spool(RobotContainer.getShooterSubsystem())),
+                new ParallelRaceGroup(
+                        new IntakeSequence(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), 
+                        PathLookup.getContainer("2E_STE.4.1"))
+                        ),
+                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), 
+                PathLookup.getContainer("2E_STE.4.2")
+                ),
+                new SpitLower(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), SpitLower.CargoReleaseSpeed.FAST).withTimeout(2.5),
+                new ParallelRaceGroup(
+                        new IntakeSequence(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem()),
+                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), 
+                        PathLookup.getContainer("2E_STE.4.3"))
+                ),
+                new ParallelDeadlineGroup(new SequentialCommandGroup(
+                new ParallelDeadlineGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("2E_STE.4.4")), 
+                        new RetractIntake(RobotContainer.getIntakeArmSubsystem())
+                ),
+                new ParallelRaceGroup(
+                        new SequentialCommandGroup(
+                                new ShooterAlignSequence(RobotContainer.getDriveSubsystem(),
+                                        RobotContainer.getHoodSubsystem()).withTimeout(.75),
+                                new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(.5))
+                        ), new Spool(RobotContainer.getShooterSubsystem()))),
+                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                        PathLookup.getContainer("2E_STE.4.F")
+                )
+
+                );
+                break;
         }
         return ret;
     }
