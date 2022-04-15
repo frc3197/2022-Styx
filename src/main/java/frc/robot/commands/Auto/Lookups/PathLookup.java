@@ -149,7 +149,21 @@ public class PathLookup {
             case "2BHAN2_F":
                 ret = new PathContainer("2E_HAN2.1.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
                 break;
-
+            case "2E_STE.4.1":
+                ret = new PathContainer("2E_STE.4.1", getSpeeds(SPEEDS.FIVE), defaultTimeout, true, true);
+                break;
+            case "2E_STE.4.2":
+                ret = new PathContainer("2E_STE.4.2", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                break;
+            case "2E_STE.4.3":
+                ret = new PathContainer("2E_STE.4.3", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                break;
+            case "2E_STE.4.4":
+                ret = new PathContainer("2E_STE.4.4", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                break;
+            case "2E_STE.4.F":
+                ret = new PathContainer("2E_STE.4.F", getSpeeds(SPEEDS.FIVE), defaultTimeout, false, true);
+                break;
         }
         return ret;
     }
