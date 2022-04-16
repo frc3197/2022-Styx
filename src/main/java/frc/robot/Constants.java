@@ -111,14 +111,14 @@ public final class Constants implements Loggable {
             public static final int shooterEncoderA = 1;
             public static final int shooterEncoderB = 0;
 
-            public static final double kP = 1.2278 * Math.pow(10, -5);
+            public static final double kP = 0.17215;
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 7;
+            public static final double shooterMaxVoltage = 12;
 
-            public static final double kS = .86683;
-            public static final double kV = .00011228;
-            public static final double kA = 4.4195 * Math.pow(10, -5);
+            public static final double kS = .44183;
+            public static final double kV = .93057;
+            public static final double kA = 0.43233;
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
@@ -129,7 +129,7 @@ public final class Constants implements Loggable {
             public static final double intakeSpeed = .8;
             public static final String camName = "intakeCam";
             public static int armMotorID = 14;
-            public static double armSpeed = .3;
+            public static double armSpeed = .4;
         }
 
         public static final class climber {
@@ -175,8 +175,8 @@ public final class Constants implements Loggable {
     }
 
     public static final class outputs {
-        public static final double strafe = 1;
-        public static final double turnRate = .7;
+        public static final double strafe = .8;
+        public static final double turnRate = .8;
     }
 
     public static final class auto {
