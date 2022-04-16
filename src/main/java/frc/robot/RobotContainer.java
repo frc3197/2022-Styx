@@ -30,6 +30,7 @@ import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Intake.RetractIntake;
 import frc.robot.commands.Lifter.IntakeRumble;
+import frc.robot.commands.Lifter.SpitBoth;
 import frc.robot.commands.Lifter.SpitLower.CargoReleaseSpeed;
 import frc.robot.commands.Shooter.RangeLookup;
 import frc.robot.commands.Shooter.Spool;
@@ -135,6 +136,11 @@ public class RobotContainer {
     m_autoChooser.addOption("5BL4", AutoLookup.getAuto("5BL4"));
     m_autoChooser.addOption("5BL4F", AutoLookup.getAuto("5BL4F"));
 
+    m_autoChooser.addOption("2BFEN",AutoLookup.getAuto("2BFEN"));
+    m_autoChooser.addOption("2BFEN_ALT",AutoLookup.getAuto("2BFEN_ALT"));
+    m_autoChooser.addOption("2E_STE.4",AutoLookup.getAuto("2E_STE.4"));
+    m_autoChooser.addOption("1E.2.1",AutoLookup.getAuto("1E.2.1"));
+    m_autoChooser.addOption("1.4FEN", AutoLookup.getAuto("1.4FEN"));
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     CommandScheduler.getInstance().schedule(new IntakeRumble().perpetually());
@@ -157,6 +163,8 @@ public class RobotContainer {
     new Button(m_controller1::getAButton).whenReleased(new RetractIntake(getIntakeArmSubsystem()));
     new Button(m_controller1::getXButton).whileHeld(new Spool(getShooterSubsystem(), 1500));
     new Button(m_controller1::getBButton).whenPressed(new RetractIntake(getIntakeArmSubsystem()));
+    new Button(m_controller1::getYButton).whileHeld(new SpitBoth(getIntakeSubsystem(), getLifterSubsystem(), SpitBoth.CargoReleaseSpeed.SLOW));
+
 
     new Button(m_controller1::getStartButton).whenPressed(new ResetGyro(m_driveSubsystem));
     new Button(m_controller1::getBackButton).whenPressed(new ToggleFieldRelative());

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Auto.Lookups;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -14,9 +15,10 @@ import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
 import frc.robot.commands.Intake.RetractIntake;
+import frc.robot.commands.Lifter.ShootUpper;
 import frc.robot.commands.Lifter.SpitBoth;
-import frc.robot.commands.Lifter.SpitLower;
 import frc.robot.commands.Lifter.SpitBoth.CargoReleaseSpeed;
+import frc.robot.commands.Lifter.SpitLower;
 import frc.robot.commands.Shooter.Spool;
 import frc.robot.other.extra_libraries.AutoRoutine;
 import frc.robot.subsystems.Drive.LogOdometry;
@@ -490,12 +492,12 @@ public class AutoLookup {
                                         new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(1),
                                         new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1))),
                                         new ParallelRaceGroup(
-                                        new SequentialCommandGroup(
-                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
-                                                PathLookup.getContainer("2BFEN_2")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_3")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_4"))),
-                                        new IntakeSequence(RobotContainer.getIntakeSubsystem(),
+                                                new SequentialCommandGroup(
+                                                        new RunTrajectorySequence(RobotContainer.getDriveSubsystem(),
+                                                                PathLookup.getContainer("2BFEN_2")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_3")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_4"))),
+                                                        new IntakeSequence(RobotContainer.getIntakeSubsystem(),
                                                 RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
-                                                new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
+                                                new InstantCommand(),new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
                 );        
                 break;
                 case "2BFEN_ALT":
@@ -515,7 +517,7 @@ public class AutoLookup {
                                                 PathLookup.getContainer("2BFEN_2")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_3A")),new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_4A")) ),
                                         new IntakeSequence(RobotContainer.getIntakeSubsystem(),
                                                 RobotContainer.getLifterSubsystem(),RobotContainer.getIntakeArmSubsystem())),
-                                        new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_F")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
+                                        new SpitBoth(RobotContainer.getIntakeSubsystem(),RobotContainer.getLifterSubsystem(),CargoReleaseSpeed.SLOW).withTimeout(1.5),new ParallelCommandGroup(new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), PathLookup.getContainer("2BFEN_FA")), new RetractIntake(RobotContainer.getIntakeArmSubsystem()))
                 );                
                 break;
                 
@@ -608,6 +610,39 @@ public class AutoLookup {
 
                 );
                 break;
+
+                case "1E.2.1":
+                        ret = new AutoRoutine(
+                        new ParallelRaceGroup(
+                                new SequentialCommandGroup(
+                                        new ParallelRaceGroup(
+                                                new IntakeSequence(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), RobotContainer.getIntakeArmSubsystem()),
+                                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), 
+                                                PathLookup.getContainer("1E.2.1"))),
+                                        new ShooterAlignSequence(RobotContainer.getDriveSubsystem(),
+                                                RobotContainer.getHoodSubsystem()).withTimeout(.75),
+                                        new ShootUpper(RobotContainer.getLifterSubsystem()).withTimeout(.5)),
+                                new Spool(RobotContainer.getShooterSubsystem())
+                                ),
+                                new RunTrajectorySequence(RobotContainer.getDriveSubsystem(), 
+                                PathLookup.getContainer("1E.2.2")),
+                                new SpitLower(RobotContainer.getIntakeSubsystem(), RobotContainer.getLifterSubsystem(), SpitLower.CargoReleaseSpeed.FAST).withTimeout(2.5).withTimeout(1)
+                                
+                        
+                        );
+                break;
+                case "1.4FEN":
+                        ret = new AutoRoutine(
+                                new ParallelRaceGroup(
+                                        new Spool(RobotContainer.getShooterSubsystem()),
+                                        new SequentialCommandGroup(
+                                        new ShooterAlignSequence(RobotContainer.getDriveSubsystem(), RobotContainer.getHoodSubsystem()).withTimeout(5),
+                                        new ShootSequence(RobotContainer.getLifterSubsystem())
+                                        )
+                                )
+                        );
+                break;
+        
         }
         return ret;
     }

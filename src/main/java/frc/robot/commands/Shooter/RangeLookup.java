@@ -128,7 +128,7 @@ public class RangeLookup {
                 rangePair = new RPMPair(0, 5800);
                 break;
             default:
-                rangePair = new VoltagePair(-300, 7.4);
+                rangePair = new VoltagePair(650, 6.8);
                 break;
         }
         return rangePair;

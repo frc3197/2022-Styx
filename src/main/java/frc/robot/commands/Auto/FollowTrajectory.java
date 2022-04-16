@@ -72,6 +72,7 @@ public class FollowTrajectory extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
+    m_drivetrain.updateStates(m_drivetrain.getKinematics().toSwerveModuleStates(new ChassisSpeeds()));
     timer.stop();
   }
 

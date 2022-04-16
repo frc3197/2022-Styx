@@ -37,7 +37,10 @@ public class SpitLower extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intakeSubsystem.useIntake(0);
+    lifterSubsystem.setfeederMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override

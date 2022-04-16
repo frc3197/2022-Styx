@@ -19,7 +19,6 @@ public class SpitBoth extends CommandBase {
     this.lifterSubsystem = lifterSubsystem;
     this.intakeSubsystem = intakeSubsystem;
     this.cargoReleaseSpeed = cargoReleaseSpeed;
-    addRequirements(intakeSubsystem, lifterSubsystem);
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -39,7 +38,13 @@ public class SpitBoth extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+    intakeSubsystem.useIntake(0);
+    lifterSubsystem.setfeederMotor(0);
+    lifterSubsystem.setlifterMotor(0);
+
+  }
 
   // Returns true when the command should end.
   @Override
@@ -55,7 +60,7 @@ public class SpitBoth extends CommandBase {
       return .7;
     }
     else{
-      return .25;
+      return .35;
     }
   }
   private double getFeederReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
@@ -66,7 +71,7 @@ public class SpitBoth extends CommandBase {
         return -.6;
       }
       else{
-        return -.5;
+        return -.35;
       }
     }
   private double getLifterReleaseSpeed(CargoReleaseSpeed cargoReleaseSpeed){
