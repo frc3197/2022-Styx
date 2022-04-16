@@ -16,8 +16,8 @@ public class RangeLookup {
 
     public static RangePair getRangePair(double range) {
         RangePair rangePair;
-        double voltage =7.4;
-        int hoodAngle =-300;
+        double voltage =6.5;
+        int hoodAngle =650;
         if(range<=175&&range>=70){
             voltage = (7.13+-0.0176*range+0.000129*(Math.pow(range, 2)));
             hoodAngle = ((int)(662+-6.97*range+0.0194*(Math.pow(range, 2))));
