@@ -140,7 +140,7 @@ public class RobotContainer {
     m_autoChooser.addOption("2BFEN_ALT",AutoLookup.getAuto("2BFEN_ALT"));
     m_autoChooser.addOption("2E_STE.4",AutoLookup.getAuto("2E_STE.4"));
     m_autoChooser.addOption("1E.2.1",AutoLookup.getAuto("1E.2.1"));
-    m_autoChooser.addOption("1.4FEN", AutoLookup.getAuto("1.4FEN"));
+    m_autoChooser.addOption("1E.4FEN", AutoLookup.getAuto("1E.4FEN"));
     SmartDashboard.putData(m_autoChooser);
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
     CommandScheduler.getInstance().schedule(new IntakeRumble().perpetually());

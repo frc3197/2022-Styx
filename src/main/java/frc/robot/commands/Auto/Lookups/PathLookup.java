@@ -99,7 +99,7 @@ public class PathLookup {
                 ret = new PathContainer("5.4.2", getSpeeds(SPEEDS.FIVE), 2, false, true);
                 break;
             case "5BL4_3":
-                ret = new PathContainer("5.4.3", getSpeeds(SPEEDS.FIVE), 3.5, false, true);
+                ret = new PathContainer("5.4.3", getSpeeds(SPEEDS.FIVE), 3.25, false, true);
                 break;
             case "5BL4_5":
                 ret = new PathContainer("5.4.5", getSpeeds(SPEEDS.FIVE), 2.5, false, true);
@@ -174,6 +174,12 @@ public class PathLookup {
             case "1E.2.2":
                 ret = new PathContainer("1E.2.2",getSpeeds(SPEEDS.TWO),2,false,true);
                 break;
+            case "1E.4FEN.1":
+                ret = new PathContainer("1E.4FEN.1",getSpeeds(SPEEDS.FIVE),2,false,true);
+                break;
+            case "1E.4FEN.2":
+                ret = new PathContainer("1E.4FEN.2",getSpeeds(SPEEDS.FIVE),2,false,true);
+                break;                                  
         }
         return ret;
     }
