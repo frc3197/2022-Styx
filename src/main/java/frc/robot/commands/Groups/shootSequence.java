@@ -5,7 +5,6 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Lifter.FeedToUpper;
 import frc.robot.commands.Lifter.ShootUpper;
 import frc.robot.subsystems.Shooter.LifterSubsystem;
