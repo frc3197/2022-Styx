@@ -11,7 +11,6 @@ public class VoltagePair extends RangePair{
     public VoltagePair(int hoodAng,double voltage) {
         super(hoodAng);
         this.voltage = voltage;
-        //TODO Auto-generated constructor stub
     }
     public double getVoltage(){
         return voltage;

@@ -10,7 +10,6 @@ import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 public class CalibrateHood extends CommandBase {
   HoodSubsystem hood;
-//TODO: Check Limits in Shuffleboard and test
   /** Creates a new CalibrateHood. */
   public CalibrateHood(HoodSubsystem hood) {
     this.hood = hood;

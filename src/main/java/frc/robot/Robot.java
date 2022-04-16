@@ -4,15 +4,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.Hood.CalibrateHood;
 import frc.robot.subsystems.Climber.ClimberArm;
-import frc.robot.subsystems.Drive.DriveSubsystem;
-import frc.robot.subsystems.Shooter.HoodSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -51,11 +47,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("MAX VEL RAD", Constants.subsystems.swerve.MAX_ANG_VEL_RAD);
-    
-    SmartDashboard.putNumber("MAX VEL RADa", Constants.subsystems.swerve.MAX_VEL_METERS);
-    
-    SmartDashboard.putNumber("MAX Acceleration RAD", Constants.auto.follower.ROT_PROFILE.maxAcceleration);
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -82,7 +73,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    DriveSubsystem.setAlliancePipeline();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -103,7 +93,6 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     m_robotContainer.resetOdometry();
-    //TODO: Test Driver Mode
     ClimberArm.resetEncoderValue();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

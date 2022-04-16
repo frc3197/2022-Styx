@@ -4,16 +4,13 @@
 
 package frc.robot.subsystems.Drive;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import org.photonvision.PhotonCamera;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.math.controller.HolonomicDriveController;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -21,6 +18,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -31,14 +29,14 @@ import frc.robot.RobotContainer;
 import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class DriveSubsystem extends SubsystemBase  {
+public class DriveSubsystem extends SubsystemBase {
         /**
          * The maximum voltage that will be delivered to the drive motors.
          * <p>
          * This can be reduced to cap the robot's maximum speed. Typically, this is
          * useful during initial testing of the robot.
          */
-        
+
         public static final double MAX_VOLTAGE = Constants.subsystems.swerve.MAX_VOLTAGE;
         // The formula for calculating the theoretical maximum velocity is:
         // <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> *
@@ -82,7 +80,8 @@ public class DriveSubsystem extends SubsystemBase  {
         // cause the angle reading to increase until it wraps back over to zero.
         // private final Pigeon2 m_pigeon = new Pigeon2(0); // NavX connected over MXP
         // These are our modules. We initialize them in the constructor.
-        private static AHRS m_navx = new AHRS(Port.kUSB);
+
+        private static WPI_Pigeon2 m_pigeon = new WPI_Pigeon2(14);
         private final SwerveModule m_frontLeftModule;
         private final SwerveModule m_frontRightModule;
         private final SwerveModule m_backLeftModule;
@@ -91,11 +90,11 @@ public class DriveSubsystem extends SubsystemBase  {
 
         private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
         private SwerveModuleState[] m_desiredStates;
-
+        private double offset = 0;
         static PhotonCamera cam = new PhotonCamera("intakeCam");
 
         private SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics,
-                        new Rotation2d(getGyroscopeRotation().getDegrees()), Constants.auto.startingPos.DEFAULT_POS);
+                        new Rotation2d(-getGyroscopeRotation().getDegrees()));
 
         private HolonomicDriveController follower = new HolonomicDriveController(
                         Constants.auto.follower.X_PID_CONTROLLER, Constants.auto.follower.Y_PID_CONTROLLER,
@@ -110,6 +109,7 @@ public class DriveSubsystem extends SubsystemBase  {
                 Constants.auto.follower.X_PID_CONTROLLER.setTolerance(0);
                 Constants.auto.follower.Y_PID_CONTROLLER.setTolerance(0);
                 Constants.auto.follower.ROT_PID_CONTROLLER.setTolerance(0);
+
                 follower.setTolerance(new Pose2d(0, 0, new Rotation2d(Math.toRadians(0))));
                 zeroGyroscope();
 
@@ -157,29 +157,41 @@ public class DriveSubsystem extends SubsystemBase  {
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_MOTOR,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_ENCODER,
                                 Constants.subsystems.swerve.modInfo.brMod.MODULE_STEER_OFFSET);
-        
-        m_desiredStates = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
 
-        cam.setPipelineIndex(0);
+                m_desiredStates = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
+
+                cam.setPipelineIndex(0);
 
         }
 
         public void zeroGyroscope() {
-                m_navx.zeroYaw();
+                m_pigeon.reset();
         }
 
         /**
          * @return AHRS
          */
-        public static AHRS getGyroscopeObj() {
-                return m_navx;
+        public static WPI_Pigeon2 getGyroscopeObj() {
+                return m_pigeon;
+        }
+
+        public double getOffset() {
+                return offset;
+        }
+
+        public void setOffset(double offset) {
+                this.offset = offset;
         }
 
         /**
          * @return Rotation2d
          */
         public Rotation2d getGyroscopeRotation() {
-                return m_navx.getRotation2d();
+                return Rotation2d.fromDegrees(Math.IEEEremainder(-m_pigeon.getAngle() - offset, 360));
+        }
+
+        public void setYaw(double angleDeg) {
+                m_pigeon.setYaw(angleDeg);
         }
 
         public static PhotonCamera getCam() {
@@ -239,17 +251,16 @@ public class DriveSubsystem extends SubsystemBase  {
         @Override
         public void periodic() {
                 SwerveModuleState[] states = m_desiredStates;
-                SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
                 SmartDashboard.putNumber("X Pos", m_odometry.getPoseMeters().getX());
                 SmartDashboard.putNumber("Y Pos", m_odometry.getPoseMeters().getY());
                 SmartDashboard.putNumber("Rot", m_odometry.getPoseMeters().getRotation().getDegrees());
-                SmartDashboard.putNumber("Gyro Val", m_navx.getRotation2d().getDegrees());
+                SmartDashboard.putNumber("Gyro Value", getGyroscopeRotation().getDegrees());
+
                 SmartDashboard.putBoolean("Field Relative", getFieldRelative());
                 if (!isDefending) {
                         setAllStates(states);
                 }
                 updateOdometry(states);
-
 
         }
 
@@ -257,7 +268,7 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param states
          */
         public void updateOdometry(SwerveModuleState[] states) {
-                m_odometry.update(Rotation2d.fromDegrees(-getGyroscopeRotation().getDegrees()), states[0], states[1],
+                m_odometry.update(Rotation2d.fromDegrees(getGyroscopeRotation().getDegrees()), states[0], states[1],
                                 states[2], states[3]);
         }
 
@@ -276,6 +287,9 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param states
          */
         public void setAllStates(SwerveModuleState[] states) {
+
+                SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+
                 m_frontLeftModule.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[0].angle.getRadians());
                 m_frontRightModule.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
@@ -285,9 +299,12 @@ public class DriveSubsystem extends SubsystemBase  {
                 m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE,
                                 states[3].angle.getRadians());
 
+                updateOdometry(states);
+
         }
-        public void updateStates(SwerveModuleState[] states){
-                
+
+        public void updateStates(SwerveModuleState[] states) {
+
                 m_desiredStates = states;
         }
 
@@ -300,6 +317,7 @@ public class DriveSubsystem extends SubsystemBase  {
          * @param resetPos
          */
         public void resetOdometry(Pose2d resetPos) {
+
                 m_odometry.resetPosition(resetPos, getGyroscopeRotation());
         }
 
@@ -389,10 +407,12 @@ public class DriveSubsystem extends SubsystemBase  {
         public static void setBrakeMode(boolean x) {
                 brakeMode = x;
         }
-        public static void setDefending(boolean x){
+
+        public static void setDefending(boolean x) {
                 isDefending = x;
         }
-        public static boolean getDefending(){
+
+        public static boolean getDefending() {
                 return isDefending;
         }
 

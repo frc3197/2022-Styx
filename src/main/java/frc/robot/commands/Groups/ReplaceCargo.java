@@ -5,7 +5,6 @@
 package frc.robot.commands.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.commands.Align.IntakeAlign;
 import frc.robot.commands.Intake.DeployIntake;
 import frc.robot.commands.Lifter.SpitLower;
@@ -21,7 +20,7 @@ public class ReplaceCargo extends AutoRoutine {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new ParallelCommandGroup(new IntakeAlign(getDriveSubsystem()), new DeployIntake(getIntakeArmSubsystem())),
+        new ParallelCommandGroup(new IntakeAlign(getDriveSubsystem()).withTimeout(1.5), new DeployIntake(getIntakeArmSubsystem())),
         new SpitLower(getIntakeSubsystem(), getLifterSubsystem(), cSpeed));
   }
 }

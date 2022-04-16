@@ -28,7 +28,7 @@ public class IntakeAlign extends CommandBase {
     stopAfterCollection = false;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    xPID.setTolerance(0);
+    xPID.setTolerance(2);
     // Use addRequirements() here to declare subsystem dependencies.
   }
   
@@ -38,7 +38,7 @@ public class IntakeAlign extends CommandBase {
     stopAfterCollection = false;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    xPID.setTolerance(0);
+    xPID.setTolerance(2);
     // Use addRequirements() here to declare subsystem dependencies.
   }
   public IntakeAlign(DriveSubsystem driveSubsystem,boolean stopAfterCollection) {
@@ -47,13 +47,12 @@ public class IntakeAlign extends CommandBase {
     this.stopAfterCollection = stopAfterCollection;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    xPID.setTolerance(0);
+    xPID.setTolerance(2);
     // Use addRequirements() here to declare subsystem dependencies.
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //TODO:TEST
     timer.reset();
     timer.start();
     //DriveSubsystem.setFieldRelative(false);
@@ -91,7 +90,7 @@ public class IntakeAlign extends CommandBase {
         return true;
       }
       else{
-        return false;
+        return xPID.atSetpoint();
       }
     }
     else{

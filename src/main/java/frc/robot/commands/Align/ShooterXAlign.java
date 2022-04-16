@@ -24,14 +24,14 @@ public class ShooterXAlign extends CommandBase {
     this.driveSubsystem = driveSubsystem;
     xPID_Constants = Constants.subsystems.swerve.xALIGN_PID;
     xPID = new PIDController(xPID_Constants.p, xPID_Constants.i, xPID_Constants.d);
-    xPID.setTolerance(.5);
+    xPID.setTolerance(0.5);
     defaultTurnSpeed = Constants.subsystems.shooter.defaultTurnSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {xPID.reset();}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -59,5 +59,8 @@ public class ShooterXAlign extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+  public boolean getAtSetpoint(){
+    return xPID.atSetpoint();
   }
 }

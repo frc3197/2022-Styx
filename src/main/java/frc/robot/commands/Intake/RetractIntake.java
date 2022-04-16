@@ -28,7 +28,7 @@ public class RetractIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {m_intakeSubsystem.useArm(-.2);}
+  public void execute() {m_intakeSubsystem.useArm(-.4);}
 
   // Called once the command ends or is interrupted.
   @Override

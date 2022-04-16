@@ -31,6 +31,9 @@ public class HoodSubsystem extends SubsystemBase {
   public HoodSubsystem() {
     hoodMotor = new CANSparkMax(Constants.subsystems.hood.hoodMotorID, MotorType.kBrushless);
     hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 255);
+    hoodMotor.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 255);
+    
     hoodMotor.setIdleMode(IdleMode.kBrake);
     hoodMotor.setInverted(false);
     
@@ -43,9 +46,9 @@ public class HoodSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    
     SmartDashboard.putBoolean("Hood Aligned", yPID.atSetpoint());
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
-    SmartDashboard.putBoolean("Back Limit Pressed", getHoodBackLimit());
     SmartDashboard.putNumber("Raw Range", RangeLookup
         .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)));
     SmartDashboard.putNumber("Normalized Range", RangeLookup.normalizeRange(RangeLookup

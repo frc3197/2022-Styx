@@ -49,12 +49,12 @@ public final class Constants implements Loggable {
             @Log
             public static final double MAX_VOLTAGE = 12.0;
             @Log
-            public static final double MAX_ANG_ACCEL = 8 * Math.PI;
+            public static final double MAX_ANG_ACCEL = 10 * Math.PI;
             public static final boolean feildRelativeOn = true;
             public static final boolean brakeModeOn = false;
-            public static final PIDConst xALIGN_PID = new PIDConst(.145, 0, 0);
+            public static final PIDConst xALIGN_PID = new PIDConst(.3, 0, .01);
             // OLD Y VALUES, .012
-            public static final PIDConst yALIGN_PID = new PIDConst(.012, 0, 0);
+            public static final PIDConst yALIGN_PID = new PIDConst(.014, 0, 0);
 
             public static final class modInfo {
 
@@ -111,14 +111,14 @@ public final class Constants implements Loggable {
             public static final int shooterEncoderA = 1;
             public static final int shooterEncoderB = 0;
 
-            public static final double kP = 1.2278 * Math.pow(10, -5);
+            public static final double kP = 0.17215;
             public static final double kI = 0;
             public static final double kD = 0;
-            public static final double shooterMaxVoltage = 7;
+            public static final double shooterMaxVoltage = 12;
 
-            public static final double kS = .86683;
-            public static final double kV = .00011228;
-            public static final double kA = 4.4195 * Math.pow(10, -5);
+            public static final double kS = .44183;
+            public static final double kV = .93057;
+            public static final double kA = 0.43233;
             public static final double waitTime = 0;
             public static final double defaultTurnSpeed = .25;
         }
@@ -184,17 +184,19 @@ public final class Constants implements Loggable {
         public static final class follower {
             @Log
             private static final double MAX_ANG_VEL_RAD_AUTO = 8 * Math.PI;
-            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.H_Auto.MAX_ANGULAR_VELOCITY, subsystems.H_Auto.MAX_ANGULAR_ACCELERATION);
+            //public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.H_Auto.MAX_ANGULAR_VELOCITY, subsystems.H_Auto.MAX_ANGULAR_ACCELERATION);
+            public static final TrapezoidProfile.Constraints ROT_PROFILE = new TrapezoidProfile.Constraints(subsystems.swerve.MAX_ANG_VEL_RAD, subsystems.swerve.MAX_ANG_ACCEL);
+
             @Log
-            public static final PIDController X_PID_CONTROLLER = new PIDController(0.1, 0, 0);
+            public static final PIDController X_PID_CONTROLLER = new PIDController(.25, 0, 0);
             @Log
-            public static final PIDController Y_PID_CONTROLLER = new PIDController(0.1, 0, 0);
+            public static final PIDController Y_PID_CONTROLLER = new PIDController(.25, 0, 0);
             @Log
-            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(1, 0, 0,
+            public static final ProfiledPIDController ROT_PID_CONTROLLER = new ProfiledPIDController(2.8, 0, 0,
                     ROT_PROFILE);
             // DRIVING DEFAULT IS 5
             public static final double LINEAR_VELOCITY_DEFAULT = 0;
-
+// BEST SO FAR .1 .1 3.4
         }
 
         public static final class startingPos {

@@ -69,6 +69,7 @@
   },
   "NetworkTables Settings": {
     "mode": "Client",
-    "serverTeam": "3197"
+    "serverTeam": "3197",
+    "visible": false
   }
 }
