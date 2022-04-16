@@ -53,7 +53,7 @@ public class Spool extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0);
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-styx").getEntry("ty").getDouble(0);
     rangePair = RangeLookup.getRangePair(RangeLookup.convertLLYtoRange(visionMeasurement));
     
 

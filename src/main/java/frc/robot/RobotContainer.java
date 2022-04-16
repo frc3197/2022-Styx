@@ -291,7 +291,7 @@ public class RobotContainer {
 
   public void publishPosition() {
     SmartDashboard.putBoolean("In Range", RangeLookup.convertLLYtoRange(
-        NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)) < 180);
+        NetworkTableInstance.getDefault().getTable("limelight-styx").getEntry("ty").getDouble(0)) < 180);
 
     Logger.updateEntries();
   }

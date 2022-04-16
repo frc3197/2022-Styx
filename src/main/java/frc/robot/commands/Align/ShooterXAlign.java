@@ -37,7 +37,7 @@ public class ShooterXAlign extends CommandBase {
   @Override
   public void execute() {
     curSpeeds = driveSubsystem.getChassisSpeeds();
-    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("tx").getDouble(720);
+    visionMeasurement = NetworkTableInstance.getDefault().getTable("limelight-styx").getEntry("tx").getDouble(720);
     visionSetpoint = 0;
     if(visionMeasurement < 180){
       newSpeeds = new ChassisSpeeds(curSpeeds.vxMetersPerSecond ,curSpeeds.vyMetersPerSecond ,xPID.calculate(visionMeasurement, visionSetpoint));

@@ -50,9 +50,9 @@ public class HoodSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Hood Aligned", yPID.atSetpoint());
     SmartDashboard.putNumber("Encoder Value Hood", encoder.getPosition());
     SmartDashboard.putNumber("Raw Range", RangeLookup
-        .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0)));
+        .convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-styx").getEntry("ty").getDouble(0)));
     //SmartDashboard.putNumber("Normalized Range", RangeLookup.normalizeRange(RangeLookup
-    //.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-rrone").getEntry("ty").getDouble(0))));
+    //.convertLLYtoRange(NetworkTableInstance.getDefault().getTable("limelight-styx").getEntry("ty").getDouble(0))));
     // This method will be called once per scheduler run
   }
 
