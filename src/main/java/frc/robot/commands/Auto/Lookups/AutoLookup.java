@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Auto.RunTrajectorySequence;
+import frc.robot.commands.Drivetrain.DriveStraight;
 import frc.robot.commands.Groups.IntakeSequence;
 import frc.robot.commands.Groups.ShootSequence;
 import frc.robot.commands.Groups.ShooterAlignSequence;
@@ -41,7 +42,7 @@ public class AutoLookup {
                         new ParallelRaceGroup(
                                 new RetractIntake(RobotContainer.getIntakeArmSubsystem()),
                                 new ShooterAlignSequence(RobotContainer.getDriveSubsystem(),
-                                        RobotContainer.getHoodSubsystem()).withTimeout(1.5)),
+                                        RobotContainer.getHoodSubsystem()).withTimeout(4)),
                         new ShootSequence(RobotContainer.getLifterSubsystem()).withTimeout(1.5))));
                 break;
             case "2BL1F1":
