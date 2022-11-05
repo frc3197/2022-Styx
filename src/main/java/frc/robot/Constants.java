@@ -63,21 +63,21 @@ public final class Constants implements Loggable {
                     public static final int MODULE_STEER_MOTOR = 5;
                     public static final int MODULE_STEER_ENCODER = 2;
                     public static final double MODULE_STEER_OFFSET = -Math.toRadians(311.221);
-                }
+                }//311.221
 
                 public static final class brMod {
                     public static final int MODULE_DRIVE_MOTOR = 6;
                     public static final int MODULE_STEER_MOTOR = 7;
                     public static final int MODULE_STEER_ENCODER = 3;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(330.117);
-                }
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(330.029);
+                }//330.117
 
                 public static final class flMod {
                     public static final int MODULE_DRIVE_MOTOR = 3;
                     public static final int MODULE_STEER_MOTOR = 2;
                     public static final int MODULE_STEER_ENCODER = 1;
-                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(122.871);
-                }
+                    public static final double MODULE_STEER_OFFSET = -Math.toRadians(122.783);
+                }//122.871
 
                 // MOD 1
                 public static final class frMod {
@@ -85,7 +85,7 @@ public final class Constants implements Loggable {
                     public static final int MODULE_STEER_MOTOR = 1;
                     public static final int MODULE_STEER_ENCODER = 0;
                     public static final double MODULE_STEER_OFFSET = -Math.toRadians(296.543);
-                }
+                }//296.543
             }
 
         }

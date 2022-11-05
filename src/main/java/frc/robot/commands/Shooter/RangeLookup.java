@@ -15,87 +15,88 @@ public class RangeLookup {
 
     public static RangePair getRangePair(double range) {
         RangePair rangePair;
+        int offset = 0;
         switch (normalizeRange(range)) {
             case 70:
-                rangePair = new VoltagePair(280, 6.4);
+                rangePair = new VoltagePair(280 +offset, 6.4);
                 break;
             case 75:
-                rangePair = new VoltagePair(220, 6.5);
+                rangePair = new VoltagePair(220 +offset, 6.5);
                 break;
             case 80:
-                rangePair = new VoltagePair(190, 6.6);
+                rangePair = new VoltagePair(190 +offset, 6.6);
                 break;
             case 85:
-                rangePair = new VoltagePair(175, 6.6);
+                rangePair = new VoltagePair(175 +offset, 6.6);
                 break;
             case 90:
-                rangePair = new VoltagePair(150, 6.625);
+                rangePair = new VoltagePair(150 +offset, 6.625);
                 break;
             // VERIFY THIS RANGE
             case 95:
-                rangePair = new VoltagePair(125, 6.625);
+                rangePair = new VoltagePair(125 +offset, 6.625);
                 break;
             // Stopped Here
             case 100:
-            rangePair = new VoltagePair(125, 6.65);
+            rangePair = new VoltagePair(125 +offset, 6.65);
             break;
             case 105:
-            rangePair = new VoltagePair(125, 6.7);
+            rangePair = new VoltagePair(125 +offset, 6.7);
             break;
             case 110:
-            rangePair = new VoltagePair(110, 6.75);
+            rangePair = new VoltagePair(110 +offset, 6.75);
             break;
 
             case 115:
-            rangePair = new VoltagePair(100, 6.8);
+            rangePair = new VoltagePair(100 +offset, 6.8);
             break;
             case 120:
-            rangePair = new VoltagePair(90, 6.8);
+            rangePair = new VoltagePair(90+ offset, 6.8);
             break;
             case 125:
-            rangePair = new VoltagePair(80, 7);
+            rangePair = new VoltagePair(80 +offset, 7);
             break;
             case 130:
-            rangePair = new VoltagePair(50, 7.1);
+            rangePair = new VoltagePair(50 +offset, 7.1);
             break;
 
             case 135:
-            rangePair = new VoltagePair(40, 7.3);
+            rangePair = new VoltagePair(40 +offset, 7.3);
             break;
             case 140:
-            rangePair = new VoltagePair(35, 7.3);
+            rangePair = new VoltagePair(35 +offset, 7.3);
             break;
 
             case 145:
-            rangePair = new VoltagePair(30, 7.35);
+            rangePair = new VoltagePair(30 +offset, 7.35);
             break;
             case 150:
-            rangePair = new VoltagePair(0, 7.4);
+            rangePair = new VoltagePair(0 +offset, 7.4);
             break;
             case 155:
-            rangePair = new VoltagePair(0, 7.5);
+            rangePair = new VoltagePair(0 +offset, 7.5);
             break;
             case 160:
-            rangePair = new VoltagePair(0, 7.6);
+            rangePair = new VoltagePair(0 +offset, 7.6);
             break;
             case 165:
-            rangePair = new VoltagePair(0, 7.65);
+            rangePair = new VoltagePair(0 +offset, 7.65);
             break;
 
             case 170:
-            rangePair = new VoltagePair(0, 7.9);
+            rangePair = new VoltagePair(0 +offset, 7.9);
             break;
             case 175:
-            rangePair = new VoltagePair(0, 8);
+            rangePair = new VoltagePair(0 +offset, 8);
             break;
             case 180:
-            rangePair = new VoltagePair(0, 7.8);
+            rangePair = new VoltagePair(0 +offset, 7.8);
             break;
             case 185:
-            rangePair = new VoltagePair(0, 7);
+            rangePair = new VoltagePair(0 +offset, 7);
             break;
             case 190:
-            rangePair = new VoltagePair(0, 7);
+            rangePair = new VoltagePair(0 +offset, 7);
             break;
             case 200:
             rangePair = new VoltagePair(0, 7);
